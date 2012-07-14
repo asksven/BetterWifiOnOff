@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_height="fill_parent" android:layout_width="match_parent" android:orientation="vertical">
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewName" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:text="@string/app_name"
+    	android:layout_gravity="center"/>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewHint" 
+    	android:textAppearance="?android:attr/textAppearanceSmall" 
+    	android:text="Hint goes here"
+    	android:layout_gravity="center"/>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewVersion" 
+    	android:textAppearance="?android:attr/textAppearanceSmall" 
+    	android:text="V0.1.0.0"
+    	android:layout_gravity="center"/>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textView1" 
+    	android:textAppearance="?android:attr/textAppearanceMedium" 
+    	android:text="@string/layout_main_author"
+    	android:layout_gravity="center"/>
+    <ImageView 
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:id="@+id/imageView1"
+    	android:src="@drawable/icon"
+    	android:layout_gravity="center" android:layout_marginTop="20dip"/>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewStatus" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:text="Not connected"
+    	android:layout_gravity="center"/>
+    
+    
+    <LinearLayout android:layout_height="fill_parent" android:layout_width="match_parent">		
+	<com.google.ads.AdView android:id="@+id/adView"
+                   android:layout_width="wrap_content"
+                   android:layout_gravity="bottom|center_horizontal"
+                   android:layout_alignParentBottom="true"
+                   ads:adUnitId="a150016524b7ddf"
+                   ads:adSize="BANNER"
+                   ads:loadAdOnCreate="false"
+                   android:layout_height="wrap_content"
+                   android:gravity="bottom"/>		
+    </LinearLayout>			
+</LinearLayout>

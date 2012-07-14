@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<resources>
+    <string name="app_name">Better Wifi on/off</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="menu_release_notes">Release Notes</string>
+    <string name="layout_main_author">By asksven</string>
+    <string name="dialog_rate">Rate</string>
+    <string name="dialog_dismiss">Dismiss</string>
+    <string name="dialog_follow_me">Follow me</string>
+    <string name="status_connection_changed">Connection status changed</string>
+    <string name="status_service_not_started">Service not started yet</string>
+    <string name="status_notification_on">Notification activated</string>
+    <string name="full_version_available">Add-free full version available</string>
+    <string name="status_service_running">Service running</string>
+    <string name="pref_own_logfile_summary">Write own logfile to /sdcard/betterwifionoff.log</string>
+    <string name="pref_own_logfile_title">Own logfile</string>
+    <string name="pref_category_logging">Logging</string>
+    <string name="pref_start_on_boot_summary">Start the service on boot</string>
+    <string name="pref_start_on_boot_title">Start on boot</string>
+    <string name="pref_category_notification">Notifications</string>
+    <string name="pref_category_service_settings">Service Settings</string>
+    <string name="pref_foreground_service_summary">Runs as foreground service (make sure the service is never killed by android)</string>
+    <string name="pref_foreground_service_title">Foreground service</string>
+</resources>

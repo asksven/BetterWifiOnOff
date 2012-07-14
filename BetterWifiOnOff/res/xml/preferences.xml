@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference 
+		android:key="start_on_boot"
+		android:summary="@string/pref_start_on_boot_summary"
+		android:title="@string/pref_start_on_boot_title" 
+		android:defaultValue="false"
+    android:enabled="true"/>
+
+	<PreferenceCategory android:title="@string/pref_category_notification">
+
+	</PreferenceCategory>        
+	<PreferenceCategory android:title="@string/pref_category_service_settings">        
+
+	    <CheckBoxPreference 
+			android:key="foreground_service"
+			android:summary="@string/pref_foreground_service_summary"
+			android:title="@string/pref_foreground_service_title" 
+			android:defaultValue="true"
+	    	android:enabled="true"/>
+	    	    
+	    
+	</PreferenceCategory>        
+	    
+	<PreferenceCategory android:title="@string/pref_category_logging">
+
+	    <CheckBoxPreference 
+			android:key="own_logfile"
+			android:summary="@string/pref_own_logfile_summary"
+			android:title="@string/pref_own_logfile_title" 
+			android:defaultValue="false"
+	    	android:enabled="true"
+	    />
+    </PreferenceCategory>
+</PreferenceScreen>
