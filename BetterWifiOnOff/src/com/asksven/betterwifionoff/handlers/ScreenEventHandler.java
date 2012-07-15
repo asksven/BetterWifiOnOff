@@ -78,11 +78,9 @@ public class ScreenEventHandler extends BroadcastReceiver
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
 			if (bProcess)
-			{
+			{				
 				// start service to turn off wifi
-				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
-				context.startService(serviceIntent);
+				wifiOn(context);
 			}
 		}
         
@@ -92,11 +90,9 @@ public class ScreenEventHandler extends BroadcastReceiver
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 			
 			if (bProcess)
-			{
+			{				
 				// start service to turn off wifi
-				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
-				context.startService(serviceIntent);
+				wifiOn(context);
 			}
 		}
 
@@ -105,4 +101,20 @@ public class ScreenEventHandler extends BroadcastReceiver
 
     }
     
+    public void wifiOn(Context context)
+    {
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+		// check if we should consider the last state before turning on
+		boolean lastTransition = sharedPrefs.getBoolean("last_action", false);
+		boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_previously_on", false);
+		
+		if ((!lastTransition && bProcess) || !bProcess)
+		{
+			// start service to turn off wifi
+			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
+			context.startService(serviceIntent);
+		}
+    }
 }

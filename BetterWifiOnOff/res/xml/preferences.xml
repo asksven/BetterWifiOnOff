@@ -1,73 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-  xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference 
-		android:key="start_on_boot"
-		android:summary="@string/pref_start_on_boot_summary"
-		android:title="@string/pref_start_on_boot_title" 
-		android:defaultValue="false"
-    android:enabled="true"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!-- 	<PreferenceCategory android:title="@string/pref_category_notification"> -->
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="start_on_boot"
+        android:summary="@string/pref_start_on_boot_summary"
+        android:title="@string/pref_start_on_boot_title" />
 
-<!-- 	</PreferenceCategory>         -->
-<!-- 	<PreferenceCategory android:title="@string/pref_category_service_settings">         -->
+    <!-- <PreferenceCategory android:title="@string/pref_category_notification"> -->
 
-<!-- 	    <CheckBoxPreference  -->
-<!-- 			android:key="foreground_service" -->
-<!-- 			android:summary="@string/pref_foreground_service_summary" -->
-<!-- 			android:title="@string/pref_foreground_service_title"  -->
-<!-- 			android:defaultValue="true" -->
-<!-- 	    	android:enabled="true"/> -->
-<!-- 	</PreferenceCategory>         -->
-	<PreferenceCategory android:title="@string/pref_category_rules">
-	    <CheckBoxPreference 
-			android:key="wifi_off_when_power_ununplug"
-			android:summary="@string/wifi_off_when_power_ununplug_summary"
-			android:title="@string/wifi_off_when_power_ununplug_title" 
-			android:defaultValue="true"
-	    	android:enabled="true"/>
-	    <CheckBoxPreference 
-			android:key="wifi_off_when_screen_off"
-			android:summary="@string/wifi_off_when_screen_off_summary"
-			android:title="@string/wifi_off_when_screen_off_title" 
-			android:defaultValue="true"
-	    	android:enabled="true"/>
 
-	    <CheckBoxPreference 
-			android:key="wifi_on_when_screen_on"
-			android:summary="@string/wifi_on_when_screen_on_summary"
-			android:title="@string/wifi_on_when_screen_on_title" 
-			android:defaultValue="true"
-	    	android:enabled="true"/>
-	    <CheckBoxPreference 
-			android:key="wifi_on_when_screen_unlock"
-			android:summary="@string/wifi_on_when_screen_unlock_summary"
-			android:title="@string/wifi_on_when_screen_unlock_title" 
-			android:defaultValue="true"
-	    	android:enabled="true"/>
-	    
-	    <ListPreference 
-	            android:key="wifi_off_delay"
-	            android:title="@string/pref_wifi_off_delay_title"
-	            android:summary="@string/pref_wifi_off_delay_summary"
-	            android:defaultValue="30" 
-	            android:entries="@array/wifiOffDelayLabels"
-	            android:entryValues="@array/wifiOffDelayValues"
-	        />
-	    
-	    	    	    	    	    
-	</PreferenceCategory>
-	
-	    
-	<PreferenceCategory android:title="@string/pref_category_logging">
+    <!-- </PreferenceCategory> -->
+    <!-- <PreferenceCategory android:title="@string/pref_category_service_settings"> -->
 
-	    <CheckBoxPreference 
-			android:key="own_logfile"
-			android:summary="@string/pref_own_logfile_summary"
-			android:title="@string/pref_own_logfile_title" 
-			android:defaultValue="false"
-	    	android:enabled="true"
-	    />
+
+    <!-- <CheckBoxPreference -->
+    <!-- android:key="foreground_service" -->
+    <!-- android:summary="@string/pref_foreground_service_summary" -->
+    <!-- android:title="@string/pref_foreground_service_title" -->
+    <!-- android:defaultValue="true" -->
+    <!-- android:enabled="true"/> -->
+    <!-- </PreferenceCategory> -->
+    <PreferenceCategory android:title="@string/pref_category_rules_on" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_previously_on"
+            android:summary="@string/wifi_on_when_previously_on_summary"
+            android:title="@string/wifi_on_when_previously_on_title" />
+        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_on"
+            android:summary="@string/wifi_on_when_screen_on_summary"
+            android:title="@string/wifi_on_when_screen_on_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_unlock"
+            android:summary="@string/wifi_on_when_screen_unlock_summary"
+            android:title="@string/wifi_on_when_screen_unlock_title" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_off" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_off_when_power_ununplug"
+            android:summary="@string/wifi_off_when_power_ununplug_summary"
+            android:title="@string/wifi_off_when_power_ununplug_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_off_when_screen_off"
+            android:summary="@string/wifi_off_when_screen_off_summary"
+            android:title="@string/wifi_off_when_screen_off_title" />
+
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/wifiOffDelayLabels"
+            android:entryValues="@array/wifiOffDelayValues"
+            android:key="wifi_off_delay"
+            android:summary="@string/pref_wifi_off_delay_summary"
+            android:title="@string/pref_wifi_off_delay_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_logging" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="own_logfile"
+            android:summary="@string/pref_own_logfile_summary"
+            android:title="@string/pref_own_logfile_title" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

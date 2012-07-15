@@ -54,6 +54,12 @@ public class SetWifiStateService extends Service
 		try
 		{	
 			WifiControl.setWifi(this, state);	
+			
+			// write last action in preferences as last transition
+	        SharedPreferences.Editor editor = sharedPrefs.edit();
+	        editor.putBoolean("last_action", state);
+	        editor.commit();
+
 		}
 		catch (Exception e)
 		{
