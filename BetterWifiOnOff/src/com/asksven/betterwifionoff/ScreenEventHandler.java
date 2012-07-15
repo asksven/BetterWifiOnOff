@@ -55,7 +55,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
 			
-			if (!bProcess)
+			if (bProcess)
 			{
 				// start service to turn off wifi
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);

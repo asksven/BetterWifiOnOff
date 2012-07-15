@@ -8,9 +8,9 @@
 		android:defaultValue="false"
     android:enabled="true"/>
 
-	<PreferenceCategory android:title="@string/pref_category_notification">
+<!-- 	<PreferenceCategory android:title="@string/pref_category_notification"> -->
 
-	</PreferenceCategory>        
+<!-- 	</PreferenceCategory>         -->
 <!-- 	<PreferenceCategory android:title="@string/pref_category_service_settings">         -->
 
 <!-- 	    <CheckBoxPreference  -->

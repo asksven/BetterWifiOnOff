@@ -53,16 +53,15 @@ import android.widget.RemoteViews;
 public class SetWifiStateService extends Service
 {
 	private static final String TAG = "SetWifiStateService";
-	public static final String EXTRA_STATE = "state";
+	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
 	
 
 	@Override
-	public void onStart(Intent intent, int startId)
+    public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
 		
-		boolean state = intent.getBooleanExtra("EXTRA_STATE", false);
+		boolean state = intent.getBooleanExtra(this.EXTRA_STATE, false);
 		Log.i(TAG, "Called with extra " + state);
 		try
 		{	
@@ -72,11 +71,12 @@ public class SetWifiStateService extends Service
 		{
 			Log.e(TAG, "An error occured: " + e.getMessage());
 		}
-
 		
 		stopSelf();
+		return START_NOT_STICKY;
+		
+		
 
-		super.onStart(intent, startId);
 	}
 
 	@Override
