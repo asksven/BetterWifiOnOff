@@ -15,43 +15,21 @@
  */
 package com.asksven.betterwifionoff;
 
-import java.io.IOException;
-
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.app.ActivityManager.RunningServiceInfo;
-import android.content.ActivityNotFoundException;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.utils.Configuration;
-import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
 
 public class MainActivity extends Activity

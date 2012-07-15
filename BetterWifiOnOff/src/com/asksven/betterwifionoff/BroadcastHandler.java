@@ -17,17 +17,10 @@
 package com.asksven.betterwifionoff;
 
 
-import java.util.logging.Logger;
-
-import android.app.PendingIntent;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.os.BatteryManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 

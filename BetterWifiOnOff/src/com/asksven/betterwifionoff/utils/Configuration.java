@@ -15,13 +15,9 @@
  */
 package com.asksven.betterwifionoff.utils;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import android.content.Context;
-import android.os.IBinder;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 
 /**

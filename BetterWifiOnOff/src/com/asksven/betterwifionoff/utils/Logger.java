@@ -15,8 +15,6 @@
  */
 package com.asksven.betterwifionoff.utils;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.asksven.android.common.utils.DataStorage;

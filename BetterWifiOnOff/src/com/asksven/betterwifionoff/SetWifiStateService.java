@@ -15,36 +15,14 @@
  */
 package com.asksven.betterwifionoff;
 
-import java.util.ArrayList;
-import java.util.Random;
-
-
-import com.asksven.android.common.privateapiproxies.BatteryStatsProxy;
-import com.asksven.android.common.privateapiproxies.Misc;
-import com.asksven.android.common.privateapiproxies.StatElement;
-import com.asksven.android.common.utils.DateUtils;
-import com.asksven.android.common.utils.GenericLogger;
-import com.asksven.android.common.utils.StringUtils;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
-import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.text.method.TimeKeyListener;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RemoteViews;
 
 /**
  * @author sven
