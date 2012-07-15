@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
 

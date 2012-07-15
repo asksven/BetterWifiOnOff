@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.asksven.betterwifionoff;
+package com.asksven.betterwifionoff.services;
 
 import com.asksven.betterwifionoff.utils.WifiControl;
 

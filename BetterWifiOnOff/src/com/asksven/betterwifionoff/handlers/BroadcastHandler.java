@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-package com.asksven.betterwifionoff;
+package com.asksven.betterwifionoff.handlers;
 
+
+import com.asksven.betterwifionoff.services.EventWatcherService;
+import com.asksven.betterwifionoff.services.SetWifiStateService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

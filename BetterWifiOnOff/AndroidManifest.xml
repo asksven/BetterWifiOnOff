@@ -41,7 +41,7 @@
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 		
 		
-        <receiver android:name="com.asksven.betterwifionoff.BroadcastHandler">
+        <receiver android:name=".handlers.BroadcastHandler">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
@@ -49,8 +49,8 @@
             </intent-filter>    
         </receiver>        
         
-        <service android:name="com.asksven.betterwifionoff.EventWatcherService"/>
-        <service android:name="com.asksven.betterwifionoff.SetWifiStateService"/>
+        <service android:name=".services.EventWatcherService"/>
+        <service android:name=".services.SetWifiStateService"/>
         
     </application>
 </manifest>
