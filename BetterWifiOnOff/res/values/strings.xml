@@ -21,4 +21,13 @@
     <string name="pref_category_service_settings">Service Settings</string>
     <string name="pref_foreground_service_summary">Runs as foreground service (make sure the service is never killed by android)</string>
     <string name="pref_foreground_service_title">Foreground service</string>
+    <string name="pref_category_rules">Rules</string>
+    <string name="wifi_off_when_power_ununplug_title">Off when not on A/C</string>
+    <string name="wifi_off_when_power_ununplug_summary">Turn Wifi off when unplugged from charger</string>
+    <string name="wifi_off_when_screen_off_title">Off when screen off</string>
+    <string name="wifi_off_when_screen_off_summary">Turn Wifi off when screen goes off</string>
+    <string name="wifi_on_when_screen_on_summary">Turn Wifi on when screen is turned on</string>
+    <string name="wifi_on_when_screen_on_title">On when screen on</string>
+    <string name="wifi_on_when_screen_unlock_summary">Turn on when screen unlocked (avoid turning Wifi on when screen goes on due to notifications)</string>
+    <string name="wifi_on_when_screen_unlock_title">Turn on when screen is unlocked</string>
 </resources>

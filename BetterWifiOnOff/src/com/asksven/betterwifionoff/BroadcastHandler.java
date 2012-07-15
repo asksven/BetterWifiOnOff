@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 asksven
+ * Copyright (C) 2012 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public class BroadcastHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
 		{
         	// start the service
-//        	context.startService(new Intent(context, BetterBatteryStatsService.class));
+        	context.startService(new Intent(context, EventWatcherService.class));
         	
 		}
 

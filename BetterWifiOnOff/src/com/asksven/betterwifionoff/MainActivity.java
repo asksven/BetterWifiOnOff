@@ -148,7 +148,9 @@ public class MainActivity extends Activity
 	        editor.commit();
     	}
 
-        
+        // start the service
+    	startService(new Intent(this, EventWatcherService.class));
+
   	}
 
     /**

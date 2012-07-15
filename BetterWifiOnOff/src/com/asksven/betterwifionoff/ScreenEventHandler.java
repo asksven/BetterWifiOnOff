@@ -69,7 +69,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
-			if (!bProcess)
+			if (bProcess)
 			{
 				// start service to turn off wifi
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
@@ -87,7 +87,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			Log.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 			
-			if (!bProcess)
+			if (bProcess)
 			{
 				// start service to turn off wifi
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);

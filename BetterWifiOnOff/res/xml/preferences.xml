@@ -11,17 +11,44 @@
 	<PreferenceCategory android:title="@string/pref_category_notification">
 
 	</PreferenceCategory>        
-	<PreferenceCategory android:title="@string/pref_category_service_settings">        
+<!-- 	<PreferenceCategory android:title="@string/pref_category_service_settings">         -->
 
+<!-- 	    <CheckBoxPreference  -->
+<!-- 			android:key="foreground_service" -->
+<!-- 			android:summary="@string/pref_foreground_service_summary" -->
+<!-- 			android:title="@string/pref_foreground_service_title"  -->
+<!-- 			android:defaultValue="true" -->
+<!-- 	    	android:enabled="true"/> -->
+<!-- 	</PreferenceCategory>         -->
+	<PreferenceCategory android:title="@string/pref_category_rules">
 	    <CheckBoxPreference 
-			android:key="foreground_service"
-			android:summary="@string/pref_foreground_service_summary"
-			android:title="@string/pref_foreground_service_title" 
+			android:key="wifi_off_when_power_ununplug"
+			android:summary="@string/wifi_off_when_power_ununplug_summary"
+			android:title="@string/wifi_off_when_power_ununplug_title" 
 			android:defaultValue="true"
 	    	android:enabled="true"/>
-	    	    
-	    
-	</PreferenceCategory>        
+	    <CheckBoxPreference 
+			android:key="wifi_off_when_screen_off"
+			android:summary="@string/wifi_off_when_screen_off_summary"
+			android:title="@string/wifi_off_when_screen_off_title" 
+			android:defaultValue="true"
+	    	android:enabled="true"/>
+
+	    <CheckBoxPreference 
+			android:key="wifi_on_when_screen_on"
+			android:summary="@string/wifi_on_when_screen_on_summary"
+			android:title="@string/wifi_on_when_screen_on_title" 
+			android:defaultValue="true"
+	    	android:enabled="true"/>
+	    <CheckBoxPreference 
+			android:key="wifi_on_when_screen_unlock"
+			android:summary="@string/wifi_on_when_screen_unlock_summary"
+			android:title="@string/wifi_on_when_screen_unlock_title" 
+			android:defaultValue="true"
+	    	android:enabled="true"/>
+	    	    	    	    	    
+	</PreferenceCategory>
+	
 	    
 	<PreferenceCategory android:title="@string/pref_category_logging">
 

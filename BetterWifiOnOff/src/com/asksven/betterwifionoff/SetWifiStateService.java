@@ -61,9 +61,9 @@ public class SetWifiStateService extends Service
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-		Log.i(TAG, "Called");
-		boolean state = intent.getBooleanExtra("EXTRA_STATE", false);
 		
+		boolean state = intent.getBooleanExtra("EXTRA_STATE", false);
+		Log.i(TAG, "Called with extra " + state);
 		try
 		{	
 			WifiControl.setWifi(this, state);	
