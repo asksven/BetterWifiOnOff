@@ -46,6 +46,16 @@
 			android:title="@string/wifi_on_when_screen_unlock_title" 
 			android:defaultValue="true"
 	    	android:enabled="true"/>
+	    
+	    <ListPreference 
+	            android:key="wifi_off_delay"
+	            android:title="@string/pref_wifi_off_delay_title"
+	            android:summary="@string/pref_wifi_off_delay_summary"
+	            android:defaultValue="30" 
+	            android:entries="@array/wifiOffDelayLabels"
+	            android:entryValues="@array/wifiOffDelayValues"
+	        />
+	    
 	    	    	    	    	    
 	</PreferenceCategory>
 	

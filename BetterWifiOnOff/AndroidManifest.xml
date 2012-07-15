@@ -48,6 +48,7 @@
                 <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
             </intent-filter>    
         </receiver>        
+        <receiver  android:process=":remote" android:name=".AlarmReceiver"/>
         
         <service android:name=".services.EventWatcherService"/>
         <service android:name=".services.SetWifiStateService"/>

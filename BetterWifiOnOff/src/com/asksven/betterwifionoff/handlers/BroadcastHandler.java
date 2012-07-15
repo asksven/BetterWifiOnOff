@@ -19,6 +19,7 @@ package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.Logger;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -56,16 +57,35 @@ public class BroadcastHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
 		{
-			Log.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED, seralizing 'since unplugged'");
+			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED, seralizing 'since unplugged'");
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
 			
-			if (!bProcess)
+			if (bProcess)
 			{
-				// start service to turn off wifi
-				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
-				context.startService(serviceIntent);
+		    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+    	    	
+				int delay = 30;
+				try
+		    	{
+					delay = Integer.valueOf(strInterval);
+		    	}
+		    	catch (Exception e)
+		    	{
+		    	}
+				
+				
+				if (delay > 0)
+				{
+					SetWifiStateService.setAlarm(context);
+				}
+				else
+				{	
+					// start service to turn off wifi
+					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+					context.startService(serviceIntent);
+				}
 			}
 		}
 

@@ -31,6 +31,7 @@ import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
+import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
 
 public class MainActivity extends Activity
@@ -93,7 +94,7 @@ public class MainActivity extends Activity
         }
         catch (Exception e)
         {
-        	Log.e(TAG, "An error occured retrieveing the version info: " + e.getMessage());
+        	Logger.e(TAG, "An error occured retrieveing the version info: " + e.getMessage());
         }
         
         	
@@ -149,10 +150,7 @@ public class MainActivity extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-    	
-		startService();
-		
-		
+
 		// update the status
 		this.updateStatus();
 	}
@@ -205,20 +203,4 @@ public class MainActivity extends Activity
     {
 	    // Set the wifi state
     }
-
-
-	
-	/** 
-     * Starts the service 
-     */
-	private void startService()
-	{
-//		if( !LocationService.isServiceRunning(this) )
-//		{
-//			Intent i = new Intent();
-//			i.setClassName( "com.asksven.betterlatitude", LocationService.SERVICE_NAME );
-//			startService( i );
-//			Logger.i(getClass().getSimpleName(), "startService()");
-//		}
-	}
 }

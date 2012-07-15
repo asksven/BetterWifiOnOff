@@ -17,6 +17,7 @@
 package com.asksven.betterwifionoff;
 
 import com.asksven.betterwifionoff.utils.Configuration;
+import com.asksven.betterwifionoff.utils.Logger;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -71,7 +72,7 @@ public class PreferencesActivity extends PreferenceActivity
 			}
 			catch (Exception e)
 			{
-				Log.e(TAG, "An error occured while loading the preferences.");
+				Logger.e(TAG, "An error occured while loading the preferences.");
 			}
 		}
 	}

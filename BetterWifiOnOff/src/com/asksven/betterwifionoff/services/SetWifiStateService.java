@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-12 asksven
+ * Copyright (C) 2012 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,9 +15,15 @@
  */
 package com.asksven.betterwifionoff.services;
 
+import java.util.Calendar;
+import com.asksven.betterwifionoff.utils.Logger;
+import com.asksven.betterwifionoff.AlarmReceiver;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
@@ -33,13 +39,17 @@ public class SetWifiStateService extends Service
 	private static final String TAG = "SetWifiStateService";
 	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
 	
+	private static final int ALARM = 12;
 
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		boolean state = intent.getBooleanExtra(this.EXTRA_STATE, false);
+		// cancel any running alarms
+		cancelAlarm(this);
+		
+		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
 		Log.i(TAG, "Called with extra " + state);
 		try
 		{	
@@ -62,4 +72,64 @@ public class SetWifiStateService extends Service
 	{
 		return null;
 	}
+	
+	/**
+	 * Adds an alarm to schedule a wakeup to retrieve the current location
+	 */
+	public static boolean setAlarm(Context ctx)
+	{
+		Logger.i(TAG, "setAlarm called");
+		
+		// cancel any exiting alarms
+		cancelAlarm(ctx);
+
+		// create a new one starting to count NOW
+		Calendar cal = Calendar.getInstance();
+		
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    	String strInterval = prefs.getString("wifi_off_delay", "30");
+    	    	
+		int iInterval = 30;
+		try
+    	{
+			iInterval = Integer.valueOf(strInterval);
+    	}
+    	catch (Exception e)
+    	{
+    	}
+
+		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
+
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		// Get the AlarmManager service
+		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, fireAt, sender);
+
+		return true;
+	}
+	
+	/**
+	 * Cancels the current alarm (if existing)
+	 */
+	public static void cancelAlarm(Context ctx)
+	{
+		Logger.i(TAG, "cancelAlarm");
+		// check if there is an intent pending
+		Intent intent = new Intent(ctx, AlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		if (sender != null)
+		{
+			// Get the AlarmManager service
+			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+			am.cancel(sender);
+		}
+	}
+
 }

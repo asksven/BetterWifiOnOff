@@ -17,6 +17,7 @@ package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.Logger;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -41,21 +42,39 @@ public class ScreenEventHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
 		{
-			Log.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
+			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
 			
 			if (bProcess)
 			{
-				// start service to turn off wifi
-				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-				context.startService(serviceIntent);
+		    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+    	    	
+				int delay = 30;
+				try
+		    	{
+					delay = Integer.valueOf(strInterval);
+		    	}
+		    	catch (Exception e)
+		    	{
+		    	}
+				
+				if (delay > 0)
+				{
+					SetWifiStateService.setAlarm(context);
+				}
+				else
+				{	
+					// start service to turn off wifi
+					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+					context.startService(serviceIntent);
+				}
 			}
 		}
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
-			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
 			if (bProcess)
@@ -65,15 +84,11 @@ public class ScreenEventHandler extends BroadcastReceiver
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
 				context.startService(serviceIntent);
 			}
-
-
-
-			
 		}
         
         if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 		{
-			Log.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
+			Logger.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 			
 			if (bProcess)
@@ -83,16 +98,10 @@ public class ScreenEventHandler extends BroadcastReceiver
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
 				context.startService(serviceIntent);
 			}
-			
-
 		}
 
         Intent i = new Intent(context, EventWatcherService.class);
         context.startService(i);
-        
-//		// Build the intent to update widgets
-//		Intent intentRefreshWidgets = new Intent(LargeWidgetProvider.WIDGET_UPDATE);
-//		context.sendBroadcast(intentRefreshWidgets);
 
     }
     

@@ -29,7 +29,7 @@ public class Logger
 {
 
 	/** The application's own logfile */
-	public static String LOGFILE = "betterlatitude.log";
+	public static String LOGFILE = "betterwifionoff.log";
 
 	Boolean bLogToFile = null;
 	/**

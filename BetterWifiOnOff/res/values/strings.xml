@@ -30,4 +30,6 @@
     <string name="wifi_on_when_screen_on_title">On when screen on</string>
     <string name="wifi_on_when_screen_unlock_summary">Turn on when screen unlocked (avoid turning Wifi on when screen goes on due to notifications)</string>
     <string name="wifi_on_when_screen_unlock_title">Turn on when screen is unlocked</string>
+    <string name="pref_wifi_off_delay_title">Wifi off delay</string>
+    <string name="pref_wifi_off_delay_summary">Time to wait before turning Wifi off</string>
 </resources>
