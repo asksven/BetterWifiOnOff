@@ -16,9 +16,14 @@
 
 package com.asksven.betterwifionoff.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
 
 /**
@@ -29,7 +34,7 @@ public class WifiControl
 {
 	/**
 	 * Returns whether wifi is on or not
-	 * @param ctx
+	 * @param ctx a Context
 	 * @return true if wifi is on
 	 */
 	public static final boolean isWifiOn(Context ctx)
@@ -39,6 +44,11 @@ public class WifiControl
 		return wifiManager.isWifiEnabled();
 	}
 	
+	/**
+	 * Turns Wifi on or off
+	 * @param ctx a Context
+	 * @param state on=true or off=false
+	 */
 	public static final void setWifi(Context ctx, boolean state)
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
@@ -49,6 +59,11 @@ public class WifiControl
 		}
 	}
 	
+	/**
+	 * Returns true if a Wifi connection is established 
+	 * @param ctx a Context
+	 * @return true if a Wifi connection is established
+	 */
 	public static final boolean isWifiConnected(Context ctx)
 	{
 		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -68,6 +83,61 @@ public class WifiControl
 //		  (ipAddress >> 24 & 0xff));
 //		  Log.e(" >>IP number Begin ",ip);
 	}
+	
+	/**
+	 * Return true if the connected access point is in the given whitelist
+	 * @param ctx a Context
+	 * @param whiteList the white list as separated string
+	 * @return true if the currently connected AP is whitelisted
+	 */
+	public static final boolean isWhitelistedWifiConnected(Context ctx, String whiteList)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		String ssid = wifiManager.getConnectionInfo().getSSID();
+		return (whiteList.indexOf(ssid) != -1);
+	}
+	
+	
+	/** 
+	 * Returns the list of access points that were added to the Wifi configuration
+	 * @param ctx a Context
+	 * @return the list as List<String>
+	 */
+	public static final List<String> getConfiguredAccessPoints(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 
+		ArrayList<String> myList = new ArrayList<String>();
+		
+		List<WifiConfiguration> myConfiguredAccessPoints = wifiManager.getConfiguredNetworks();
+		for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+		{
+			myList.add(myConfiguredAccessPoints.get(i).SSID);
+		}
+		
+		return myList;
+	}
+	
+	/**
+	 * Returns the list of access points in range, disregarded if they can be connected or not
+	 * @param ctx a Context
+	 * @return the list as List<String>
+	 */
+	public static final List<String> getAvailableAccessPoints(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+
+		ArrayList<String> myList = new ArrayList<String>();
+		
+		List<ScanResult> myConfiguredAccessPoints = wifiManager.getScanResults();
+		for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+		{
+			myList.add(myConfiguredAccessPoints.get(i).SSID);
+		}
+		
+		return myList;
+	}
+
+	
 
 }
