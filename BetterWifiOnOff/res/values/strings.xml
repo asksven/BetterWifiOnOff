@@ -35,4 +35,6 @@
     <string name="pref_category_rules_off">Rules for turining Wifi off</string>
     <string name="wifi_on_when_previously_on_summary">Turn Wifi on again only it has been turned off previously</string>
     <string name="wifi_on_when_previously_on_title">On only when previously on</string>
+    <string name="wifi_on_when_power_plug_title">On when on /AC</string>
+    <string name="wifi_on_when_power_plug_summary">Turn Wifi on when power is plugged in</string>
 </resources>

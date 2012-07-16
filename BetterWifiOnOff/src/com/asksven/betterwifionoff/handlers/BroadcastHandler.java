@@ -57,7 +57,7 @@ public class BroadcastHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED, seralizing 'since unplugged'");
+			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
 			
@@ -86,6 +86,20 @@ public class BroadcastHandler extends BroadcastReceiver
 					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 					context.startService(serviceIntent);
 				}
+			}
+		}
+        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
+		{
+			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
+			
+			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_power_plug", false);
+			
+			if (bProcess)
+			{
+				// start service to turn off wifi
+				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
+				context.startService(serviceIntent);
 			}
 		}
 
