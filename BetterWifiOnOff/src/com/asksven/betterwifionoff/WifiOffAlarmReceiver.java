@@ -26,13 +26,13 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
- * Handles alarms set for quick changes by the service
+ * Handles alarms set to turn off Wifi with a delay 
  * @author sven
  *
  */
-public class AlarmReceiver extends BroadcastReceiver
+public class WifiOffAlarmReceiver extends BroadcastReceiver
 {		 
-	private static String TAG = "AlarmReceiver";
+	private static String TAG = "WifiOffAlarmReceiver";
 	
 	@Override
 	public void onReceive(Context context, Intent intent)

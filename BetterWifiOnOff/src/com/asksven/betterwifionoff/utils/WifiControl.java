@@ -17,6 +17,8 @@
 package com.asksven.betterwifionoff.utils;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 
 /**
@@ -45,6 +47,26 @@ public class WifiControl
 		{
 			wifiManager.setWifiEnabled(state);
 		}
+	}
+	
+	public static final boolean isWifiConnected(Context ctx)
+	{
+		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+		return (networkInfo != null && networkInfo.isConnected());
+		
+		// we could add a test if an IP was obtained
+//		  WifiManager wifi;
+//		  wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
+//		  WifiInfo wifiInfo = wifi.getConnectionInfo();
+//		  int ipAddress = wifiInfo.getIpAddress();
+//		  String ip = null;
+//		  ip = String.format("%d.%d.%d.%d",
+//		  (ipAddress & 0xff),
+//		  (ipAddress >> 8 & 0xff),
+//		  (ipAddress >> 16 & 0xff),
+//		  (ipAddress >> 24 & 0xff));
+//		  Log.e(" >>IP number Begin ",ip);
 	}
 
 

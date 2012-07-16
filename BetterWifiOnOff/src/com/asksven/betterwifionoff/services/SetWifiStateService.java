@@ -17,7 +17,8 @@ package com.asksven.betterwifionoff.services;
 
 import java.util.Calendar;
 import com.asksven.betterwifionoff.utils.Logger;
-import com.asksven.betterwifionoff.AlarmReceiver;
+import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
+import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.app.AlarmManager;
@@ -39,7 +40,8 @@ public class SetWifiStateService extends Service
 	private static final String TAG = "SetWifiStateService";
 	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
 	
-	private static final int ALARM = 12;
+	private static final int ALARM_WIFI_OFF 		= 12;
+	private static final int ALARM_WIFI_CONNECTED 	= 13;
 
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
@@ -47,19 +49,51 @@ public class SetWifiStateService extends Service
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		// cancel any running alarms
-		cancelAlarm(this);
+		cancelWifiOffAlarm(this);
 		
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
 		Log.i(TAG, "Called with extra " + state);
 		try
 		{	
-			WifiControl.setWifi(this, state);	
+			WifiControl.setWifi(this, state);
+			
+			// cancel pending alarms planned to turn wifi on or off
+			if (state)
+			{
+				cancelWifiConnectedAlarm(this);
+			}
+			else
+			{
+				cancelWifiOffAlarm(this);
+			}
 			
 			// write last action in preferences as last transition
 	        SharedPreferences.Editor editor = sharedPrefs.edit();
 	        editor.putBoolean("last_action", state);
 	        editor.commit();
-
+	        
+	        // check if we need to schedule and alarm for delayed check if a connection could be established
+			boolean bProcess = sharedPrefs.getBoolean("wifi_on_if_connected", true);
+			
+			if (state && bProcess)
+			{
+		    	String strInterval = sharedPrefs.getString("wifi_connected_delay", "30");
+    	    	
+				int delay = 30;
+				try
+		    	{
+					delay = Integer.valueOf(strInterval);
+		    	}
+		    	catch (Exception e)
+		    	{
+		    	}
+				
+				
+				if (delay > 0)
+				{
+					SetWifiStateService.scheduleWifiConnectedAlarm(this);
+				}
+			}
 		}
 		catch (Exception e)
 		{
@@ -82,12 +116,12 @@ public class SetWifiStateService extends Service
 	/**
 	 * Adds an alarm to schedule a wakeup to retrieve the current location
 	 */
-	public static boolean setAlarm(Context ctx)
+	public static boolean scheduleWifiOffAlarm(Context ctx)
 	{
-		Logger.i(TAG, "setAlarm called");
+		Logger.i(TAG, "scheduleOffAlarm called");
 		
 		// cancel any exiting alarms
-		cancelAlarm(ctx);
+		cancelWifiOffAlarm(ctx);
 
 		// create a new one starting to count NOW
 		Calendar cal = Calendar.getInstance();
@@ -106,9 +140,9 @@ public class SetWifiStateService extends Service
 
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
-		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		Intent intent = new Intent(ctx, WifiOffAlarmReceiver.class);
 
-		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM,
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_OFF,
 				intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		// Get the AlarmManager service
@@ -121,13 +155,72 @@ public class SetWifiStateService extends Service
 	/**
 	 * Cancels the current alarm (if existing)
 	 */
-	public static void cancelAlarm(Context ctx)
+	public static void cancelWifiOffAlarm(Context ctx)
 	{
 		Logger.i(TAG, "cancelAlarm");
 		// check if there is an intent pending
-		Intent intent = new Intent(ctx, AlarmReceiver.class);
+		Intent intent = new Intent(ctx, WifiOffAlarmReceiver.class);
 
-		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM,
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_OFF,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		if (sender != null)
+		{
+			// Get the AlarmManager service
+			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+			am.cancel(sender);
+		}
+	}
+
+	/**
+	 * Adds an alarm to schedule a wakeup to retrieve the current location
+	 */
+	public static boolean scheduleWifiConnectedAlarm(Context ctx)
+	{
+		Logger.i(TAG, "scheduleWifiConnectedAlarm called");
+		
+		// cancel any exiting alarms
+		cancelWifiOffAlarm(ctx);
+
+		// create a new one starting to count NOW
+		Calendar cal = Calendar.getInstance();
+		
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    	String strInterval = prefs.getString("wifi_connected_delay", "30");
+    	    	
+		int iInterval = 30;
+		try
+    	{
+			iInterval = Integer.valueOf(strInterval);
+    	}
+    	catch (Exception e)
+    	{
+    	}
+
+		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
+
+		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_CONNECTED,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		// Get the AlarmManager service
+		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, fireAt, sender);
+
+		return true;
+	}
+	
+	/**
+	 * Cancels the current alarm (if existing)
+	 */
+	public static void cancelWifiConnectedAlarm(Context ctx)
+	{
+		Logger.i(TAG, "cancelWifiConnectedAlarm");
+		// check if there is an intent pending
+		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_CONNECTED,
 				intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		if (sender != null)

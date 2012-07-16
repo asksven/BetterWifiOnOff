@@ -27,8 +27,8 @@
             android:defaultValue="true"
             android:enabled="true"
             android:key="wifi_on_when_previously_on"
-            android:summary="@string/wifi_on_when_previously_on_summary"
-            android:title="@string/wifi_on_when_previously_on_title" />
+            android:summary="@string/pref_wifi_on_when_previously_on_summary"
+            android:title="@string/pref_wifi_on_when_previously_on_title" />
         
         <CheckBoxPreference
             android:defaultValue="true"
@@ -46,8 +46,23 @@
             android:defaultValue="true"
             android:enabled="true"
             android:key="wifi_on_when_power_plug"
-            android:summary="@string/wifi_on_when_power_plug_summary"
-            android:title="@string/wifi_on_when_power_plug_title" />
+            android:summary="@string/pref_wifi_on_when_power_plug_summary"
+            android:title="@string/pref_wifi_on_when_power_plug_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_if_connected"
+            android:summary="@string/pref_wifi_on_if_connected_summary"
+            android:title="@string/pref_wifi_on_if_connected_title" />
+        
+        <ListPreference
+            android:defaultValue="30"
+            android:entries="@array/wifiConnectedDelayLabels"
+            android:entryValues="@array/wifiConnectedDelayValues"
+            android:key="wifi_connected_delay"
+            android:summary="@string/pref_wifi_connected_delay_summary"
+            android:title="@string/pref_wifi_connected_delay_title" />
+        
         
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_off" >

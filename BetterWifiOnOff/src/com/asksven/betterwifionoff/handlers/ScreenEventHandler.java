@@ -60,7 +60,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 				
 				if (delay > 0)
 				{
-					SetWifiStateService.setAlarm(context);
+					SetWifiStateService.scheduleWifiOffAlarm(context);
 				}
 				else
 				{	
