@@ -54,7 +54,7 @@
             android:key="wifi_on_if_connected"
             android:summary="@string/pref_wifi_on_if_connected_summary"
             android:title="@string/pref_wifi_on_if_connected_title" />
-        
+         
         <ListPreference
             android:defaultValue="30"
             android:entries="@array/wifiConnectedDelayLabels"
