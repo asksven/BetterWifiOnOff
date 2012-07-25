@@ -8,20 +8,6 @@
         android:summary="@string/pref_start_on_boot_summary"
         android:title="@string/pref_start_on_boot_title" />
 
-    <!-- <PreferenceCategory android:title="@string/pref_category_notification"> -->
-
-
-    <!-- </PreferenceCategory> -->
-    <!-- <PreferenceCategory android:title="@string/pref_category_service_settings"> -->
-
-
-    <!-- <CheckBoxPreference -->
-    <!-- android:key="foreground_service" --> 
-    <!-- android:summary="@string/pref_foreground_service_summary" -->
-    <!-- android:title="@string/pref_foreground_service_title" -->
-    <!-- android:defaultValue="true" -->
-    <!-- android:enabled="true"/> -->
-    <!-- </PreferenceCategory> -->
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
             android:defaultValue="true"
@@ -29,7 +15,6 @@
             android:key="wifi_on_when_previously_on"
             android:summary="@string/pref_wifi_on_when_previously_on_summary"
             android:title="@string/pref_wifi_on_when_previously_on_title" />
-        
         <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
@@ -54,7 +39,7 @@
             android:key="wifi_on_if_connected"
             android:summary="@string/pref_wifi_on_if_connected_summary"
             android:title="@string/pref_wifi_on_if_connected_title" />
-         
+
         <ListPreference
             android:defaultValue="30"
             android:entries="@array/wifiConnectedDelayLabels"
@@ -62,8 +47,6 @@
             android:key="wifi_connected_delay"
             android:summary="@string/pref_wifi_connected_delay_summary"
             android:title="@string/pref_wifi_connected_delay_title" />
-        
-        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_off" >
         <CheckBoxPreference
@@ -88,12 +71,36 @@
             android:title="@string/pref_wifi_off_delay_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_logging" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:enabled="true"
-            android:key="own_logfile"
-            android:summary="@string/pref_own_logfile_summary"
-            android:title="@string/pref_own_logfile_title" />
+        <PreferenceScreen android:title="@string/pref_screen_logging" >
+            <CheckBoxPreference
+                android:defaultValue="false"
+                android:enabled="true"
+                android:key="own_logfile"
+                android:summary="@string/pref_own_logfile_summary"
+                android:title="@string/pref_own_logfile_title" />
+
+            <PreferenceCategory android:title="@string/pref_category_events" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_user"
+                    android:summary="@string/pref_events_show_user_summary"
+                    android:title="@string/pref_events_show_user_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_status"
+                    android:summary="@string/pref_events_show_status_summary"
+                    android:title="@string/pref_events_show_status_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_system"
+                    android:summary="@string/pref_events_show_system_summary"
+                    android:title="@string/pref_events_show_system_title" />
+                
+            </PreferenceCategory>
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>

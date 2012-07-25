@@ -18,6 +18,10 @@ package com.asksven.betterwifionoff.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 /**
  * Wrapper for an event collection
  * @author sven
@@ -26,9 +30,11 @@ import java.util.List;
 public class EventLogger
 {
 	private List<Event> m_data;
+	private Context m_ctx;
 	
-	public EventLogger()
+	public EventLogger(Context ctx)
 	{
+		m_ctx = ctx;
 		m_data = new ArrayList<Event>();
 		// add some dummy data
 		addSystemEvent("Logging started");
@@ -46,17 +52,32 @@ public class EventLogger
 
 	public void addUserEvent(String event)
 	{
-		m_data.add(new Event(Event.USER_INTERACTION, event));
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(m_ctx);
+		boolean active = sharedPrefs.getBoolean("show_user", true);
+		if (active)
+		{
+			m_data.add(new Event(Event.USER_INTERACTION, event));
+		}
 	}
 	
 	public void addSystemEvent(String event)
 	{
-		m_data.add(new Event(Event.SYSTEM_EVENT, event));
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(m_ctx);
+		boolean active = sharedPrefs.getBoolean("show_system", true);
+		if (active)
+		{
+			m_data.add(new Event(Event.SYSTEM_EVENT, event));
+		}
 	}
 
 	public void addStatusChangedEvent(String event)
 	{
-		m_data.add(new Event(Event.STATUS_CHANGE, event));
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(m_ctx);
+		boolean active = sharedPrefs.getBoolean("show_status", true);
+		if (active)
+		{
+			m_data.add(new Event(Event.STATUS_CHANGE, event));
+		}
 	}
 
 	

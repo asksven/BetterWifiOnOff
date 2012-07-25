@@ -80,7 +80,7 @@ public class EventWatcherService extends Service
         BroadcastReceiver mReceiver = new ScreenEventHandler();
         registerReceiver(mReceiver, filter);
         
-        m_events = new EventLogger();
+        m_events = new EventLogger(this);
         m_instance = this;
     }
     
