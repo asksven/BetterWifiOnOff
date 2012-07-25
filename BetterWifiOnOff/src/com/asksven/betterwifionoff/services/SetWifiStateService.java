@@ -47,10 +47,7 @@ public class SetWifiStateService extends Service
     public int onStartCommand(Intent intent, int flags, int startId)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		
-		// cancel any running alarms
-		cancelWifiOffAlarm(this);
-		
+				
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
 		Log.i(TAG, "Called with extra " + state);
 		try
