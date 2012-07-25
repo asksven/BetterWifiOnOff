@@ -33,11 +33,17 @@ public class EventLogger
 		// add some dummy data
 		addSystemEvent("Logging started");
 	}
+
 	public void addEvent(int type, String event)
 	{
 		m_data.add(new Event(type, event));
 	}
 	
+	public void clear()
+	{
+		m_data.clear();
+	}
+
 	public void addUserEvent(String event)
 	{
 		m_data.add(new Event(Event.USER_INTERACTION, event));

@@ -94,6 +94,11 @@ public class EventWatcherService extends Service
     	return m_events;
     }
     
+    public void clearEvents()
+    {
+    	m_events.clear();
+    }
+
     /** 
      * Called when service is started
      */

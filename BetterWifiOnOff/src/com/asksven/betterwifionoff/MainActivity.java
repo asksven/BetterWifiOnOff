@@ -198,7 +198,19 @@ public class MainActivity extends ListActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {  
         switch (item.getItemId())
-        {  
+        {
+	        case R.id.clear_events:
+				EventWatcherService myService = EventWatcherService.getInstance();
+				if (myService != null)
+				{
+					myService.clearEvents();
+			    	if (m_listViewAdapter != null)
+			    	{
+			    		m_listViewAdapter.notifyDataSetChanged();
+			    	}
+
+				}
+	        	break;	
 	        case R.id.preferences:  
 	        	Intent intentPrefs = new Intent(this, PreferencesActivity.class);
 	            this.startActivity(intentPrefs);
