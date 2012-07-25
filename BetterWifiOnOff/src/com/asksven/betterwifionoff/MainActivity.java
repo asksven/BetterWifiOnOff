@@ -135,6 +135,9 @@ public class MainActivity extends ListActivity
 
         // start the service
     	startService(new Intent(this, EventWatcherService.class));
+    	
+    	// add listview adapter
+    	this.setListViewAdapter();
 
   	}
 
@@ -156,6 +159,13 @@ public class MainActivity extends ListActivity
 	{
 		super.onResume();
 
+		// add listview adapter
+    	this.setListViewAdapter();
+    	
+    	if (m_listViewAdapter != null)
+    	{
+    		m_listViewAdapter.notifyDataSetChanged();
+    	}
 		// update the status
 		this.updateStatus();
 	}
@@ -214,7 +224,11 @@ public class MainActivity extends ListActivity
 		// make sure we only instanciate when the reference does not exist
 		if (m_listViewAdapter == null)
 		{
-			m_listViewAdapter = new EventAdapter(this, EventWatcherService.getInstance().getEventLogger());
+			EventWatcherService myService = EventWatcherService.getInstance();
+			if (myService != null)
+			{
+				m_listViewAdapter = new EventAdapter(this, myService.getEventLogger());
+			}
 		
 			setListAdapter(m_listViewAdapter);
 		}

@@ -15,7 +15,8 @@
  */
 package com.asksven.betterwifionoff.data;
 
-import android.text.format.DateUtils;
+import com.asksven.android.common.utils.DateUtils;
+
 
 /**
  * Value holder class for events of all kinds
@@ -42,7 +43,7 @@ public class Event
 	
 	public String getTime()
 	{
-		return DateUtils.formatElapsedTime(m_timestamp);
+		return DateUtils.formatShort(m_timestamp);
 	}
 	
 	public String getType()
@@ -50,13 +51,13 @@ public class Event
 		switch (m_type)
 		{
 			case USER_INTERACTION:
-				return "User";
+				return "U";
 			case STATUS_CHANGE:
-				return "Status";
+				return "S";
 			case SYSTEM_EVENT:
-				return "Event";
+				return "S";
 			case ERROR_CONDITION:
-				return "Error";
+				return "!";
 			default:
 				return "Unknown";
 		}

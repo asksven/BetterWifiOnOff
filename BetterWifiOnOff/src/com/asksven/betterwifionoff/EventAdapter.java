@@ -47,7 +47,7 @@ public class EventAdapter extends BaseAdapter
     private Context context;
 
     private List<Event> m_listData;
-    private static final String TAG = "StatsAdapter";
+    private static final String TAG = "EventAdapter";
 
 
     public EventAdapter(Context context, EventLogger data)
@@ -83,14 +83,9 @@ public class EventAdapter extends BaseAdapter
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.event_row, null);
         }
-        TextView tvTime = (TextView) convertView.findViewById(R.id.TextViewTime);
-       	tvTime.setText(entry.getTime());
+        TextView tvTime = (TextView) convertView.findViewById(R.id.TextViewEntry);
+       	tvTime.setText(entry.getTime() + " " + entry.getType() +  "/" + entry.getEvent());
         
-        TextView tvType = (TextView) convertView.findViewById(R.id.TextViewType);
-        tvType.setText(entry.getType());
-
-        TextView tvEvent = (TextView) convertView.findViewById(R.id.TextViewEvent);
-        tvEvent.setText(entry.getEvent());
         
         return convertView;
     }

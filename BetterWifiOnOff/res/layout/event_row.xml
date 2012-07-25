@@ -6,27 +6,7 @@
         android:orientation="vertical" android:paddingTop="2sp" android:paddingBottom="2sp">
         <TextView android:layout_height="wrap_content"
                 android:layout_width="fill_parent"
-                android:id="@+id/TextViewTime"
-                android:text="Time"
-                android:textStyle="bold"/>
-        <LinearLayout android:id="@+id/LinearLayout02"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent">
-                <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Type"
-                        android:id="@+id/TextViewType"
-                        android:layout_weight="10">
-                </TextView>
-        </LinearLayout> 
-        <LinearLayout android:id="@+id/LinearLayout02"
-                android:layout_height="wrap_content"
-                android:layout_width="fill_parent">
-                <TextView android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Event"
-                        android:id="@+id/TextViewEvent"
-                        android:layout_weight="1"/>
-        </LinearLayout>
+                android:id="@+id/TextViewEntry"
+                android:text="Entry"/>
 
 </LinearLayout>

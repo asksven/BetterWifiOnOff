@@ -30,6 +30,8 @@ public class EventLogger
 	public EventLogger()
 	{
 		m_data = new ArrayList<Event>();
+		// add some dummy data
+		addSystemEvent("Logging started");
 	}
 	public void addEvent(int type, String event)
 	{
