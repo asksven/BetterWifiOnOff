@@ -66,7 +66,5 @@ public class Event
 	public String getEvent()
 	{
 		return m_text;
-	}
-	
-	
+	}	
 }

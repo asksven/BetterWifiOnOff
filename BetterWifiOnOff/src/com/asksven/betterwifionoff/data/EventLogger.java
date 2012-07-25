@@ -16,6 +16,8 @@
 package com.asksven.betterwifionoff.data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -31,6 +33,7 @@ public class EventLogger
 {
 	private List<Event> m_data;
 	private Context m_ctx;
+	private static final int MAX_ENTRIES = 50;
 	
 	public EventLogger(Context ctx)
 	{
@@ -42,7 +45,11 @@ public class EventLogger
 
 	public void addEvent(int type, String event)
 	{
-		m_data.add(new Event(type, event));
+		m_data.add(0, new Event(type, event));
+		if (m_data.size() > MAX_ENTRIES)
+		{
+			m_data.remove(MAX_ENTRIES);
+		}
 	}
 	
 	public void clear()
@@ -56,7 +63,7 @@ public class EventLogger
 		boolean active = sharedPrefs.getBoolean("show_user", true);
 		if (active)
 		{
-			m_data.add(new Event(Event.USER_INTERACTION, event));
+			addEvent(Event.USER_INTERACTION, event);
 		}
 	}
 	
@@ -66,7 +73,7 @@ public class EventLogger
 		boolean active = sharedPrefs.getBoolean("show_system", true);
 		if (active)
 		{
-			m_data.add(new Event(Event.SYSTEM_EVENT, event));
+			addEvent(Event.SYSTEM_EVENT, event);
 		}
 	}
 
@@ -76,7 +83,7 @@ public class EventLogger
 		boolean active = sharedPrefs.getBoolean("show_status", true);
 		if (active)
 		{
-			m_data.add(new Event(Event.STATUS_CHANGE, event));
+			addEvent(Event.STATUS_CHANGE, event);
 		}
 	}
 
