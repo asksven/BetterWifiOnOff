@@ -19,8 +19,15 @@ package com.asksven.betterwifionoff;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
 
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -35,7 +42,7 @@ import android.util.Log;
  * @author sven
  *
  */
-public class PreferencesActivity extends PreferenceActivity
+public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener
 {
 	private static String TAG = "PreferencesActivity";
 	/**
@@ -52,28 +59,65 @@ public class PreferencesActivity extends PreferenceActivity
 		{
 			try
 			{
-				findPreference("notify_errors").setEnabled(false);
-				findPreference("start_on_boot").setEnabled(false);
-				findPreference("update_interval").setEnabled(false);
-				findPreference("update_interval").setSummary("Latitude update interval: 15 minutes");
-				findPreference("update_accuracy").setEnabled(false);
-				findPreference("update_accuracy").setSummary("Latitude update accuracy: 2 Km");
-				findPreference("map_loc_provider").setEnabled(false);
-				findPreference("map_loc_provider").setSummary("Map location provider: cell network");
-				findPreference("map_update_interval").setEnabled(false);
-				findPreference("map_update_interval").setSummary("Map update interval: 15 minutes");
-				findPreference("map_update_accuracy").setEnabled(false);
-				findPreference("map_update_accuracy").setSummary("Map update accuracy: 2 Km");
-				findPreference("quick_update_interval").setEnabled(false);
-				findPreference("quick_update_accuracy").setEnabled(false);
-				findPreference("quick_update_duration").setEnabled(false);
-				findPreference("use_account_manager").setEnabled(false);
-				findPreference("update_on_wifi_only").setEnabled(false);
+				// sample action: findPreference("my-pref-here").setEnabled(false);
 			}
 			catch (Exception e)
 			{
 				Logger.e(TAG, "An error occured while loading the preferences.");
 			}
 		}
+        // Set up a listener whenever a key changes
+    	PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
+
 	}
+	
+	/* (non-Javadoc)
+	 * @see android.preference.PreferenceActivity#onDestroy()
+	 */
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+        // Unregister the listener whenever a key changes
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+
+	}
+	
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
+    {
+    	if (key.equals("wifi_on_when_screen_unlock"))
+    	{
+    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
+    		if (prefs.getBoolean("wifi_on_when_screen_unlock", true))
+    		{
+				if (prefs.getBoolean("wifi_on_when_screen_on", true))
+				{
+	    	        SharedPreferences.Editor editor = prefs.edit();
+	    	        editor.putBoolean("wifi_on_when_screen_on", false);
+	    	        editor.commit();
+	    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifi_on_when_screen_on");
+	    	        checkboxPref.setChecked(false);
+	    	        
+	    		}
+    		}
+    	}
+    	if (key.equals("wifi_on_when_screen_on"))
+    	{
+    		if (prefs.getBoolean("wifi_on_when_screen_on", true))
+    		{
+    			if (prefs.getBoolean("wifi_on_when_screen_unlock", true))
+	    		{
+	    	        SharedPreferences.Editor editor = prefs.edit();
+	    	        editor.putBoolean("wifi_on_when_screen_unlock", false);
+	    	        editor.commit();
+	    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifi_on_when_screen_unlock");
+	    	        checkboxPref.setChecked(false);
+	    	        
+	
+	    		}
+    		}
+    	}
+    }
 }
