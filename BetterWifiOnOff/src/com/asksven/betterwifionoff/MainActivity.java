@@ -210,7 +210,14 @@ public class MainActivity extends ListActivity
 			    	}
 
 				}
+	        	break;
+	        case R.id.refresh_events:
+		    	if (m_listViewAdapter != null)
+		    	{
+		    		m_listViewAdapter.notifyDataSetChanged();
+		    	}
 	        	break;	
+	
 	        case R.id.preferences:  
 	        	Intent intentPrefs = new Intent(this, PreferencesActivity.class);
 	            this.startActivity(intentPrefs);

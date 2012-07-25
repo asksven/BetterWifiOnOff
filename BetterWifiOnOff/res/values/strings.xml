@@ -42,7 +42,8 @@
     <string name="pref_wifi_connected_delay_title">Connection timeout</string>
     <string name="pref_wifi_on_if_connected_summary">Leave Wifi on only if a connection could be established</string>
     <string name="pref_wifi_on_if_connected_title">Leave on if connected</string>
-    <string name="menu_clear_events">Clear Events</string>
+    <string name="menu_clear_events">Clear Event Log</string>
+    <string name="menu_refresh_events">Refresh Event Log</string>
     <string name="pref_category_events">On-Screen Event Logging</string>
     <string name="pref_events_show_user_summary">Show User Interactions</string>
     <string name="pref_events_show_user_title">User</string>

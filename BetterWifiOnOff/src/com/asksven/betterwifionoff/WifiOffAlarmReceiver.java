@@ -38,6 +38,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
+		Log.d(TAG, "Alarm received: turning Wifi off");
 		try
 		{
         	EventWatcherService myService = EventWatcherService.getInstance();

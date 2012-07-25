@@ -49,6 +49,7 @@
             </intent-filter>    
         </receiver>        
         <receiver  android:process=":remote" android:name=".WifiOffAlarmReceiver"/>
+        <receiver  android:process=":remote" android:name=".WifiConnectedAlarmReceiver"/>
         
         <service android:name=".services.EventWatcherService"/>
         <service android:name=".services.SetWifiStateService"/>

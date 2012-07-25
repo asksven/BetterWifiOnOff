@@ -39,17 +39,21 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
-    	EventWatcherService myService = EventWatcherService.getInstance();
-    	if (myService != null)
-    	{
-    		myService.getEventLogger().addSystemEvent("Checking if Wifi connection was established");
-    	}
+		Log.d(TAG, "Alarm received: checking connection");
+		
 
 		try
 		{
+	    	EventWatcherService myService = EventWatcherService.getInstance();
+	    	if (myService != null)
+	    	{
+	    		myService.getEventLogger().addSystemEvent("Checking if Wifi connection was established");
+	    	}
+
 			// start service to turn off wifi if connection was not established till now
 			if (!WifiControl.isWifiConnected(context))
 			{
+				Log.d(TAG, "No connection: turning Wifi off");
 				
 	        	if (myService != null)
 	        	{
@@ -59,6 +63,10 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 				context.startService(serviceIntent);
+			}
+			else
+			{
+				Log.d(TAG, "Connection active: leaving Wifi on");
 			}
 		}
 		catch (Exception e)

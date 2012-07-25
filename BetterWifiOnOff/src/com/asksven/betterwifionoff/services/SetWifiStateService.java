@@ -57,11 +57,11 @@ public class SetWifiStateService extends Service
 			// cancel pending alarms planned to turn wifi on or off
 			if (state)
 			{
-				cancelWifiConnectedAlarm(this);
+				cancelWifiOffAlarm(this);
 			}
 			else
 			{
-				cancelWifiOffAlarm(this);
+				cancelWifiConnectedAlarm(this);
 			}
 			
 			// write last action in preferences as last transition
@@ -173,7 +173,7 @@ public class SetWifiStateService extends Service
 
 	    	if (myService != null)
 	    	{
-	    		myService.getEventLogger().addStatusChangedEvent("Canceling pending alarm");
+	    		myService.getEventLogger().addStatusChangedEvent("Canceling pending alarm wifi off when screen off");
 	    	}
 
 	    	// Get the AlarmManager service
@@ -189,9 +189,6 @@ public class SetWifiStateService extends Service
 	{
 		Logger.i(TAG, "scheduleWifiConnectedAlarm called");
 		
-		// cancel any exiting alarms
-		cancelWifiOffAlarm(ctx);
-
 		// create a new one starting to count NOW
 		Calendar cal = Calendar.getInstance();
 		
@@ -205,6 +202,11 @@ public class SetWifiStateService extends Service
     	}
     	catch (Exception e)
     	{
+    	}
+		EventWatcherService myService = EventWatcherService.getInstance();
+    	if (myService != null)
+    	{
+    		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off if not connected in " + iInterval + " seconds");
     	}
 
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
@@ -235,6 +237,13 @@ public class SetWifiStateService extends Service
 
 		if (sender != null)
 		{
+			EventWatcherService myService = EventWatcherService.getInstance();
+
+	    	if (myService != null)
+	    	{
+	    		myService.getEventLogger().addStatusChangedEvent("Canceling pending alarm wifi off if not connected");
+	    	}
+
 			// Get the AlarmManager service
 			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
 			am.cancel(sender);

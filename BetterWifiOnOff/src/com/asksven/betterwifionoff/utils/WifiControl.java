@@ -24,7 +24,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 /**
  * @author sven
@@ -32,6 +34,7 @@ import android.net.wifi.WifiManager;
  */
 public class WifiControl
 {
+	private static String TAG = "WifiControl";
 	/**
 	 * Returns whether wifi is on or not
 	 * @param ctx a Context
@@ -68,20 +71,33 @@ public class WifiControl
 	{
 		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-		return (networkInfo != null && networkInfo.isConnected());
 		
-		// we could add a test if an IP was obtained
-//		  WifiManager wifi;
-//		  wifi = (WifiManager) this.getSystemService(Context.WIFI_SERVICE);
-//		  WifiInfo wifiInfo = wifi.getConnectionInfo();
-//		  int ipAddress = wifiInfo.getIpAddress();
-//		  String ip = null;
-//		  ip = String.format("%d.%d.%d.%d",
-//		  (ipAddress & 0xff),
-//		  (ipAddress >> 8 & 0xff),
-//		  (ipAddress >> 16 & 0xff),
-//		  (ipAddress >> 24 & 0xff));
-//		  Log.e(" >>IP number Begin ",ip);
+//		return (networkInfo != null && networkInfo.isConnected());
+	
+		if (networkInfo != null && networkInfo.isConnected())
+		{
+			Log.d(TAG, "A connection was detected, testing if an IP was assigned");
+			WifiManager wifi;
+			wifi = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+			WifiInfo wifiInfo = wifi.getConnectionInfo();
+			int ipAddress = wifiInfo.getIpAddress();
+			
+			if (ipAddress == 0)
+			{
+				Log.d(TAG, "No IP address assigned: " + ipAddress + ". Wifi is not connected");
+				return false;
+			}
+			else
+			{
+				Log.d(TAG, "IP address assigned: " + ipAddress + ". Wifi is connected");
+				return true;
+			}
+		}
+		else
+		{
+			Log.d(TAG, "No active connection detected");
+			return false;
+		}
 	}
 	
 	/**
