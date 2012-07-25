@@ -44,6 +44,12 @@
     	android:text="Not connected"
     	android:layout_gravity="center"/>
     
+    <ListView android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1" 
+         /> 
+    
     
     <LinearLayout android:layout_height="fill_parent" android:layout_width="match_parent">		
 	<com.google.ads.AdView android:id="@+id/adView"

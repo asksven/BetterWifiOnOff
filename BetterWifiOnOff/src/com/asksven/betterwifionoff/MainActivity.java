@@ -16,6 +16,7 @@
 package com.asksven.betterwifionoff;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.services.EventWatcherService;
@@ -34,7 +36,7 @@ import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
 
-public class MainActivity extends Activity
+public class MainActivity extends ListActivity
 
 {
 	/**
@@ -44,6 +46,9 @@ public class MainActivity extends Activity
 
 	public static final String MARKET_LINK ="market://details?id=com.asksven.betterwifionoff";
     public static final String TWITTER_LINK ="https://twitter.com/#!/asksven";
+    
+	private EventAdapter m_listViewAdapter;
+
 	
 	/**
 	 * a progess dialog to be used for long running tasks
@@ -203,4 +208,16 @@ public class MainActivity extends Activity
     {
 	    // Set the wifi state
     }
+    
+	private void setListViewAdapter()
+	{
+		// make sure we only instanciate when the reference does not exist
+		if (m_listViewAdapter == null)
+		{
+			m_listViewAdapter = new EventAdapter(this, EventWatcherService.getInstance().getEventLogger());
+		
+			setListAdapter(m_listViewAdapter);
+		}
+	}
+
 }

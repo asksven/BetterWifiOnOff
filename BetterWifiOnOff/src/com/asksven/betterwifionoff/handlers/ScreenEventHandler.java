@@ -43,6 +43,12 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Screen was turned off");
+        	}
+
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
 			
 			if (bProcess)
@@ -65,6 +71,11 @@ public class ScreenEventHandler extends BroadcastReceiver
 				else
 				{	
 					// start service to turn off wifi
+		        	if (myService != null)
+		        	{
+		        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi");
+		        	}
+
 					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 					context.startService(serviceIntent);
@@ -75,11 +86,17 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Screen was turned on");
+        	}
+
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
 			if (bProcess)
 			{				
-				// start service to turn off wifi
+				// start service to turn on wifi
 				wifiOn(context);
 			}
 		}
@@ -87,6 +104,12 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Screen was unlocked");
+        	}
+
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 			
 			if (bProcess)
@@ -112,9 +135,24 @@ public class ScreenEventHandler extends BroadcastReceiver
 		if ((!lastTransition && bProcess) || !bProcess)
 		{
 			// start service to turn off wifi
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addStatusChangedEvent("Turning Wifi on");
+        	}
+
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
 			context.startService(serviceIntent);
+		}
+		else
+		{
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addStatusChangedEvent("Wifi was not turned on because it was turned off by user");
+        	}
+
 		}
     }
 }

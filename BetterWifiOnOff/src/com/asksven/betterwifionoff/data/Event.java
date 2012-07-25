@@ -15,6 +15,8 @@
  */
 package com.asksven.betterwifionoff.data;
 
+import android.text.format.DateUtils;
+
 /**
  * Value holder class for events of all kinds
  * @author sven
@@ -25,6 +27,7 @@ public class Event
 	public static final int USER_INTERACTION = 1;
 	public static final int STATUS_CHANGE	 = 2;
 	public static final int ERROR_CONDITION	 = 3;
+	public static final int SYSTEM_EVENT	 = 4;
 	
 	int m_type;
 	String m_text;
@@ -37,6 +40,32 @@ public class Event
 		m_timestamp	= System.currentTimeMillis();
 	}
 	
+	public String getTime()
+	{
+		return DateUtils.formatElapsedTime(m_timestamp);
+	}
+	
+	public String getType()
+	{
+		switch (m_type)
+		{
+			case USER_INTERACTION:
+				return "User";
+			case STATUS_CHANGE:
+				return "Status";
+			case SYSTEM_EVENT:
+				return "Event";
+			case ERROR_CONDITION:
+				return "Error";
+			default:
+				return "Unknown";
+		}
+	}
+	
+	public String getEvent()
+	{
+		return m_text;
+	}
 	
 	
 }

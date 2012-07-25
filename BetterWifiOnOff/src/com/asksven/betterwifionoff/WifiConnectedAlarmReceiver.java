@@ -17,6 +17,7 @@
 
 package com.asksven.betterwifionoff;
 
+import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -38,11 +39,23 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
+    	EventWatcherService myService = EventWatcherService.getInstance();
+    	if (myService != null)
+    	{
+    		myService.getEventLogger().addSystemEvent("Checking if Wifi connection was established");
+    	}
+
 		try
 		{
 			// start service to turn off wifi if connection was not established till now
 			if (!WifiControl.isWifiConnected(context))
 			{
+				
+	        	if (myService != null)
+	        	{
+	        		myService.getEventLogger().addStatusChangedEvent("No Wifi connection could be established. Turning off Wifi");
+	        	}
+
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 				context.startService(serviceIntent);

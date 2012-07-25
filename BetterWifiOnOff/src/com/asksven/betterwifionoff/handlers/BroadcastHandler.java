@@ -52,12 +52,25 @@ public class BroadcastHandler extends BroadcastReceiver
         	// start the service
         	context.startService(new Intent(context, EventWatcherService.class));
         	
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Boot completed, starting service");
+        	}
+        	
 		}
 
 
         if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
+
+			EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Power was disconnected");
+        	}
+
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
 			
@@ -78,10 +91,20 @@ public class BroadcastHandler extends BroadcastReceiver
 				if (delay > 0)
 				{
 					SetWifiStateService.scheduleWifiOffAlarm(context);
+		        	if (myService != null)
+		        	{
+		        		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off in " + delay + " seconds");
+		        	}
+
 				}
 				else
 				{	
 					// start service to turn off wifi
+		        	if (myService != null)
+		        	{
+		        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi immediately");
+		        	}
+
 					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 					context.startService(serviceIntent);
@@ -91,18 +114,26 @@ public class BroadcastHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
+        	EventWatcherService myService = EventWatcherService.getInstance();
+        	if (myService != null)
+        	{
+        		myService.getEventLogger().addSystemEvent("Power was connected");
+        	}
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_power_plug", false);
 			
 			if (bProcess)
 			{
-				// start service to turn off wifi
+				// start service to turn on wifi
+	        	if (myService != null)
+	        	{
+	        		myService.getEventLogger().addStatusChangedEvent("Turning on Wifi");
+	        	}
+
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
 				context.startService(serviceIntent);
 			}
 		}
-
-
 	}
 }

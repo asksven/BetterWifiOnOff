@@ -15,6 +15,7 @@
  */
 package com.asksven.betterwifionoff.services;
 
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
 
 import android.app.ActivityManager;
@@ -38,8 +39,12 @@ public class EventWatcherService extends Service
 	static final String TAG = "EventWatcherService";
 	public static String SERVICE_NAME = "com.asksven.betterwifionoff.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
+	
+	private static EventWatcherService m_instance = null;
+	
+	private EventLogger m_events;
 
-
+	
 	// This is the object that receives interactions from clients.  See
     // RemoteService for a more complete example.
     private final IBinder mBinder = new LocalBinder();
@@ -74,6 +79,19 @@ public class EventWatcherService extends Service
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         BroadcastReceiver mReceiver = new ScreenEventHandler();
         registerReceiver(mReceiver, filter);
+        
+        m_events = new EventLogger();
+        m_instance = this;
+    }
+    
+    public static EventWatcherService getInstance()
+    {
+    	return m_instance;
+    }
+    
+    public EventLogger getEventLogger()
+    {
+    	return m_events;
     }
     
     /** 

@@ -36,11 +36,16 @@ public class EventLogger
 		m_data.add(new Event(type, event));
 	}
 	
-	public  void addUserEvent(String event)
+	public void addUserEvent(String event)
 	{
 		m_data.add(new Event(Event.USER_INTERACTION, event));
 	}
 	
+	public void addSystemEvent(String event)
+	{
+		m_data.add(new Event(Event.SYSTEM_EVENT, event));
+	}
+
 	public void addStatusChangedEvent(String event)
 	{
 		m_data.add(new Event(Event.STATUS_CHANGE, event));
