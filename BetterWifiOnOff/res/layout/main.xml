@@ -41,7 +41,7 @@
     	android:layout_height="wrap_content" 
     	android:id="@+id/textViewStatus" 
     	android:textAppearance="?android:attr/textAppearanceLarge" 
-    	android:text="Not connected"
+    	android:text=""
     	android:layout_gravity="center"/>
 </LinearLayout>
     <LinearLayout
@@ -57,14 +57,17 @@
     </LinearLayout>
     
     <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent">		
-		<com.google.ads.AdView android:id="@+id/adView"
-                   android:layout_width="wrap_content"
-                   android:layout_gravity="bottom|center_horizontal"
-                   android:layout_alignParentBottom="true"
-                   ads:adUnitId="a150016524b7ddf"
-                   ads:adSize="BANNER"
-                   ads:loadAdOnCreate="false"
-                   android:layout_height="wrap_content"
-                   android:gravity="bottom"/>		
+
+		<com.google.ads.AdView
+		    android:id="@+id/adView"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_gravity="bottom|center_horizontal"
+		    ads:adSize="BANNER"
+		    ads:adUnitId="a150016524b7ddf"
+		    ads:loadAdOnCreate="false"
+		    android:gravity="bottom" />
+		
     </LinearLayout>			
 </LinearLayout>
