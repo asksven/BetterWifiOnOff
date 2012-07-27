@@ -46,7 +46,7 @@ public class Configuration
 	        		  Context.CONTEXT_INCLUDE_CODE |
 	        		  Context.CONTEXT_IGNORE_SECURITY);
 	          Class<?> c =
-	        		  foreignContext.getClassLoader().loadClass("com.asksven.betterlatitude.configuration.License");
+	        		  foreignContext.getClassLoader().loadClass("com.asksven.betterwifionoff.License");
 	         
 	          Method methodGetVersion = c.getMethod("getVersion");
 	          	     
