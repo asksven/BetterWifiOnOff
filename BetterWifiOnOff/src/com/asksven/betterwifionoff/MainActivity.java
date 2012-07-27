@@ -84,13 +84,13 @@ public class MainActivity extends ListActivity
         	
         	if (Configuration.isFullVersion(this))
     		{
-        		nameTextView.setText("Better Wifi on/off full");
+        		nameTextView.setText("Support the devs Version");
         		hintTextView.setText("");
         		Log.i(TAG, "full version was detected");
     		}
         	else
         	{
-        		nameTextView.setText("Better Wifi on/off full");
+        		nameTextView.setText("Free Version");
         		hintTextView.setText(getString(R.string.full_version_available));
         		Log.i(TAG, "free version was detected");
         	}
