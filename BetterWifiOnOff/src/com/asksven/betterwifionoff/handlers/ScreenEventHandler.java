@@ -19,6 +19,7 @@ import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Logger;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -137,10 +138,21 @@ public class ScreenEventHandler extends BroadcastReceiver
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
-			if (bProcess)
-			{				
-				// start service to turn on wifi
-				wifiOn(context);
+			if (WifiControl.isWifiConnected(context))
+			{
+	        	if (myService != null)
+	        	{
+	        		myService.getEventLogger().addSystemEvent("Wifi is already on: nothing to do");
+	        	}
+				
+			}
+			else
+			{
+				if (bProcess)
+				{				
+					// start service to turn on wifi
+					wifiOn(context);
+				}
 			}
 		}
         
