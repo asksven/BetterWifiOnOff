@@ -61,7 +61,13 @@
             android:key="wifi_off_when_screen_off"
             android:summary="@string/wifi_off_when_screen_off_summary"
             android:title="@string/wifi_off_when_screen_off_title" />
-
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_off_but_power_plugged"
+            android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
+            android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
+        
         <ListPreference
             android:defaultValue="30"
             android:entries="@array/wifiOffDelayLabels"

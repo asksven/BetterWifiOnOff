@@ -17,6 +17,7 @@ package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Logger;
 
 import android.content.BroadcastReceiver;
@@ -50,35 +51,51 @@ public class ScreenEventHandler extends BroadcastReceiver
         	}
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
+			boolean bCheckIfPowered = sharedPrefs.getBoolean("wifi_on_when_screen_off_but_power_plugged", true);
+			
 			
 			if (bProcess)
 			{
-		    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
-    	    	
-				int delay = 30;
-				try
-		    	{
-					delay = Integer.valueOf(strInterval);
-		    	}
-		    	catch (Exception e)
-		    	{
-		    	}
-				
-				if (delay > 0)
+				if (bCheckIfPowered && ChargerUtil.isConnected(context))
 				{
-					SetWifiStateService.scheduleWifiOffAlarm(context);
-				}
-				else
-				{	
-					// start service to turn off wifi
 		        	if (myService != null)
 		        	{
-		        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi");
+		        		myService.getEventLogger().addStatusChangedEvent("Leaving Wifi on because charger is connected");
 		        	}
+					Logger.i(TAG, "Currently connected to A/C and preference is true: leaving on");
 
-					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-					context.startService(serviceIntent);
+				}
+				else
+				{
+			    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+	    	    	
+					int delay = 30;
+					try
+			    	{
+						delay = Integer.valueOf(strInterval);
+			    	}
+			    	catch (Exception e)
+			    	{
+			    	}
+					
+					if (delay > 0)
+					{
+						SetWifiStateService.scheduleWifiOffAlarm(context);
+					}
+					else
+					{	
+						// start service to turn off wifi
+			        	if (myService != null)
+			        	{
+			        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi");
+			        	}
+						Logger.i(TAG, "Turining Wifi off immediately");
+
+	
+						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						context.startService(serviceIntent);
+					}
 				}
 			}
 		}
