@@ -71,12 +71,7 @@ public class SetWifiStateService extends Service
 			{
 				cancelWifiConnectedAlarm(this);
 			}
-			
-			// write last action in preferences as last transition
-	        SharedPreferences.Editor editor = sharedPrefs.edit();
-	        editor.putBoolean("last_action", state);
-	        editor.commit();
-	        
+				        
 	        // check if we need to schedule and alarm for delayed check if a connection could be established
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_if_connected", true);
 			

@@ -145,31 +145,15 @@ public class ScreenEventHandler extends BroadcastReceiver
     {
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-		// check if we should consider the last state before turning on
-		boolean lastTransition = sharedPrefs.getBoolean("last_action", false);
-		boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_previously_on", false);
-		
-		if ((!lastTransition && bProcess) || !bProcess)
-		{
-			// start service to turn off wifi
-        	EventWatcherService myService = EventWatcherService.getInstance();
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addStatusChangedEvent("Turning Wifi on");
-        	}
+		// start service to turn off wifi
+    	EventWatcherService myService = EventWatcherService.getInstance();
+    	if (myService != null)
+    	{
+    		myService.getEventLogger().addStatusChangedEvent("Turning Wifi on");
+    	}
 
-			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
-			context.startService(serviceIntent);
-		}
-		else
-		{
-        	EventWatcherService myService = EventWatcherService.getInstance();
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addStatusChangedEvent("Wifi was not turned on because it was turned off by user");
-        	}
-
-		}
+		Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+		serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);
+		context.startService(serviceIntent);
     }
 }

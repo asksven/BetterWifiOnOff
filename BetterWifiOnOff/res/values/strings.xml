@@ -34,8 +34,6 @@
     <string name="pref_wifi_off_delay_summary">Time to wait before turning Wifi off</string>
     <string name="pref_category_rules_on">Rules for turning Wifi on</string>
     <string name="pref_category_rules_off">Rules for turning Wifi off</string>
-    <string name="pref_wifi_on_when_previously_on_summary">Turn Wifi on again only it has been turned off previously</string>
-    <string name="pref_wifi_on_when_previously_on_title">On only when previously on</string>
     <string name="pref_wifi_on_when_power_plug_title">On when plugged in</string>
     <string name="pref_wifi_on_when_power_plug_summary">Turn Wifi on when power is plugged in</string>
     <string name="pref_wifi_connected_delay_summary">Delay till an active connection is expected</string>
