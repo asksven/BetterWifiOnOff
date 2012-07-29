@@ -48,14 +48,6 @@ public class SetWifiStateService extends Service
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 	
-		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
-		if (bDisabled)
-		{
-			Log.i(TAG, "Wifi handling is disabled: do nothing");
-			stopSelf();
-			return START_NOT_STICKY;
-		}
-
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
 		Log.i(TAG, "Called with extra " + state);
 		try

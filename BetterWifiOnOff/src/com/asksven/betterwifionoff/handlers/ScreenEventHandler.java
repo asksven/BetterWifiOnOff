@@ -45,6 +45,19 @@ public class ScreenEventHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
         	EventWatcherService myService = EventWatcherService.getInstance();
+        	
+    		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+    		if (bDisabled)
+    		{
+            	if (myService != null)
+            	{
+            		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+            	}
+
+    			Log.i(TAG, "Wifi handling is disabled: do nothing");
+    			return;
+    		}
+
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Screen was turned off");
@@ -104,6 +117,19 @@ public class ScreenEventHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
         	EventWatcherService myService = EventWatcherService.getInstance();
+
+        	boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+    		if (bDisabled)
+    		{
+            	if (myService != null)
+            	{
+            		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+            	}
+
+    			Log.i(TAG, "Wifi handling is disabled: do nothing");
+    			return;
+    		}
+
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Screen was turned on");
@@ -122,6 +148,19 @@ public class ScreenEventHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
         	EventWatcherService myService = EventWatcherService.getInstance();
+        	
+    		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+    		if (bDisabled)
+    		{
+            	if (myService != null)
+            	{
+            		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+            	}
+
+    			Log.i(TAG, "Wifi handling is disabled: do nothing");
+    			return;
+    		}
+
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Screen was unlocked");

@@ -45,14 +45,14 @@ public class BroadcastHandler extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+    	EventWatcherService myService = EventWatcherService.getInstance();
 
- 
+
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
 		{
         	// start the service
         	context.startService(new Intent(context, EventWatcherService.class));
         	
-        	EventWatcherService myService = EventWatcherService.getInstance();
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Boot completed, starting service");
@@ -65,7 +65,18 @@ public class BroadcastHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 
-			EventWatcherService myService = EventWatcherService.getInstance();
+			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+			if (bDisabled)
+			{
+	        	if (myService != null)
+	        	{
+	        		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+	        	}
+
+				Log.i(TAG, "Wifi handling is disabled: do nothing");
+				return;
+			}
+
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Power was disconnected");
@@ -114,7 +125,7 @@ public class BroadcastHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
-        	EventWatcherService myService = EventWatcherService.getInstance();
+
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Power was connected");
