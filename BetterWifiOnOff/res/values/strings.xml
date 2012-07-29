@@ -53,4 +53,6 @@
     <string name="pref_events_show_status_title">Status</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_summary">Leave Wifi on when screen goes off but the phone is plugged</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">Leave on if plugged</string>
+    <string name="pref_disable_control_summary">Do not control Wifi</string>
+    <string name="pref_disable_control_title">Disable all</string>
 </resources>
