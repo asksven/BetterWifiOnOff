@@ -17,13 +17,11 @@
 
 package com.asksven.betterwifionoff;
 
-import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -41,15 +39,10 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		Log.d(TAG, "Alarm received: turning Wifi off");
 		try
 		{
-        	EventWatcherService myService = EventWatcherService.getInstance();
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addSystemEvent("Timeout to turn Wifi off reached, turning Wifi off");
-        	}
-
 			// start service to turn off wifi
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+			serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Timeout to turn Wifi off reached, turning Wifi off");
 			context.startService(serviceIntent);
 		}
 		catch (Exception e)

@@ -84,7 +84,7 @@ public class EventWatcherService extends Service
         m_instance = this;
     }
     
-    public static EventWatcherService getInstance()
+    static EventWatcherService getInstance()
     {
     	return m_instance;
     }

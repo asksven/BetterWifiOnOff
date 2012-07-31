@@ -17,15 +17,13 @@
 
 package com.asksven.betterwifionoff;
 
-import com.asksven.betterwifionoff.services.EventWatcherService;
-import com.asksven.betterwifionoff.services.SetWifiStateService;
-import com.asksven.betterwifionoff.utils.WifiControl;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
+
+import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 /**
  * Handles alarms to turn off Wifi is a connection could not be established
@@ -44,24 +42,15 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 
 		try
 		{
-	    	EventWatcherService myService = EventWatcherService.getInstance();
-	    	if (myService != null)
-	    	{
-	    		myService.getEventLogger().addSystemEvent("Checking if Wifi connection was established");
-	    	}
-
 			// start service to turn off wifi if connection was not established till now
 			if (!WifiControl.isWifiConnected(context))
 			{
 				Log.d(TAG, "No connection: turning Wifi off");
-				
-	        	if (myService != null)
-	        	{
-	        		myService.getEventLogger().addStatusChangedEvent("No Wifi connection could be established. Turning off Wifi");
-	        	}
+
 
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+				serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "No Wifi connection could be established. Turning off Wifi");
 				context.startService(serviceIntent);
 			}
 			else
@@ -71,7 +60,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 		}
 		catch (Exception e)
 		{
-			Log.e(TAG, "An error occured receiving the alarm");
+			Log.e(TAG, "An error occured receiving the alarm" + e.getMessage());
 		}
 	}
 }

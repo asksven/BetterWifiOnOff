@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.services.EventWatcherService;
+import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
@@ -200,7 +201,7 @@ public class MainActivity extends ListActivity
         switch (item.getItemId())
         {
 	        case R.id.clear_events:
-				EventWatcherService myService = EventWatcherService.getInstance();
+				EventWatcherService myService = EventWatcherServiceBinder.getInstance(this).getService();
 				if (myService != null)
 				{
 					myService.clearEvents();
@@ -243,7 +244,7 @@ public class MainActivity extends ListActivity
 		// make sure we only instanciate when the reference does not exist
 		if (m_listViewAdapter == null)
 		{
-			EventWatcherService myService = EventWatcherService.getInstance();
+			EventWatcherService myService = EventWatcherServiceBinder.getInstance(this).getService();
 			if (myService != null)
 			{
 				m_listViewAdapter = new EventAdapter(this, myService.getEventLogger());

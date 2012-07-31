@@ -18,6 +18,7 @@ package com.asksven.betterwifionoff.handlers;
 
 
 import com.asksven.betterwifionoff.services.EventWatcherService;
+import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.Logger;
 
@@ -45,7 +46,7 @@ public class BroadcastHandler extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-    	EventWatcherService myService = EventWatcherService.getInstance();
+    	EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))

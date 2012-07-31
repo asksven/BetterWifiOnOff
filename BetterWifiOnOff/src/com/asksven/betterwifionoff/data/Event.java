@@ -53,7 +53,7 @@ public class Event
 			case USER_INTERACTION:
 				return "U";
 			case STATUS_CHANGE:
-				return "S";
+				return "C";
 			case SYSTEM_EVENT:
 				return "S";
 			case ERROR_CONDITION:

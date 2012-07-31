@@ -39,6 +39,7 @@ public class SetWifiStateService extends Service
 {
 	private static final String TAG = "SetWifiStateService";
 	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
+	public static final String EXTRA_MESSAGE = "com.asksven.betterwifionoff.WifiStateMessage";
 	
 	private static final int ALARM_WIFI_OFF 		= 12;
 	private static final int ALARM_WIFI_CONNECTED 	= 13;
@@ -49,7 +50,19 @@ public class SetWifiStateService extends Service
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 	
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
+		String message = intent.getStringExtra(EXTRA_MESSAGE);
+		
+
 		Log.i(TAG, "Called with extra " + state);
+		
+		if ((message != null) && !message.equals(""))
+		{
+			EventWatcherService myService = EventWatcherService.getInstance();
+	    	if (myService != null)
+	    	{
+	    		myService.getEventLogger().addStatusChangedEvent(message);
+	    	}
+		}
 		try
 		{	
 			WifiControl.setWifi(this, state);
