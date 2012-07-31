@@ -122,8 +122,7 @@ public class EventWatcherService extends Service implements
 
 		SharedPreferences prefs = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		boolean bForegroundService = prefs.getBoolean("foreground_service",
-				true);
+		boolean bForegroundService = prefs.getBoolean("foreground_service", false);
 		if (bForegroundService)
 		{
 			setupAsForeground("Foreground Service Started");
