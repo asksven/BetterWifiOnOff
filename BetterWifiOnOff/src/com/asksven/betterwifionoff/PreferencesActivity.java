@@ -103,6 +103,13 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	    		}
     		}
     	}
+    	if (key.equals("wakelock_while_power_plugged"))
+    	{
+    		if (!prefs.getBoolean("wakelock_while_power_plugged", false))
+    		{
+    			// option was uncheck: make sure to release wakelock straicht away
+    		}
+    	}
     	if (key.equals("wifi_on_when_screen_on"))
     	{
     		if (prefs.getBoolean("wifi_on_when_screen_on", true))

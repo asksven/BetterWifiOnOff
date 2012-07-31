@@ -26,6 +26,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -38,6 +39,7 @@ import android.util.Log;
 public class BroadcastHandler extends BroadcastReceiver
 {	
 	private static final String TAG = "BroadcastHandler";
+	
 	
 	/* (non-Javadoc)
 	 * @see android.content.BroadcastReceiver#onReceive(android.content.Context, android.content.Intent)
@@ -65,7 +67,18 @@ public class BroadcastHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
-
+			
+			// release the wakelock
+			if (myService != null)
+			{
+				myService.releaseWakelock();
+			}
+			else
+			{
+				Log.e(TAG, "Service not instanciated: unable to release wakelock!");
+			}
+			
+						
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
@@ -127,6 +140,21 @@ public class BroadcastHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
 
+			boolean bWakelock = sharedPrefs.getBoolean("wakelock_while_power_plugged", false);
+			if (bWakelock)
+			{
+				// get a wakelock
+				// aquire the wakelock
+				if (myService != null)
+				{
+					myService.aquireWakelock();
+				}
+				else
+				{
+					Log.e(TAG, "Service not instanciated: unable to aquire wakelock!");
+				}
+			}
+			
         	if (myService != null)
         	{
         		myService.getEventLogger().addSystemEvent("Power was connected");

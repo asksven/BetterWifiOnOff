@@ -20,8 +20,8 @@
     <string name="pref_start_on_boot_title">Start on boot</string>
     <string name="pref_category_notification">Notifications</string>
     <string name="pref_category_service_settings">Service Settings</string>
-    <string name="pref_foreground_service_summary">Runs as foreground service (make sure the service is never killed by android)</string>
-    <string name="pref_foreground_service_title">Foreground service</string>
+    <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
+    <string name="pref_foreground_service_title">Run as foreground service</string>
     <string name="wifi_off_when_power_ununplug_title">Off when unplugged</string>
     <string name="wifi_off_when_power_ununplug_summary">Turn Wifi off when unplugged from charger</string>
     <string name="wifi_off_when_screen_off_title">Off when screen off</string>
@@ -53,4 +53,8 @@
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">Leave on if plugged</string>
     <string name="pref_disable_control_summary">Do not control Wifi</string>
     <string name="pref_disable_control_title">Disable all</string>
+    <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
+    <string name="pref_foreground_service_title">Run as foreground service</string>
+    <string name="pref_wakelock_while_power_plugged_title">Wakelock while plugged in</string>
+    <string name="pref_wakelock_while_power_plugged_summary">Caution! Hold a wakelock while plugged in. Makes sense only for devices sleeping while charging and only if needed.</string>
 </resources>

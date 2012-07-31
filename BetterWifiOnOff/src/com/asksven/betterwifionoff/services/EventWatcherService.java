@@ -19,6 +19,7 @@ import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
+import com.asksven.betterwifionoff.utils.ChargerUtil;
 
 import android.app.ActivityManager;
 import android.app.Notification;
@@ -34,6 +35,8 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
+import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -46,12 +49,15 @@ public class EventWatcherService extends Service implements
 {
 
 	static final String TAG = "EventWatcherService";
-	public static String SERVICE_NAME = "com.asksven.betterwifionoff.EventWatcherService";
+	public static String SERVICE_NAME = "com.asksven.betterwifionoff.services.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
+	static final String WAKELOCK = "OPTION_WAKELOCK_WHILE_CHARGING";
+	private WakeLock m_wakelock = null;
 	
 	private static EventWatcherService m_instance = null;
 
 	private EventLogger m_events;
+	BroadcastReceiver m_receiver = null;
 
 	Notification m_stickyNotification = null;
 
@@ -86,8 +92,8 @@ public class EventWatcherService extends Service implements
 		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
 		filter.addAction(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		BroadcastReceiver mReceiver = new ScreenEventHandler();
-		registerReceiver(mReceiver, filter);
+		m_receiver = new ScreenEventHandler();
+		registerReceiver(m_receiver, filter);
 
 		m_events = new EventLogger(this);
 		m_instance = this;
@@ -161,6 +167,50 @@ public class EventWatcherService extends Service implements
 
 	}
 
+    /**
+     * Called when Service is terminated
+     */
+    public void onDestroy()
+    {        
+     
+		// hack: there is no way to test whether a receiver is registered so we have to try and ignore the exception
+		try
+		{
+			unregisterReceiver(m_receiver);
+		}
+		catch (IllegalArgumentException e)
+		{
+			// do nothing
+		}
+		finally
+		{
+			releaseWakelock();
+		}
+		
+        // Unregister the listener whenever a key changes
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+
+    }
+    
+    public void aquireWakelock()
+    {
+    	PowerManager powerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+    	releaseWakelock();
+    	m_wakelock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK);
+    	m_wakelock.acquire();
+    	Log.d(TAG, "Wakelock " + WAKELOCK + " aquired");
+    }
+    
+    public void releaseWakelock()
+    {
+    	if ((m_wakelock != null) && (m_wakelock.isHeld()))
+    	{
+    		m_wakelock.release();
+    		Log.d(TAG, "Wakelock " + WAKELOCK + " released");
+    	}
+    }
+	
 	public static boolean isServiceRunning(Context context)
 	{
 		ActivityManager manager = (ActivityManager) context
@@ -181,14 +231,51 @@ public class EventWatcherService extends Service implements
 			String key)
 	{
 
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (key.equals("wakelock_while_power_plugged"))
+		{
+			if (prefs.getBoolean("wakelock_while_power_plugged", false))
+			{
+				// if powered apply wakelock immediately
+				if (ChargerUtil.isConnected(this))
+				{
+					this.aquireWakelock();
+				}
+			}
+			else
+			{
+				this.releaseWakelock();
+			}
+		}
+
+		
 		if (key.equals("foreground_service"))
 		{
 			// stop and start the service, starting it will lead to prefs being
 			// read
+
 			Intent i = new Intent();
-			i.setClassName("com.asksven.betterwifionoff",
-					EventWatcherService.SERVICE_NAME);
-			stopService(i);
+			i.setClass( this, EventWatcherService.class );
+
+			if (isServiceRunning(this))
+			{
+				try
+				{
+					if (!stopService(i))
+					{
+						stopForeground(true);
+
+					}
+					else
+					{
+						Log.i(TAG, "Service was stopped");
+					}
+				}
+				catch (Exception e)
+				{
+					Log.e(TAG, "An error occured while trying to stop teh service: " + e.getMessage());
+				}
+			}
 			startService(i);
 		}
 

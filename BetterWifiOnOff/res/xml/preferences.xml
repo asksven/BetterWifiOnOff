@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
         android:key="disable_control"
         android:summary="@string/pref_disable_control_summary"
         android:title="@string/pref_disable_control_title" />
-    
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
         android:key="start_on_boot"
         android:summary="@string/pref_start_on_boot_summary"
         android:title="@string/pref_start_on_boot_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="foreground_service"
+        android:summary="@string/pref_foreground_service_summary"
+        android:title="@string/pref_foreground_service_title" />
 
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
@@ -33,6 +39,13 @@
             android:key="wifi_on_when_power_plug"
             android:summary="@string/pref_wifi_on_when_power_plug_summary"
             android:title="@string/pref_wifi_on_when_power_plug_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wakelock_while_power_plugged"
+            android:summary="@string/pref_wakelock_while_power_plugged_summary"
+            android:title="@string/pref_wakelock_while_power_plugged_title" />
+         
         <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
@@ -67,7 +80,7 @@
             android:key="wifi_on_when_screen_off_but_power_plugged"
             android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
             android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
-        
+
         <ListPreference
             android:defaultValue="30"
             android:entries="@array/wifiOffDelayLabels"
@@ -104,7 +117,6 @@
                     android:key="show_system"
                     android:summary="@string/pref_events_show_system_summary"
                     android:title="@string/pref_events_show_system_title" />
-                
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
