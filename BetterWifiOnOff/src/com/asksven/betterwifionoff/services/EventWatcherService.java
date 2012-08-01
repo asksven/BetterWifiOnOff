@@ -15,6 +15,7 @@
  */
 package com.asksven.betterwifionoff.services;
 
+import com.asksven.betterwifionoff.Globals;
 import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
@@ -51,7 +52,6 @@ public class EventWatcherService extends Service implements
 	static final String TAG = "EventWatcherService";
 	public static String SERVICE_NAME = "com.asksven.betterwifionoff.services.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
-	static final String WAKELOCK = "OPTION_WAKELOCK_WHILE_CHARGING";
 	private WakeLock m_wakelock = null;
 	
 	private static EventWatcherService m_instance = null;
@@ -184,7 +184,7 @@ public class EventWatcherService extends Service implements
 		}
 		finally
 		{
-			releaseWakelock();
+			Globals.releaseWakelock();
 		}
 		
         // Unregister the listener whenever a key changes
@@ -193,23 +193,6 @@ public class EventWatcherService extends Service implements
 
     }
     
-    public void aquireWakelock()
-    {
-    	PowerManager powerManager = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
-    	releaseWakelock();
-    	m_wakelock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK);
-    	m_wakelock.acquire();
-    	Log.d(TAG, "Wakelock " + WAKELOCK + " aquired");
-    }
-    
-    public void releaseWakelock()
-    {
-    	if ((m_wakelock != null) && (m_wakelock.isHeld()))
-    	{
-    		m_wakelock.release();
-    		Log.d(TAG, "Wakelock " + WAKELOCK + " released");
-    	}
-    }
 	
 	public static boolean isServiceRunning(Context context)
 	{
@@ -239,12 +222,12 @@ public class EventWatcherService extends Service implements
 				// if powered apply wakelock immediately
 				if (ChargerUtil.isConnected(this))
 				{
-					this.aquireWakelock();
+					Globals.aquireWakelock(this);
 				}
 			}
 			else
 			{
-				this.releaseWakelock();
+				Globals.releaseWakelock();
 			}
 		}
 

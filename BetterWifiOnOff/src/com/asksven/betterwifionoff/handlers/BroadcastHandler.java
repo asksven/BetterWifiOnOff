@@ -17,6 +17,7 @@
 package com.asksven.betterwifionoff.handlers;
 
 
+import com.asksven.betterwifionoff.Globals;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
@@ -48,19 +49,13 @@ public class BroadcastHandler extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-    	EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
-
 
         if (intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED))
 		{
         	// start the service
         	context.startService(new Intent(context, EventWatcherService.class));
         	
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addSystemEvent("Boot completed, starting service");
-        	}
-        	
+       		Log.d(TAG, "Boot completed, starting service");
 		}
 
 
@@ -69,16 +64,10 @@ public class BroadcastHandler extends BroadcastReceiver
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 			
 			// release the wakelock
-			if (myService != null)
-			{
-				myService.releaseWakelock();
-			}
-			else
-			{
-				Log.e(TAG, "Service not instanciated: unable to release wakelock!");
-			}
+			Globals.releaseWakelock();
+
+			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 			
-						
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
@@ -141,24 +130,15 @@ public class BroadcastHandler extends BroadcastReceiver
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
 
 			boolean bWakelock = sharedPrefs.getBoolean("wakelock_while_power_plugged", false);
+			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
+
 			if (bWakelock)
 			{
 				// get a wakelock
-				// aquire the wakelock
-				if (myService != null)
-				{
-					myService.aquireWakelock();
-				}
-				else
-				{
-					Log.e(TAG, "Service not instanciated: unable to aquire wakelock!");
-				}
+				Globals.aquireWakelock(context);
 			}
 			
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addSystemEvent("Power was connected");
-        	}
+        	Log.d(TAG, "Power was connected");
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_power_plug", false);
 			
