@@ -157,14 +157,14 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		if (!prefs.getBoolean("wakelock_while_power_plugged", false))
     		{
     			// option was uncheck: make sure to release wakelock straight away
-    			Wakelock.releaseWakelock();
+    			PluggedWakelock.releaseWakelock();
     		}
     		else
     		{
     			// if we are plugged to power apply
     			if (ChargerUtil.isConnected(this))
     			{
-    				Wakelock.acquireWakelock(this);
+    				PluggedWakelock.acquireWakelock(this);
     			}
     		}
     	}
@@ -173,13 +173,13 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		if (!prefs.getBoolean("wifilock_while_power_plugged", false))
     		{
     			// option was uncheck: make sure to release wakelock straight away
-    			Wakelock.releaseWifilock();
+    			PluggedWakelock.releaseWifilock();
     		}
     		else
     		{
     			if (ChargerUtil.isConnected(this))
     			{
-    				Wakelock.acquireWifiLock(this);
+    				PluggedWakelock.acquireWifiLock(this);
     			}
     		}
 
@@ -189,13 +189,13 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		if (!prefs.getBoolean("wifilock_while_power_plugged", false))
     		{
     			// option was uncheck: make sure to release wakelock straight away
-    			Wakelock.releaseWifilock();
+    			PluggedWakelock.releaseWifilock();
     		}
     		else
     		{
     			if (ChargerUtil.isConnected(this))
     			{
-    				Wakelock.acquireHighPerfWifiLock(this);
+    				PluggedWakelock.acquireHighPerfWifiLock(this);
     			}
     		}
     	}

@@ -17,7 +17,7 @@
 package com.asksven.betterwifionoff.handlers;
 
 
-import com.asksven.betterwifionoff.Wakelock;
+import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
@@ -64,8 +64,8 @@ public class BroadcastHandler extends BroadcastReceiver
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 			
 			// release any wakelocks / wifilocks
-			Wakelock.releaseWakelock();
-			Wakelock.releaseWifilock();
+			PluggedWakelock.releaseWakelock();
+			PluggedWakelock.releaseWifilock();
 
 			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 			
@@ -140,17 +140,17 @@ public class BroadcastHandler extends BroadcastReceiver
 			if (bWakelock)
 			{
 				// get a wakelock
-				Wakelock.acquireWakelock(context);
+				PluggedWakelock.acquireWakelock(context);
 			}
 			if (bWifilock)
 			{
 				// get a wakelock
-				Wakelock.acquireWifiLock(context);
+				PluggedWakelock.acquireWifiLock(context);
 			}
 			if (bWifilockHighPerf)
 			{
 				// get a wakelock
-				Wakelock.acquireHighPerfWifiLock(context);
+				PluggedWakelock.acquireHighPerfWifiLock(context);
 			}
 			
         	Log.d(TAG, "Power was connected");

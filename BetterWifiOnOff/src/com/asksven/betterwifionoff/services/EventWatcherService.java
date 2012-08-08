@@ -15,9 +15,10 @@
  */
 package com.asksven.betterwifionoff.services;
 
-import com.asksven.betterwifionoff.Wakelock;
+import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.WifiLock;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.handlers.ConnectionStatusHandler;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
@@ -42,13 +43,14 @@ import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 /**
  * @author sven
  * 
  */
-public class EventWatcherService extends Service implements
-		OnSharedPreferenceChangeListener
+public class EventWatcherService extends Service implements OnSharedPreferenceChangeListener
 {
 
 	static final String TAG = "BetterWifiOnOff.EventWatcherService";
@@ -113,6 +115,21 @@ public class EventWatcherService extends Service implements
         // Set up a listener whenever a key changes
     	PreferenceManager.getDefaultSharedPreferences(this)
                 .registerOnSharedPreferenceChangeListener(this);
+
+    	// set Wifilocks at start
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean bWifilock = prefs.getBoolean("wifilock", false);
+        boolean bHighperfWifilock = prefs.getBoolean("highperf_wifilock", false);
+        if (bWifilock)
+        {
+        	WifiLock.acquireWifiLock(this);
+        }
+        else if (bHighperfWifilock)
+        {
+        	WifiLock.acquireWifiLock(this);
+        }
+        
+
 	}
 
 	static EventWatcherService getInstance()
@@ -197,7 +214,7 @@ public class EventWatcherService extends Service implements
 		}
 		finally
 		{
-			Wakelock.releaseWakelock();
+			PluggedWakelock.releaseWakelock();
 		}
 		
         // Unregister the listener whenever a key changes
@@ -235,12 +252,12 @@ public class EventWatcherService extends Service implements
 				// if powered apply wakelock immediately
 				if (ChargerUtil.isConnected(this))
 				{
-					Wakelock.acquireWakelock(this);
+					PluggedWakelock.acquireWakelock(this);
 				}
 			}
 			else
 			{
-				Wakelock.releaseWakelock();
+				PluggedWakelock.releaseWakelock();
 			}
 		}
 
@@ -276,5 +293,6 @@ public class EventWatcherService extends Service implements
 		}
 
 	}
+	
 
 }

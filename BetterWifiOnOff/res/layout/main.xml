@@ -36,6 +36,8 @@
     	android:textAppearance="?android:attr/textAppearanceMedium" 
     	android:text="@string/layout_main_author"
     	android:layout_gravity="center"/>
+
+
     <TextView 
     	android:layout_width="wrap_content" 
     	android:layout_height="wrap_content" 
@@ -43,6 +45,22 @@
     	android:textAppearance="?android:attr/textAppearanceLarge" 
     	android:text=""
     	android:layout_gravity="center"/>
+    <CheckBox
+        android:id="@+id/checkBoxDisable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_main_disable" />
+    <CheckBox
+        android:id="@+id/checkBoxWifilock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_main_wifilock" />
+    <CheckBox
+        android:id="@+id/checkBoxHighPerfWifilock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/layout_main_high_perf_wifilock" />
+    
 </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"

@@ -28,34 +28,24 @@ import android.util.Log;
  * @author sven
  *
  */
-public class Wakelock
+public class WifiLock
 {
-	private static WakeLock screen_on_wakelock;
-	private static WifiManager.WifiLock screen_on_wifilock;
+	private static WifiManager.WifiLock wifilock;
 	
-	static final String WAKELOCK = "OPTION_WAKELOCK_WHILE_CHARGING";
-	static final String WIFILOCK = "OPTION_WIFI_WHILE_CHARGING";
+	static final String WIFILOCK = "OPTION_PERM_WIFILOCK";
 	static final String TAG = "BetterWifiOnOff.Wakelock";
 	
-    public static void acquireWakelock(Context ctx)
-    {
-    	PowerManager powerManager = (PowerManager) ctx.getApplicationContext().getSystemService(Context.POWER_SERVICE);
-    	releaseWakelock();
-    	screen_on_wakelock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKELOCK);
-    	screen_on_wakelock.acquire();
-    	Log.d(TAG, "Wakelock " + WAKELOCK + " aquired");
-    }
     
     public static void acquireWifiLock(Context ctx)
     {
     	WifiManager wifiManager = (WifiManager) ctx.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     	releaseWifilock();
-    	screen_on_wifilock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, WIFILOCK);
+    	wifilock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL, WIFILOCK);
     	// make sure that the calls to acquire are not counted
-    	screen_on_wifilock.setReferenceCounted(true);
-    	screen_on_wifilock.acquire();
+    	wifilock.setReferenceCounted(true);
+    	wifilock.acquire();
     	Log.d(TAG, "WifiLock " + WIFILOCK + " aquired (FULL_MODE)");
-    	Log.d(TAG, "Checking if Wifilock is held:" + screen_on_wifilock.isHeld()); 
+    	Log.d(TAG, "Checking if Wifilock is held:" + wifilock.isHeld()); 
     	Log.d(TAG, "Checking if Wifilock was applied:" + WifiManagerProxy.hasWifiLock(ctx));
     }
     
@@ -63,42 +53,32 @@ public class Wakelock
     {
     	WifiManager wifiManager = (WifiManager) ctx.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
     	releaseWifilock();
-    	screen_on_wifilock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, WIFILOCK);
-    	screen_on_wifilock.setReferenceCounted(false);
-    	screen_on_wifilock.acquire();
+    	wifilock = wifiManager.createWifiLock(WifiManager.WIFI_MODE_FULL_HIGH_PERF, WIFILOCK);
+    	wifilock.setReferenceCounted(false);
+    	wifilock.acquire();
     	Log.d(TAG, "WifiLock " + WIFILOCK + " aquired (HIGH_PERF)");
-    	Log.d(TAG, "Checking if Wifilock is held:" + screen_on_wifilock.isHeld()); 
+    	Log.d(TAG, "Checking if Wifilock is held:" + wifilock.isHeld()); 
     	Log.d(TAG, "Checking if Wifilock was applied:" + WifiManagerProxy.hasWifiLock(ctx));
 
     }
 
-    public static void releaseWakelock()
-    {
-    	Log.d(TAG, "releaseWakelock called");
-    	if ((screen_on_wakelock != null) && (screen_on_wakelock.isHeld()))
-    	{
-    		screen_on_wakelock.release();
-    		screen_on_wakelock = null;
-    		Log.d(TAG, "Wakelock " + WAKELOCK + " released");
-    	}
-    }
 
     public static void releaseWifilock()
     {
     	Log.d(TAG, "releaseWifilock called");
-    	if ((screen_on_wifilock != null) && (screen_on_wifilock.isHeld()))
+    	if ((wifilock != null) && (wifilock.isHeld()))
     	{
-    		screen_on_wifilock.release();
-    		Log.d(TAG, "Wifilock " + WAKELOCK + " released");
+    		wifilock.release();
+    		Log.d(TAG, "Wifilock " + WIFILOCK + " released");
     	}
     }
     
     public static boolean holdsWifiLock()
     {
     	Log.d(TAG, "holdsWifilock called");
-    	if (screen_on_wifilock != null)
+    	if (wifilock != null)
     	{
-    		return (screen_on_wifilock.isHeld());
+    		return (wifilock.isHeld());
     	}
     	return (false);
     }

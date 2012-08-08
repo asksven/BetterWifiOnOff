@@ -4,6 +4,9 @@
     <string name="menu_preferences">Preferences</string>
     <string name="menu_release_notes">Release Notes</string>
     <string name="layout_main_author">By asksven</string>
+    <string name="layout_main_disable">Disabled</string>
+    <string name="layout_main_wifilock">Hold Wifilock</string>
+    <string name="layout_main_high_perf_wifilock">Hold high perf Wifilock</string>
     <string name="dialog_rate">Rate</string>
     <string name="dialog_dismiss">Dismiss</string>
     <string name="dialog_follow_me">Follow me</string>

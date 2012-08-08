@@ -15,7 +15,6 @@
  */
 package com.asksven.betterwifionoff;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -27,6 +26,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.asksven.betterwifionoff.ReadmeActivity;
@@ -37,7 +39,7 @@ import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
 
-public class MainActivity extends ListActivity
+public class MainActivity extends ListActivity 
 
 {
 	/**
@@ -49,6 +51,10 @@ public class MainActivity extends ListActivity
     public static final String TWITTER_LINK ="https://twitter.com/#!/asksven";
     
 	private EventAdapter m_listViewAdapter;
+    CheckBox m_checkboxDisabled;
+    CheckBox m_checkboxWifilock;
+    CheckBox m_checkboxHighPerfWifilock;
+    OnClickListener m_checkBoxListener;
 
 	
 	/**
@@ -64,7 +70,57 @@ public class MainActivity extends ListActivity
 		
 		setContentView(R.layout.main);
 	
+	    m_checkboxDisabled 			= (CheckBox) findViewById(R.id.checkBoxDisable);
+	    m_checkboxWifilock 			= (CheckBox) findViewById(R.id.checkBoxWifilock);
+	    m_checkboxHighPerfWifilock 	= (CheckBox) findViewById(R.id.checkBoxHighPerfWifilock);
+	    
+	    m_checkBoxListener = new OnClickListener()
+	    {
+	    	 @Override
+	    	 public void onClick(View v)
+	    	 {
+	    			switch (v.getId())
+	    			{
+	    				case R.id.checkBoxDisable:
+	    				{
+	    					break;
+	    				}
+	    				case R.id.checkBoxWifilock:
+	    				{
+	    					if (m_checkboxWifilock.isChecked())
+	    					{
+	    						WifiLock.acquireWifiLock(MainActivity.this);
+	    					}
+	    					else
+	    					{
+	    						WifiLock.releaseWifilock();
+	    					}
+	    					break;
+	    				}
+	    				case R.id.checkBoxHighPerfWifilock:
+	    				{
+	    					if (m_checkboxHighPerfWifilock.isChecked())
+	    					{
+	    						WifiLock.acquireHighPerfWifiLock(MainActivity.this);
+	    					}
+	    					else
+	    					{
+	    						WifiLock.releaseWifilock();
+	    					}
+	    					break;
+	    				}
+	    			}
+	    			savePrefs();
 
+	       	 }
+	    };
+
+	    m_checkboxDisabled.setOnClickListener(m_checkBoxListener);
+	    m_checkboxWifilock.setOnClickListener(m_checkBoxListener);
+	    m_checkboxHighPerfWifilock.setOnClickListener(m_checkBoxListener);
+	    
+	    readPrefs();
+	    
 		// detect free/full version and enable/disable ads
 		if (!Configuration.isFullVersion(this))
 		{
@@ -254,5 +310,68 @@ public class MainActivity extends ListActivity
 			setListAdapter(m_listViewAdapter);
 		}
 	}
+	
+	/**
+	 * save the preferences 
+	 */
+	void savePrefs()		
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("disable_control", m_checkboxDisabled.isChecked());
+        editor.putBoolean("wfilock", m_checkboxWifilock.isChecked());
+        editor.putBoolean("highperf_wifilock", m_checkboxHighPerfWifilock.isChecked());
+        editor.commit();
+	}
 
+	void readPrefs()
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        m_checkboxDisabled.setChecked(prefs.getBoolean("disable_control", false));
+        m_checkboxWifilock.setChecked(prefs.getBoolean("wifilock", false));
+        m_checkboxHighPerfWifilock.setChecked(prefs.getBoolean("highperf_wifilock", false));
+	}
+	
+
+//    public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
+//    {
+//    	if (key.equals("disable_control"))
+//    	{
+//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
+//    		if (prefs.getBoolean("disable_control", false))
+//    	
+//    	        SharedPreferences.Editor editor = prefs.edit();
+//    	        editor.putBoolean("disable_control", true);
+//    	        editor.commit();
+//    		}
+//    		else
+//    		{
+//    	        SharedPreferences.Editor editor = prefs.edit();
+//    	        editor.putBoolean("disable_control", false);
+//    	        editor.commit();
+//
+//    		}
+//    	}
+//    	
+//    	if (key.equals("wifilock"))
+//    	{
+//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
+//    		if (prefs.getBoolean("wifilock", false))
+//    		{
+//    		}
+//    		else
+//    		{
+//    		}
+//    	}
+//    	if (key.equals("highperf_wifilock"))
+//    	{
+//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
+//    		if (prefs.getBoolean("highperf_wifilock", false))
+//    		{
+//    		}
+//    		else
+//    		{	
+//    		}
+//    	}
+//    }
 }
