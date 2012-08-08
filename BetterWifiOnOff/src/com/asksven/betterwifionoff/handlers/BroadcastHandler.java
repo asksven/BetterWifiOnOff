@@ -129,14 +129,25 @@ public class BroadcastHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
+			
+			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
+			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+			if (bDisabled)
+			{
+	        	if (myService != null)
+	        	{
+	        		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+	        	}
+
+				Log.i(TAG, "Wifi handling is disabled: do nothing");
+				return;
+			}
 
 			boolean bWakelock = sharedPrefs.getBoolean("wakelock_while_power_plugged", false);
 			boolean bWifilock = sharedPrefs.getBoolean("wifiock_while_power_plugged", false);
 			boolean bWifilockHighPerf = sharedPrefs.getBoolean("wifilock_high_perf_while_power_plugged", false);
 
 			
-			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
-
 			if (bWakelock)
 			{
 				// get a wakelock
