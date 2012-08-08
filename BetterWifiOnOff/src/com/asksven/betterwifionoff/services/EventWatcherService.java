@@ -15,10 +15,11 @@
  */
 package com.asksven.betterwifionoff.services;
 
-import com.asksven.betterwifionoff.Globals;
+import com.asksven.betterwifionoff.Wakelock;
 import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
+import com.asksven.betterwifionoff.handlers.ConnectionStatusHandler;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 
@@ -34,6 +35,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
+import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -49,7 +51,7 @@ public class EventWatcherService extends Service implements
 		OnSharedPreferenceChangeListener
 {
 
-	static final String TAG = "EventWatcherService";
+	static final String TAG = "BetterWifiOnOff.EventWatcherService";
 	public static String SERVICE_NAME = "com.asksven.betterwifionoff.services.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
 	private WakeLock m_wakelock = null;
@@ -57,7 +59,8 @@ public class EventWatcherService extends Service implements
 	private static EventWatcherService m_instance = null;
 
 	private EventLogger m_events;
-	BroadcastReceiver m_receiver = null;
+	ScreenEventHandler m_screenEventReceiver = null;
+	ConnectionStatusHandler m_connectionEventReceiver = null;
 
 	Notification m_stickyNotification = null;
 
@@ -92,8 +95,17 @@ public class EventWatcherService extends Service implements
 		IntentFilter filter = new IntentFilter(Intent.ACTION_USER_PRESENT);
 		filter.addAction(Intent.ACTION_SCREEN_ON);
 		filter.addAction(Intent.ACTION_SCREEN_OFF);
-		m_receiver = new ScreenEventHandler();
-		registerReceiver(m_receiver, filter);
+		m_screenEventReceiver = new ScreenEventHandler();
+		registerReceiver(m_screenEventReceiver, filter);
+		
+		m_connectionEventReceiver = new ConnectionStatusHandler();
+
+		IntentFilter intentFilter = new IntentFilter();
+		intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+		intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+		intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
+		intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+		registerReceiver(m_connectionEventReceiver, intentFilter);
 
 		m_events = new EventLogger(this);
 		m_instance = this;
@@ -176,7 +188,8 @@ public class EventWatcherService extends Service implements
 		// hack: there is no way to test whether a receiver is registered so we have to try and ignore the exception
 		try
 		{
-			unregisterReceiver(m_receiver);
+			unregisterReceiver(m_screenEventReceiver);
+			unregisterReceiver(m_connectionEventReceiver);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -184,7 +197,7 @@ public class EventWatcherService extends Service implements
 		}
 		finally
 		{
-			Globals.releaseWakelock();
+			Wakelock.releaseWakelock();
 		}
 		
         // Unregister the listener whenever a key changes
@@ -222,12 +235,12 @@ public class EventWatcherService extends Service implements
 				// if powered apply wakelock immediately
 				if (ChargerUtil.isConnected(this))
 				{
-					Globals.aquireWakelock(this);
+					Wakelock.acquireWakelock(this);
 				}
 			}
 			else
 			{
-				Globals.releaseWakelock();
+				Wakelock.releaseWakelock();
 			}
 		}
 

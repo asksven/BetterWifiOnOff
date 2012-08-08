@@ -19,6 +19,8 @@ package com.asksven.betterwifionoff.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.asksven.android.common.wifi.WifiManagerProxy;
+
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -34,7 +36,7 @@ import android.util.Log;
  */
 public class WifiControl
 {
-	private static String TAG = "WifiControl";
+	private static String TAG = "BetterWifiOnOff.WifiControl";
 	/**
 	 * Returns whether wifi is on or not
 	 * @param ctx a Context
@@ -58,7 +60,17 @@ public class WifiControl
 		
 		if ( (state && !isWifiOn(ctx)) || (!state && isWifiOn(ctx)) )
 		{
+			if (state)
+			{
+				Log.d(TAG, "Turning Wifi on");
+			}
+			else
+			{
+				Log.d(TAG, "Turning Wifi off");
+			}
+			
 			wifiManager.setWifiEnabled(state);
+			
 		}
 	}
 	
@@ -85,11 +97,13 @@ public class WifiControl
 			if (ipAddress == 0)
 			{
 				Log.d(TAG, "No IP address assigned: " + ipAddress + ". Wifi is not connected");
+				Log.d(TAG, "Wifilock status: " + WifiManagerProxy.hasWifiLock(ctx));
 				return false;
 			}
 			else
 			{
 				Log.d(TAG, "IP address assigned: " + ipAddress + ". Wifi is connected");
+				Log.d(TAG, "Wifilock status: " + WifiManagerProxy.hasWifiLock(ctx));
 				return true;
 			}
 		}

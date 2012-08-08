@@ -17,7 +17,7 @@
 package com.asksven.betterwifionoff.handlers;
 
 
-import com.asksven.betterwifionoff.Globals;
+import com.asksven.betterwifionoff.Wakelock;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
@@ -39,7 +39,7 @@ import android.util.Log;
  */
 public class BroadcastHandler extends BroadcastReceiver
 {	
-	private static final String TAG = "BroadcastHandler";
+	private static final String TAG = "BetterWifiOnOff.BroadcastHandler";
 	
 	
 	/* (non-Javadoc)
@@ -63,8 +63,9 @@ public class BroadcastHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 			
-			// release the wakelock
-			Globals.releaseWakelock();
+			// release any wakelocks / wifilocks
+			Wakelock.releaseWakelock();
+			Wakelock.releaseWifilock();
 
 			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 			
@@ -130,12 +131,26 @@ public class BroadcastHandler extends BroadcastReceiver
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
 
 			boolean bWakelock = sharedPrefs.getBoolean("wakelock_while_power_plugged", false);
+			boolean bWifilock = sharedPrefs.getBoolean("wifiock_while_power_plugged", false);
+			boolean bWifilockHighPerf = sharedPrefs.getBoolean("wifilock_high_perf_while_power_plugged", false);
+
+			
 			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 
 			if (bWakelock)
 			{
 				// get a wakelock
-				Globals.aquireWakelock(context);
+				Wakelock.acquireWakelock(context);
+			}
+			if (bWifilock)
+			{
+				// get a wakelock
+				Wakelock.acquireWifiLock(context);
+			}
+			if (bWifilockHighPerf)
+			{
+				// get a wakelock
+				Wakelock.acquireHighPerfWifiLock(context);
 			}
 			
         	Log.d(TAG, "Power was connected");

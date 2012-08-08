@@ -37,7 +37,7 @@ import android.util.Log;
  */
 public class SetWifiStateService extends Service
 {
-	private static final String TAG = "SetWifiStateService";
+	private static final String TAG = "BetterWifiOnOff.SetWifiStateService";
 	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
 	public static final String EXTRA_MESSAGE = "com.asksven.betterwifionoff.WifiStateMessage";
 	
@@ -164,11 +164,55 @@ public class SetWifiStateService extends Service
 	}
 	
 	/**
+	 * Adds an alarm to schedule a wakeup to retrieve the current location
+	 */
+	public static boolean scheduleRetryWifiOffAlarm(Context ctx)
+	{
+		Logger.i(TAG, "scheduleOffAlarm called");
+		
+		// cancel any exiting alarms
+		cancelWifiOffAlarm(ctx);
+
+		// create a new one starting to count NOW
+		Calendar cal = Calendar.getInstance();
+		
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    	String strInterval = prefs.getString("wifi_off_delay", "30");
+    	    	
+		int iInterval = 30;
+		try
+    	{
+			iInterval = Integer.valueOf(strInterval);
+    	}
+    	catch (Exception e)
+    	{
+    	}
+
+		EventWatcherService myService = EventWatcherService.getInstance();
+    	if (myService != null)
+    	{
+    		myService.getEventLogger().addStatusChangedEvent("A Wifilock was detected. Re-scheduling Wifi to be turned off in " + iInterval + " seconds");
+    	}
+
+		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
+
+		Intent intent = new Intent(ctx, WifiOffAlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_OFF,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		// Get the AlarmManager service
+		AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+		am.set(AlarmManager.RTC_WAKEUP, fireAt, sender);
+
+		return true;
+	}
+
+	/**
 	 * Cancels the current alarm (if existing)
 	 */
 	public static void cancelWifiOffAlarm(Context ctx)
 	{
-		Logger.i(TAG, "cancelAlarm");
 		// check if there is an intent pending
 		Intent intent = new Intent(ctx, WifiOffAlarmReceiver.class);
 
@@ -177,12 +221,6 @@ public class SetWifiStateService extends Service
 
 		if (sender != null)
 		{
-			EventWatcherService myService = EventWatcherService.getInstance();
-
-	    	if (myService != null)
-	    	{
-	    		myService.getEventLogger().addStatusChangedEvent("Canceling pending alarm wifi off when screen off");
-	    	}
 
 	    	// Get the AlarmManager service
 			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
@@ -236,7 +274,6 @@ public class SetWifiStateService extends Service
 	 */
 	public static void cancelWifiConnectedAlarm(Context ctx)
 	{
-		Logger.i(TAG, "cancelWifiConnectedAlarm");
 		// check if there is an intent pending
 		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
 
@@ -245,12 +282,6 @@ public class SetWifiStateService extends Service
 
 		if (sender != null)
 		{
-			EventWatcherService myService = EventWatcherService.getInstance();
-
-	    	if (myService != null)
-	    	{
-	    		myService.getEventLogger().addStatusChangedEvent("Canceling pending alarm wifi off if not connected");
-	    	}
 
 			// Get the AlarmManager service
 			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);

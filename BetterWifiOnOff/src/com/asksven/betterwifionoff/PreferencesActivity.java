@@ -16,8 +16,11 @@
 
 package com.asksven.betterwifionoff;
 
+import com.asksven.android.common.wifi.WifiManagerProxy;
+import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
+
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -29,6 +32,7 @@ import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Activity for managing preferences using Android's preferences framework
@@ -87,6 +91,8 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
     {
+    	
+    	// handle wifi_on_when_screen_unlock and wifi_on_when_screen_on as a toggle
     	if (key.equals("wifi_on_when_screen_unlock"))
     	{
     		// if this value was just turned on make sure "wen_screen_off" gets unchecked
@@ -103,13 +109,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	    		}
     		}
     	}
-    	if (key.equals("wakelock_while_power_plugged"))
-    	{
-    		if (!prefs.getBoolean("wakelock_while_power_plugged", false))
-    		{
-    			// option was uncheck: make sure to release wakelock straicht away
-    		}
-    	}
+
     	if (key.equals("wifi_on_when_screen_on"))
     	{
     		if (prefs.getBoolean("wifi_on_when_screen_on", true))
@@ -121,10 +121,101 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	    	        editor.commit();
 	    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifi_on_when_screen_unlock");
 	    	        checkboxPref.setChecked(false);
-	    	        
-	
 	    		}
     		}
     	}
+
+    	// handle wifilock_while_power_plugged and wifilock_full_power_while_power_plugged as a toggle
+    	if (key.equals("wifilock_while_power_plugged"))
+    	{
+    		if (prefs.getBoolean("wifilock_while_power_plugged", true))
+    		{
+    			// turn off the other two
+    	        SharedPreferences.Editor editor = prefs.edit();
+    	        editor.putBoolean("wifilock_full_power_while_power_plugged", false);
+    	        editor.commit();
+    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifilock_full_power_while_power_plugged");
+    	        checkboxPref.setChecked(false);
+    		}
+    		
+    	}
+    	if (key.equals("wifilock_full_power_while_power_plugged"))
+    	{
+    		if (prefs.getBoolean("wifilock_full_power_while_power_plugged", true))
+    		{
+    			// turn off the other two
+    	        SharedPreferences.Editor editor = prefs.edit();
+    	        editor.putBoolean("wifilock_while_power_plugged", false);
+    	        editor.commit();
+    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifilock_while_power_plugged");
+    	        checkboxPref.setChecked(false);
+    		}
+    		
+    	}
+    	if (key.equals("wakelock_while_power_plugged"))
+    	{
+    		if (!prefs.getBoolean("wakelock_while_power_plugged", false))
+    		{
+    			// option was uncheck: make sure to release wakelock straight away
+    			Wakelock.releaseWakelock();
+    		}
+    		else
+    		{
+    			// if we are plugged to power apply
+    			if (ChargerUtil.isConnected(this))
+    			{
+    				Wakelock.acquireWakelock(this);
+    			}
+    		}
+    	}
+    	if (key.equals("wifilock_while_power_plugged"))
+    	{
+    		if (!prefs.getBoolean("wifilock_while_power_plugged", false))
+    		{
+    			// option was uncheck: make sure to release wakelock straight away
+    			Wakelock.releaseWifilock();
+    		}
+    		else
+    		{
+    			if (ChargerUtil.isConnected(this))
+    			{
+    				Wakelock.acquireWifiLock(this);
+    			}
+    		}
+
+    	}
+    	if (key.equals("wifilock_full_power_while_power_plugged"))
+    	{
+    		if (!prefs.getBoolean("wifilock_while_power_plugged", false))
+    		{
+    			// option was uncheck: make sure to release wakelock straight away
+    			Wakelock.releaseWifilock();
+    		}
+    		else
+    		{
+    			if (ChargerUtil.isConnected(this))
+    			{
+    				Wakelock.acquireHighPerfWifiLock(this);
+    			}
+    		}
+    	}
+
+//    	if (key.equals("wifilock"))
+//    	{
+//    		if (!prefs.getBoolean("wifilock", false))
+//    		{
+//    			// option was uncheck: make sure to release wakelock straight away
+//    			Wakelock.releaseWifilock();
+//    			Toast.makeText(this, WifiManagerProxy.getWifiLocks(this) + " Wifilocks detected using API", Toast.LENGTH_LONG).show();
+//    			
+//    		}
+//    		else
+//    		{
+//    			// get Wifilock
+//    			Wakelock.acquireWifiLock(this);
+//    			Toast.makeText(this, WifiManagerProxy.getWifiLocks(this) + " Wifilocks detected using API", Toast.LENGTH_LONG).show();
+//    		}
+//    	}
+
     }
 }
