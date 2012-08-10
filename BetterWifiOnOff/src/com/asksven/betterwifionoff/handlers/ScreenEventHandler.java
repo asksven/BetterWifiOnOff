@@ -139,6 +139,12 @@ public class ScreenEventHandler extends BroadcastReceiver
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
+			// make sure to cancel pendng alarms that may still be running from a previous screen off event
+			if (bProcess)
+			{
+				SetWifiStateService.cancelWifiOffAlarm(context);
+			}
+			
 			if (WifiControl.isWifiConnected(context))
 			{
 	        	if (myService != null)
@@ -180,9 +186,11 @@ public class ScreenEventHandler extends BroadcastReceiver
         	}
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
-			
+
+			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			if (bProcess)
-			{				
+			{
+				SetWifiStateService.cancelWifiOffAlarm(context);
 				// start service to turn off wifi
 				wifiOn(context);
 			}
