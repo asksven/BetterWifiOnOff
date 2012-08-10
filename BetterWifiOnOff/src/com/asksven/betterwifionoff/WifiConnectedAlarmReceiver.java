@@ -20,6 +20,8 @@ package com.asksven.betterwifionoff;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.asksven.betterwifionoff.services.SetWifiStateService;
@@ -32,7 +34,7 @@ import com.asksven.betterwifionoff.utils.WifiControl;
  */
 public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 {		 
-	private static String TAG = "WifiConnectedAlarmReceiver";
+	private static String TAG = "BetterWifiOnOff.WifiConnectedAlarmReceiver";
 	
 	@Override
 	public void onReceive(Context context, Intent intent)
@@ -55,7 +57,32 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 			}
 			else
 			{
-				Log.d(TAG, "Connection active: leaving Wifi on");
+				// check if the SSID needs to be checked against whitelist
+				SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+				boolean bCheckWhiteList 	= sharedPrefs.getBoolean("wifi_on_if_whitelisted", false);
+				
+				if (bCheckWhiteList)
+				{
+					String whitelist = sharedPrefs.getString("wifi_whitelist", "");
+					if (!WifiControl.isWhitelistedWifiConnected(context, whitelist))
+					{
+						Log.d(TAG, "Access point is not whitelisted: turning Wifi off");
+
+
+						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Connected Wifi accesspoint is not in whitelist. Turning off Wifi");
+						context.startService(serviceIntent);	
+					}
+					else
+					{
+						Log.d(TAG, "Access Point wihtelisted: leaving Wifi on");
+					}
+				}
+				else
+				{
+					Log.d(TAG, "Connection active: leaving Wifi on");
+				}
 			}
 		}
 		catch (Exception e)

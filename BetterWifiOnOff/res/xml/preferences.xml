@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<!--     <CheckBoxPreference -->
-<!--         android:defaultValue="false" -->
-<!--         android:enabled="false" -->
-<!--         android:key="disable_control" -->
-<!--         android:summary="@string/pref_disable_control_summary" -->
-<!--         android:title="@string/pref_disable_control_title" /> -->
+    <!-- <CheckBoxPreference -->
+    <!-- android:defaultValue="false" -->
+    <!-- android:enabled="false" -->
+    <!-- android:key="disable_control" -->
+    <!-- android:summary="@string/pref_disable_control_summary" -->
+    <!-- android:title="@string/pref_disable_control_title" /> -->
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
@@ -20,13 +20,13 @@
         android:summary="@string/pref_foreground_service_summary"
         android:title="@string/pref_foreground_service_title" />
 
-<!--     <CheckBoxPreference -->
-<!--         android:defaultValue="false" -->
-<!--         android:enabled="true" -->
-<!--         android:key="wifilock" -->
-<!--         android:summary="@string/pref_wifilock_summary" -->
-<!--         android:title="@string/pref_wifilock_title" /> -->
-    
+    <!-- <CheckBoxPreference -->
+    <!-- android:defaultValue="false" -->
+    <!-- android:enabled="true" -->
+    <!-- android:key="wifilock" -->
+    <!-- android:summary="@string/pref_wifilock_summary" -->
+    <!-- android:title="@string/pref_wifilock_title" /> -->
+
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
             android:defaultValue="true"
@@ -46,8 +46,7 @@
             android:key="wifi_on_when_power_plug"
             android:summary="@string/pref_wifi_on_when_power_plug_summary"
             android:title="@string/pref_wifi_on_when_power_plug_title" />
-        
-	</PreferenceCategory>        
+    </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on" >
         <CheckBoxPreference
             android:defaultValue="true"
@@ -55,7 +54,6 @@
             android:key="wifi_on_when_screen_off_but_power_plugged"
             android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
             android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
-        
         <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
@@ -70,31 +68,37 @@
             android:key="wifi_connected_delay"
             android:summary="@string/pref_wifi_connected_delay_summary"
             android:title="@string/pref_wifi_connected_delay_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_whitelisted"
+            android:summary="@string/pref_wifi_on_if_whitelisted_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
         
-	</PreferenceCategory>
-	
-    <PreferenceCategory android:title="@string/pref_category_rules_plugged" >    
+        <EditTextPreference
+            android:key="wifi_whitelist"
+            android:summary="@string/pref_wifi_whitelist_summary"
+            android:title="@string/pref_wifi_whitelist_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_plugged" >
         <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="true"
             android:key="wakelock_while_power_plugged"
             android:summary="@string/pref_wakelock_while_power_plugged_summary"
             android:title="@string/pref_wakelock_while_power_plugged_title" />
-
-       <CheckBoxPreference
+        <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="true"
             android:key="wifilock_while_power_plugged"
             android:summary="@string/pref_wifilock_while_power_plugged_summary"
             android:title="@string/pref_wifilock_while_power_plugged_title" />
-       
-       <CheckBoxPreference
+        <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="true"
             android:key="wifilock_high_perf_while_power_plugged"
             android:summary="@string/pref_wifilock_high_perf_while_power_plugged_summary"
             android:title="@string/pref_wifilock_high_perf_while_power_plugged_title" />
-       
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_off" >
         <CheckBoxPreference
@@ -109,13 +113,12 @@
             android:key="wifi_off_when_screen_off"
             android:summary="@string/wifi_off_when_screen_off_summary"
             android:title="@string/wifi_off_when_screen_off_title" />
-<!--         <CheckBoxPreference -->
-<!--             android:defaultValue="false" -->
-<!--             android:enabled="true" -->
-<!--             android:key="wifi_on_when_screen_off_but_wifilock" -->
-<!--             android:summary="@string/pref_wifi_on_when_screen_off_but_wifilock_summary" -->
-<!--             android:title="@string/pref_wifi_on_when_screen_off_but_wifilock_title" /> -->
-        
+        <!-- <CheckBoxPreference -->
+        <!-- android:defaultValue="false" -->
+        <!-- android:enabled="true" -->
+        <!-- android:key="wifi_on_when_screen_off_but_wifilock" -->
+        <!-- android:summary="@string/pref_wifi_on_when_screen_off_but_wifilock_summary" -->
+        <!-- android:title="@string/pref_wifi_on_when_screen_off_but_wifilock_title" /> -->
 
         <ListPreference
             android:defaultValue="30"
