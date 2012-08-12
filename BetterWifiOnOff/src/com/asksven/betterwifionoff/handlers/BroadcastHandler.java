@@ -67,24 +67,24 @@ public class BroadcastHandler extends BroadcastReceiver
 			PluggedWakelock.releaseWakelock();
 			PluggedWakelock.releaseWifilock();
 
-			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
+//			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 			
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
-	        	if (myService != null)
-	        	{
-	        		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
-	        	}
+//	        	if (myService != null)
+//	        	{
+//	        		myService.getEventLogger().addSystemEvent("Disabled: do nothing");
+//	        	}
 
 				Log.i(TAG, "Wifi handling is disabled: do nothing");
 				return;
 			}
 
-        	if (myService != null)
-        	{
-        		myService.getEventLogger().addSystemEvent("Power was disconnected");
-        	}
+//        	if (myService != null)
+//        	{
+//        		myService.getEventLogger().addSystemEvent("Power was disconnected");
+//        	}
 
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
@@ -106,19 +106,19 @@ public class BroadcastHandler extends BroadcastReceiver
 				if (delay > 0)
 				{
 					SetWifiStateService.scheduleWifiOffAlarm(context);
-		        	if (myService != null)
-		        	{
-		        		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off in " + delay + " seconds");
-		        	}
+//		        	if (myService != null)
+//		        	{
+//		        		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off in " + delay + " seconds");
+//		        	}
 
 				}
 				else
 				{	
 					// start service to turn off wifi
-		        	if (myService != null)
-		        	{
-		        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi immediately");
-		        	}
+//		        	if (myService != null)
+//		        	{
+//		        		myService.getEventLogger().addStatusChangedEvent("Turning off Wifi immediately");
+//		        	}
 
 					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
