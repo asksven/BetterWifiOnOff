@@ -132,16 +132,16 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		{
     			// turn off the other two
     	        SharedPreferences.Editor editor = prefs.edit();
-    	        editor.putBoolean("wifilock_full_power_while_power_plugged", false);
+    	        editor.putBoolean("wifilock_high_perf_while_power_plugged", false);
     	        editor.commit();
-    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifilock_full_power_while_power_plugged");
+    	        CheckBoxPreference checkboxPref = (CheckBoxPreference) getPreferenceManager().findPreference("wifilock_high_perf_while_power_plugged");
     	        checkboxPref.setChecked(false);
     		}
     		
     	}
-    	if (key.equals("wifilock_full_power_while_power_plugged"))
+    	if (key.equals("wifilock_high_perf_while_power_plugged"))
     	{
-    		if (prefs.getBoolean("wifilock_full_power_while_power_plugged", true))
+    		if (prefs.getBoolean("wifilock_high_perf_while_power_plugged", true))
     		{
     			// turn off the other two
     	        SharedPreferences.Editor editor = prefs.edit();
@@ -184,7 +184,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		}
 
     	}
-    	if (key.equals("wifilock_full_power_while_power_plugged"))
+    	if (key.equals("wifilock_high_perf_while_power_plugged"))
     	{
     		if (!prefs.getBoolean("wifilock_while_power_plugged", false))
     		{
