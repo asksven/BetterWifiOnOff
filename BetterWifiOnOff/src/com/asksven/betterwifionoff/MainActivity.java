@@ -318,18 +318,25 @@ public class MainActivity extends ListActivity
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("disable_control", m_checkboxDisabled.isChecked());
-        editor.putBoolean("wfilock", m_checkboxWifilock.isChecked());
-        editor.putBoolean("highperf_wifilock", m_checkboxHighPerfWifilock.isChecked());
+		boolean disabled 	= m_checkboxDisabled.isChecked();
+		boolean wifilock 	= m_checkboxWifilock.isChecked();
+		boolean hpWifilock = m_checkboxHighPerfWifilock.isChecked();
+        editor.putBoolean("disable_control", disabled);
+        editor.putBoolean("wifilock", wifilock);
+        editor.putBoolean("highperf_wifilock", hpWifilock);
         editor.commit();
 	}
 
 	void readPrefs()
 	{
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        m_checkboxDisabled.setChecked(prefs.getBoolean("disable_control", false));
-        m_checkboxWifilock.setChecked(prefs.getBoolean("wifilock", false));
-        m_checkboxHighPerfWifilock.setChecked(prefs.getBoolean("highperf_wifilock", false));
+		boolean disabled 	= prefs.getBoolean("disable_control", false);
+		boolean wifilock 	= prefs.getBoolean("wifilock", false);
+		boolean hpWifilock = prefs.getBoolean("highperf_wifilock", false);
+
+        m_checkboxDisabled.setChecked(disabled);
+        m_checkboxWifilock.setChecked(wifilock);
+        m_checkboxHighPerfWifilock.setChecked(hpWifilock);
 	}
 	
 
