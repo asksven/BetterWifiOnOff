@@ -17,11 +17,13 @@
 package com.asksven.betterwifionoff;
 
 import com.asksven.android.common.wifi.WifiManagerProxy;
+import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.asksven.betterwifionoff.utils.Logger;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -200,6 +202,14 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     		}
     	}
 
+    	if (key.equals("wifi_whitelist"))
+    	{
+    		if (prefs.getBoolean("wifi_on_if_whitelisted", false))
+    		{
+    			// whitelist has changed, retest if connection should be kept active
+    			SetWifiStateService.scheduleWifiConnectedAlarm(PreferencesActivity.this);
+    		}
+    	}
 //    	if (key.equals("wifilock"))
 //    	{
 //    		if (!prefs.getBoolean("wifilock", false))
