@@ -19,11 +19,16 @@ package com.asksven.betterwifionoff;
 
 import com.asksven.android.common.wifi.WifiManagerProxy;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+
+import android.annotation.TargetApi;
+import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.preference.PreferenceManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 /**
@@ -35,12 +40,45 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 {		 
 	private static String TAG = "BetterWifiOnOff.WifiOffAlarmReceiver";
 	
+	
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
 		Log.d(TAG, "Alarm received: preparing to turn Wifi off");
 		try
 		{
+			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			boolean bProcess = prefs.getBoolean("wifi_on_if_in_call", false);
+			if (bProcess)
+			{
+				Log.d(TAG, "Checking if in call");
+				TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+			    if ((telephony.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK)
+			                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
+			    {
+			    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+			    }
+			}
+
+			bProcess = prefs.getBoolean("wifi_on_if_downloading", false);
+			
+			if (bProcess)
+			{
+				Log.d(TAG, "Checking if downloads are active or pending");
+
+				// are download going on?
+				if (isDownloading(context))
+				{
+			    	Log.w(TAG, "Downloads are running or pending,  leave wifi on");
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+				}
+					
+			}
+//			boolean bHasWifilock = WifiManagerProxy.hasWifiLock(context);
+
 			// see if we want to respect Wifilocks
 //			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 //			boolean bProcess = prefs.getBoolean("wifi_on_when_screen_off_but_wifilock", false);
@@ -86,5 +124,28 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		{
 			Log.e(TAG, "An error occured receiving the alarm");
 		}
+	}
+	
+	@TargetApi(9)
+	boolean isDownloading(Context context)
+	{
+		DownloadManager dl = (DownloadManager) context
+				.getSystemService(Context.DOWNLOAD_SERVICE);
+		Cursor query = dl.query(new DownloadManager.Query()
+				.setFilterByStatus(DownloadManager.STATUS_PENDING
+						| DownloadManager.STATUS_RUNNING));
+		
+		// are download going on?
+		if (query.getCount() > 0)
+		{
+	    	Log.w(TAG, "Downloads are running or pending,  leave wifi on");
+	    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+	    	return true;
+		}
+		else
+		{
+			return false;
+		}
+		 
 	}
 }

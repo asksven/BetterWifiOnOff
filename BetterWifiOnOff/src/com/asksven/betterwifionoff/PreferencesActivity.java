@@ -29,6 +29,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
@@ -60,6 +61,18 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.preferences);
 		
+		// disable preferences depending on SDK
+		 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD)
+		 {
+			 try
+			 {
+				 findPreference("wifi_on_if_downloading").setEnabled(false);
+			 }
+			 catch (Exception e)
+			 {
+				 Log.e(TAG, "An error occured disabling the preferences");
+			 }
+		 }
 		// disable all LocationListener prefs in free version
 		if (!Configuration.isFullVersion(this))
 		{
