@@ -24,7 +24,7 @@
     <string name="pref_category_notification">Notifications</string>
     <string name="pref_category_service_settings">Service Settings</string>
     <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
-    <string name="pref_foreground_service_title">Run as foreground service</string>
+    <string name="pref_foreground_service_title">Run as foreground service (if unchecked Service will start when the App is first opened)</string>
     <string name="wifi_off_when_power_ununplug_title">Off when unplugged</string>
     <string name="wifi_off_when_power_ununplug_summary">Turn Wifi off when unplugged from charger</string>
     <string name="wifi_off_when_screen_off_title">Off when screen off</string>
@@ -74,4 +74,9 @@
     <string name="pref_wifi_whitelist_summary">Comma separated list of whitelisted SSIDs</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Stay connected only if a whitelisted SSID </string>
     <string name="pref_wifi_on_if_whitelisted_title">Use only whitelisted SSIDs</string>
+    <string name="pref_wifi_on_if_in_call_title">Leave on if in Call</string>
+    <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on of screen goes off while a call is ongoing</string>
+    <string name="pref_wifi_on_if_downloading_title">Leave on if Downloading</string>
+    <string name="pref_wifi_on_if_downloading_summary">Leave on as long as pending or active downloads are running</string>
+    
 </resources>
