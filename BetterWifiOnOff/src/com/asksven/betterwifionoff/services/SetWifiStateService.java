@@ -16,6 +16,8 @@
 package com.asksven.betterwifionoff.services;
 
 import java.util.Calendar;
+
+import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.utils.Logger;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
 import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
@@ -57,11 +59,7 @@ public class SetWifiStateService extends Service
 		
 		if ((message != null) && !message.equals(""))
 		{
-			EventWatcherService myService = EventWatcherService.getInstance();
-	    	if (myService != null)
-	    	{
-	    		myService.getEventLogger().addStatusChangedEvent(message);
-	    	}
+			EventBroadcaster.sendStatusEvent(this, message);
 		}
 		try
 		{	
@@ -129,8 +127,6 @@ public class SetWifiStateService extends Service
 		cancelWifiOffAlarm(ctx);
 
 		// create a new one starting to count NOW
-		Calendar cal = Calendar.getInstance();
-		
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     	String strInterval = prefs.getString("wifi_off_delay", "30");
     	    	
@@ -143,11 +139,7 @@ public class SetWifiStateService extends Service
     	{
     	}
 
-		EventWatcherService myService = EventWatcherService.getInstance();
-    	if (myService != null)
-    	{
-    		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off in " + iInterval + " seconds");
-    	}
+		EventBroadcaster.sendStatusEvent(ctx, "Scheduling Wifi to be turned off in " + iInterval + " seconds");
 
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
@@ -174,7 +166,6 @@ public class SetWifiStateService extends Service
 		cancelWifiOffAlarm(ctx);
 
 		// create a new one starting to count NOW
-		Calendar cal = Calendar.getInstance();
 		
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     	String strInterval = prefs.getString("wifi_off_delay", "30");
@@ -188,12 +179,8 @@ public class SetWifiStateService extends Service
     	{
     	}
 
-		EventWatcherService myService = EventWatcherService.getInstance();
-    	if (myService != null)
-    	{
-    		myService.getEventLogger().addStatusChangedEvent("A Wifilock was detected. Re-scheduling Wifi to be turned off in " + iInterval + " seconds");
-    	}
-
+		EventBroadcaster.sendStatusEvent(ctx, "A Wifilock was detected. Re-scheduling Wifi to be turned off in " + iInterval + " seconds");
+		
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
 		Intent intent = new Intent(ctx, WifiOffAlarmReceiver.class);
@@ -236,7 +223,6 @@ public class SetWifiStateService extends Service
 		Logger.i(TAG, "scheduleWifiConnectedAlarm called");
 		
 		// create a new one starting to count NOW
-		Calendar cal = Calendar.getInstance();
 		
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
     	String strInterval = prefs.getString("wifi_connected_delay", "30");
@@ -249,12 +235,8 @@ public class SetWifiStateService extends Service
     	catch (Exception e)
     	{
     	}
-		EventWatcherService myService = EventWatcherService.getInstance();
-    	if (myService != null)
-    	{
-    		myService.getEventLogger().addStatusChangedEvent("Scheduling Wifi to be turned off if not connected in " + iInterval + " seconds");
-    	}
-
+		
+		EventBroadcaster.sendStatusEvent(ctx, "Scheduling Wifi to be turned off if not connected in " + iInterval + " seconds");
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
 		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);

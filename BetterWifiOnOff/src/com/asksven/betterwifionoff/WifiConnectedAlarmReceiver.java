@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -48,7 +49,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 			if (!WifiControl.isWifiConnected(context))
 			{
 				Log.d(TAG, "No connection: turning Wifi off");
-
+				EventBroadcaster.sendStatusEvent(context, "No connection: turning Wifi off");
 
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -67,7 +68,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					if (!WifiControl.isWhitelistedWifiConnected(context, whitelist))
 					{
 						Log.d(TAG, "Access point is not whitelisted: turning Wifi off");
-
+						EventBroadcaster.sendStatusEvent(context, "Access point is not whitelisted: turning Wifi off"); 
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -77,11 +78,13 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					else
 					{
 						Log.d(TAG, "Access Point wihtelisted: leaving Wifi on");
+						EventBroadcaster.sendStatusEvent(context, "Access Point wihtelisted: leaving Wifi on"); 
 					}
 				}
 				else
 				{
 					Log.d(TAG, "Connection active: leaving Wifi on");
+					EventBroadcaster.sendStatusEvent(context, "Connection active: leaving Wifi on");
 				}
 			}
 		}

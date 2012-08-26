@@ -84,8 +84,6 @@ public class WifiControl
 		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 		
-//		return (networkInfo != null && networkInfo.isConnected());
-	
 		if (networkInfo != null && networkInfo.isConnected())
 		{
 			Log.d(TAG, "A connection was detected, testing if an IP was assigned");

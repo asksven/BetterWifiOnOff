@@ -17,7 +17,10 @@ package com.asksven.betterwifionoff;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import android.widget.TextView;
 
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.data.Event;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.utils.Configuration;
@@ -49,12 +53,18 @@ public class MainActivity extends ListActivity
 
 	public static final String MARKET_LINK ="market://details?id=com.asksven.betterwifionoff";
     public static final String TWITTER_LINK ="https://twitter.com/#!/asksven";
+
+    public static final String BROADCAST_ACTION = "com.asksven.betterwifionoff.displayevent";
+
     
 	private EventAdapter m_listViewAdapter;
     CheckBox m_checkboxDisabled;
     CheckBox m_checkboxWifilock;
     CheckBox m_checkboxHighPerfWifilock;
     OnClickListener m_checkBoxListener;
+    private Intent broadcastIntent;
+    
+    
 
 	
 	/**
@@ -69,7 +79,7 @@ public class MainActivity extends ListActivity
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
-	
+		
 	    m_checkboxDisabled 			= (CheckBox) findViewById(R.id.checkBoxDisable);
 	    m_checkboxWifilock 			= (CheckBox) findViewById(R.id.checkBoxWifilock);
 	    m_checkboxHighPerfWifilock 	= (CheckBox) findViewById(R.id.checkBoxHighPerfWifilock);
@@ -199,7 +209,9 @@ public class MainActivity extends ListActivity
 
   	}
 
-    /**
+
+
+	/**
      * Save state, the application is going to get moved out of memory
      * @see http://stackoverflow.com/questions/151777/how-do-i-save-an-android-applications-state
      */
@@ -338,47 +350,4 @@ public class MainActivity extends ListActivity
         m_checkboxWifilock.setChecked(wifilock);
         m_checkboxHighPerfWifilock.setChecked(hpWifilock);
 	}
-	
-
-//    public void onSharedPreferenceChanged(SharedPreferences prefs, String key)
-//    {
-//    	if (key.equals("disable_control"))
-//    	{
-//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
-//    		if (prefs.getBoolean("disable_control", false))
-//    	
-//    	        SharedPreferences.Editor editor = prefs.edit();
-//    	        editor.putBoolean("disable_control", true);
-//    	        editor.commit();
-//    		}
-//    		else
-//    		{
-//    	        SharedPreferences.Editor editor = prefs.edit();
-//    	        editor.putBoolean("disable_control", false);
-//    	        editor.commit();
-//
-//    		}
-//    	}
-//    	
-//    	if (key.equals("wifilock"))
-//    	{
-//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
-//    		if (prefs.getBoolean("wifilock", false))
-//    		{
-//    		}
-//    		else
-//    		{
-//    		}
-//    	}
-//    	if (key.equals("highperf_wifilock"))
-//    	{
-//    		// if this value was just turned on make sure "wen_screen_off" gets unchecked
-//    		if (prefs.getBoolean("highperf_wifilock", false))
-//    		{
-//    		}
-//    		else
-//    		{	
-//    		}
-//    	}
-//    }
 }

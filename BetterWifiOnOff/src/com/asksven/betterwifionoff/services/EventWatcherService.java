@@ -19,6 +19,7 @@ import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.WifiLock;
+import com.asksven.betterwifionoff.data.Event;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.handlers.ConnectionStatusHandler;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
@@ -35,16 +36,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 
 /**
  * @author sven
@@ -56,10 +53,7 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 	static final String TAG = "BetterWifiOnOff.EventWatcherService";
 	public static String SERVICE_NAME = "com.asksven.betterwifionoff.services.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
-	private WakeLock m_wakelock = null;
 	
-	private static EventWatcherService m_instance = null;
-
 	private EventLogger m_events;
 	ScreenEventHandler m_screenEventReceiver = null;
 	ConnectionStatusHandler m_connectionEventReceiver = null;
@@ -70,6 +64,15 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 	// RemoteService for a more complete example.
 	private final IBinder mBinder = new LocalBinder();
 
+	private BroadcastReceiver m_broadcastReceiver = new BroadcastReceiver()
+	{
+        @Override
+        public void onReceive(Context context, Intent intent)
+        {
+        	updateLog(intent);       
+        }
+    };
+    
 	/**
 	 * Class for clients to access. Because we know this service always runs in
 	 * the same process as its clients, we don't need to deal with IPC.
@@ -82,6 +85,8 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 			return EventWatcherService.this;
 		}
 	}
+	
+	
 
 	@Override
 	public IBinder onBind(Intent intent)
@@ -110,7 +115,6 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 		registerReceiver(m_connectionEventReceiver, intentFilter);
 
 		m_events = new EventLogger(this);
-		m_instance = this;
 		
         // Set up a listener whenever a key changes
     	PreferenceManager.getDefaultSharedPreferences(this)
@@ -129,13 +133,14 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
         	WifiLock.acquireWifiLock(this);
         }
         
-
+        registerReceiver(m_broadcastReceiver, new IntentFilter(MainActivity.BROADCAST_ACTION));
+    	
 	}
 
-	static EventWatcherService getInstance()
-	{
-		return m_instance;
-	}
+//	private static EventWatcherService getInstance()
+//	{
+//		return m_instance;
+//	}
 
 	public EventLogger getEventLogger()
 	{
@@ -207,6 +212,7 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 		{
 			unregisterReceiver(m_screenEventReceiver);
 			unregisterReceiver(m_connectionEventReceiver);
+			unregisterReceiver(m_broadcastReceiver);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -292,6 +298,30 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 			startService(i);
 		}
 
+	}
+    /**
+	 * @param intent
+	 */
+	protected void updateLog(Intent intent)
+	{
+		int type = intent.getIntExtra("type", 0);
+		String event = intent.getStringExtra("event"); 
+		
+		switch (type)
+		{
+			case Event.STATUS_CHANGE:
+				this.getEventLogger().addStatusChangedEvent(event);
+				break;
+			case Event.SYSTEM_EVENT:
+				this.getEventLogger().addSystemEvent(event);
+				break;
+			case Event.USER_INTERACTION:
+				this.getEventLogger().addUserEvent(event);
+				break;
+			default:
+				this.getEventLogger().addUserEvent(event);
+				break;	
+		}
 	}
 	
 

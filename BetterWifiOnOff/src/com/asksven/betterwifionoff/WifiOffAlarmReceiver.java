@@ -17,7 +17,7 @@
 
 package com.asksven.betterwifionoff;
 
-import com.asksven.android.common.wifi.WifiManagerProxy;
+import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 
 import android.annotation.TargetApi;
@@ -45,6 +45,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		Log.d(TAG, "Alarm received: preparing to turn Wifi off");
+		EventBroadcaster.sendStatusEvent(context, "Alarm received: preparing to turn Wifi off");
 		try
 		{
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -57,6 +58,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
 			    {
 			    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, "Phone is ringing or in a phone call, leave wifi on");
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 			    }
@@ -72,47 +74,12 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				if (isDownloading(context))
 				{
 			    	Log.w(TAG, "Downloads are running or pending,  leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, "Downloads are running or pending,  leave wifi on");
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 					
 			}
-//			boolean bHasWifilock = WifiManagerProxy.hasWifiLock(context);
-
-			// see if we want to respect Wifilocks
-//			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-//			boolean bProcess = prefs.getBoolean("wifi_on_when_screen_off_but_wifilock", false);
-//			if (bProcess)
-//			{
-//				Log.d(TAG, "Checking if Wifilock is present as preferences are set to respect Wifilocks");
-//			}
-//			else
-//			{
-//				Log.d(TAG, "Wifilock will not be respected");	
-//			}
-//			
-//			boolean bHasWifilock = WifiManagerProxy.hasWifiLock(context);
-//			Log.d(TAG, "BetterWifiOnOff Wifilock state: " + Wakelock.holdsWifiLock());
-//			
-//			if (bHasWifilock)
-//			{
-//				Log.d(TAG, "A Wifilock was detected");
-//			}
-//			else
-//			{
-//				Log.d(TAG, "No Wifilock was detected");
-//			}
-//			
-//			
-//			
-//			
-//			if (bProcess && bHasWifilock)
-//			{
-//				Log.d(TAG, "A Wifilock is help: rescheduling Wifi off");
-//				SetWifiStateService.scheduleRetryWifiOffAlarm(context);
-//			}
-//			else
-//			{
 				// start service to turn off wifi
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -122,6 +89,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		}
 		catch (Exception e)
 		{
+			EventBroadcaster.sendErrorEvent(context, "An error occured receiving the alarm: " + e.getMessage());
 			Log.e(TAG, "An error occured receiving the alarm");
 		}
 	}
@@ -138,12 +106,13 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		// are download going on?
 		if (query.getCount() > 0)
 		{
-	    	Log.w(TAG, "Downloads are running or pending,  leave wifi on");
+	    	Log.i(TAG, query.getCount() + " downloads are running or pending");
 	    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 	    	return true;
 		}
 		else
 		{
+			Log.i(TAG, query.getCount() + " downloads are running or pending");
 			return false;
 		}
 		 
