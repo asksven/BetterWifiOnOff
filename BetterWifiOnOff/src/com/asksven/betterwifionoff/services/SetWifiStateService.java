@@ -92,10 +92,10 @@ public class SetWifiStateService extends Service
 		    	}
 				
 				
-				if (delay > 0)
-				{
-					SetWifiStateService.scheduleWifiConnectedAlarm(this);
-				}
+//				if (delay > 0)
+//				{
+				SetWifiStateService.scheduleWifiConnectedAlarm(this);
+//				}
 			}
 		}
 		catch (Exception e)
