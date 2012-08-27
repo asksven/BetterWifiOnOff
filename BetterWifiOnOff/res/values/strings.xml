@@ -45,6 +45,8 @@
     <string name="pref_wifi_connected_delay_title">Connection timeout</string>
     <string name="pref_wifi_on_if_connected_summary">Leave Wifi on only if a connection could be established (has a non zero IP address)</string>
     <string name="pref_wifi_on_if_connected_title">Leave on only if connected</string>
+    <string name="pref_check_for_cage_title">If connected check for cage</string>
+    <string name="pref_check_for_cage_summary">Try to access Google DNS to make sure we are not trapped behind a hotspot requiring authentication</string>
     <string name="menu_clear_events">Clear Event Log</string>
     <string name="menu_refresh_events">Refresh Event Log</string>
     <string name="pref_category_events">On-Screen Event Logging</string>
@@ -78,5 +80,4 @@
     <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on of screen goes off while a call is ongoing</string>
     <string name="pref_wifi_on_if_downloading_title">Leave on if Downloading</string>
     <string name="pref_wifi_on_if_downloading_summary">Leave on as long as pending or active downloads are running (available starting from Gingerbread)</string>
-    
 </resources>

@@ -62,6 +62,13 @@
             android:title="@string/pref_wifi_on_if_connected_title" />
 
         <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="check_for_cage"
+            android:summary="@string/pref_check_for_cage_summary"
+            android:title="@string/pref_check_for_cage_title" />
+        
+        <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
             android:key="wifi_on_if_in_call"

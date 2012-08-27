@@ -55,6 +55,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "No Wifi connection could be established. Turning off Wifi");
 				context.startService(serviceIntent);
+				return;
 			}
 			else
 			{
@@ -73,7 +74,8 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Connected Wifi accesspoint is not in whitelist. Turning off Wifi");
-						context.startService(serviceIntent);	
+						context.startService(serviceIntent);
+						return;
 					}
 					else
 					{
@@ -86,6 +88,29 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					Log.d(TAG, "Connection active: leaving Wifi on");
 					EventBroadcaster.sendStatusEvent(context, "Connection active: leaving Wifi on");
 				}
+				
+				boolean bCheckCage 	= sharedPrefs.getBoolean("cgeck_for_cage", false);
+				if (bCheckCage)
+				{
+					if (WifiControl.isWifiCaged(context))
+					{
+						Log.d(TAG, "Access point is caged: turning Wifi off");
+						EventBroadcaster.sendStatusEvent(context, "Access point is not whitelisted: turning Wifi off"); 
+
+						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Detected caged connection. Turning off Wifi");
+						context.startService(serviceIntent);
+						return;
+					}
+					else
+					{
+						Log.d(TAG, "Connection not caged: leaving Wifi on");
+						EventBroadcaster.sendStatusEvent(context, "Connection not caged: leaving Wifi on");
+						
+					}
+				}
+
 			}
 		}
 		catch (Exception e)
