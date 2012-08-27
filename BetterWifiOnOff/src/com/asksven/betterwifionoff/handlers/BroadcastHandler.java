@@ -119,7 +119,6 @@ public class BroadcastHandler extends BroadcastReceiver
 		{
 			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
 			
-			EventWatcherService myService = EventWatcherServiceBinder.getInstance(context).getService();
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
