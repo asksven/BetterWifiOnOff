@@ -111,7 +111,26 @@ public class WifiControl
 			return false;
 		}
 	}
-	
+
+	/**
+	 * Returns true if a Wifi connection is established but google DNS could not be reached 
+	 * @param ctx a Context
+	 * @return true if a Wifi connection is established but caged
+	 */
+	public static final boolean isWifiCaged(Context ctx)
+	{
+		if (!isWifiConnected(ctx))
+		{
+			return false;
+		}
+		
+		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+		// google DNS
+		int ip = 8 << 24 + 8 << 16 + 4 << 8 + 4;  
+
+		return (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+	}
+
 	/**
 	 * Return true if the connected access point is in the given whitelist
 	 * @param ctx a Context
@@ -166,6 +185,22 @@ public class WifiControl
 		return myList;
 	}
 
+	/**
+	 * Returns the speed of the current Wifi connection
+	 * @param ctx a Context
+	 * @return the speed in Mbps
+	 */
+	public static final int getConnectionSpeed(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		WifiInfo info = wifiManager.getConnectionInfo();
+		int speed = info.getLinkSpeed();
+		Log.d(TAG, "Connection speed: " + speed);
+		
+		return speed;
+	}
+	
+	// alternative: parse /proc/net/xt_qtaguid/iface_stat_all (entry wlan0) at two times and determine the rate 
 	
 
 }

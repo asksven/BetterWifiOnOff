@@ -19,6 +19,7 @@ package com.asksven.betterwifionoff;
 
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
@@ -80,11 +81,28 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				}
 					
 			}
-				// start service to turn off wifi
-				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-				serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Timeout to turn Wifi off reached, turning Wifi off");
-				context.startService(serviceIntent);
+			
+			bProcess = prefs.getBoolean("wifi_on_if_activity", false);
+			
+			if (bProcess)
+			{
+				Log.d(TAG, "Checking if there is network activity");
+
+				// is there any network activity?
+				if (WifiControl.getConnectionSpeed(context) > 0)
+				{
+			    	Log.w(TAG, "Network activity detected,  leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, "Network activity detected,  leave wifi on");
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+				}
+			}
+
+			// start service to turn off wifi
+			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+			serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Timeout to turn Wifi off reached, turning Wifi off");
+			context.startService(serviceIntent);
 //			}
 		}
 		catch (Exception e)

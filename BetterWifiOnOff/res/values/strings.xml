@@ -79,5 +79,8 @@
     <string name="pref_wifi_on_if_in_call_title">Leave on if in Call</string>
     <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on of screen goes off while a call is ongoing</string>
     <string name="pref_wifi_on_if_downloading_title">Leave on if Downloading</string>
-    <string name="pref_wifi_on_if_downloading_summary">Leave on as long as pending or active downloads are running (available starting from Gingerbread)</string>
+    <string name="pref_wifi_on_if_downloading_summary">Leave on as long as Download Manager has pending or active downloads (available starting from Gingerbread)</string>
+    <string name="pref_wifi_on_if_activity_title">Leave on if network activity</string>
+    <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (download / upload)</string>
+    
 </resources>
