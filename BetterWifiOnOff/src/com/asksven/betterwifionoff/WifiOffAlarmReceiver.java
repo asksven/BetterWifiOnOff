@@ -65,23 +65,6 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			    }
 			}
 
-			bProcess = prefs.getBoolean("wifi_on_if_downloading", false);
-			
-			if (bProcess)
-			{
-				Log.d(TAG, "Checking if downloads are active or pending");
-
-				// are download going on?
-				if (isDownloading(context))
-				{
-			    	Log.w(TAG, "Downloads are running or pending,  leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, "Downloads are running or pending,  leave wifi on");
-			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
-			    	return;
-				}
-					
-			}
-			
 			bProcess = prefs.getBoolean("wifi_on_if_activity", false);
 			
 			if (bProcess)
@@ -89,12 +72,16 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				Log.d(TAG, "Checking if there is network activity");
 
 				// is there any network activity?
-				if (WifiControl.getConnectionSpeed(context) > 0)
-				{
-			    	Log.w(TAG, "Network activity detected,  leave wifi on");
+				if (WifiControl.isTransferring() || isDownloading(context))				{
+			    	Log.i(TAG, "Network activity detected,  leave wifi on");
 			    	EventBroadcaster.sendStatusEvent(context, "Network activity detected,  leave wifi on");
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
+				}
+				else
+				{
+					Log.i(TAG, "No network activity detected");
+					EventBroadcaster.sendStatusEvent(context, "No network activity detected,  turining wifi off");
 				}
 			}
 

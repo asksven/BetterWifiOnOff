@@ -85,18 +85,18 @@ public class ScreenEventHandler extends BroadcastReceiver
 					
 //					if (delay > 0)
 //					{
-//						SetWifiStateService.scheduleWifiOffAlarm(context);
+					SetWifiStateService.scheduleWifiOffAlarm(context);
 //					}
 //					else
 //					{	
-					// start service to turn off wifi
-					EventBroadcaster.sendStatusEvent(context, "Scheduling Wifi to get turned off");
-					Logger.i(TAG, "Turining Wifi off immediately");
-
-
-					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-					context.startService(serviceIntent);
+//					// start service to turn off wifi
+//					EventBroadcaster.sendStatusEvent(context, "Scheduling Wifi to get turned off");
+//					Logger.i(TAG, "Turining Wifi off immediately");
+//
+//
+//					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+//					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+//					context.startService(serviceIntent);
 //					}
 				}
 			}

@@ -123,6 +123,9 @@ public class SetWifiStateService extends Service
 	{
 		Logger.i(TAG, "scheduleOffAlarm called");
 		
+		// store a reference for throughput measurement
+		WifiControl.snapshot();
+
 		// cancel any exiting alarms
 		cancelWifiOffAlarm(ctx);
 
@@ -164,6 +167,9 @@ public class SetWifiStateService extends Service
 		
 		// cancel any exiting alarms
 		cancelWifiOffAlarm(ctx);
+		
+		// store a reference for throughput measurement
+		WifiControl.snapshot();
 
 		// create a new one starting to count NOW
 		

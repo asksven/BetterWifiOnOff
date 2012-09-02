@@ -19,15 +19,19 @@ package com.asksven.betterwifionoff.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.asksven.android.common.utils.DateUtils;
 import com.asksven.android.common.wifi.WifiManagerProxy;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.TrafficStats;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.SystemClock;
 import android.util.Log;
 
 /**
@@ -37,6 +41,9 @@ import android.util.Log;
 public class WifiControl
 {
 	private static String TAG = "BetterWifiOnOff.WifiControl";
+	private static long m_snapshotTotalBytes 		= 0;
+	private static long m_snapshotTotalTimestamp 	= 0;
+	
 	/**
 	 * Returns whether wifi is on or not
 	 * @param ctx a Context
@@ -202,5 +209,52 @@ public class WifiControl
 	
 	// alternative: parse /proc/net/xt_qtaguid/iface_stat_all (entry wlan0) at two times and determine the rate 
 	
+	@TargetApi(8)
+	public static void snapshot()
+	{
+		m_snapshotTotalTimestamp = SystemClock.elapsedRealtime();
+		if (TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED)
+		{
+			m_snapshotTotalBytes = TrafficStats.getTotalRxBytes() + TrafficStats.getTotalTxBytes();
+		}
+		else
+		{ 
+			m_snapshotTotalBytes = 0;
+		}	
+		
+		Log.i(TAG, "Snapshot at " + DateUtils.now() + ": " + m_snapshotTotalBytes + " Bytes");
+	}
+
+	@TargetApi(8)
+	public static boolean isTransferring()
+	{
+		boolean ret = false;
+		
+		long totalBytes = 0;
+		long totalTimestamp = SystemClock.elapsedRealtime();
+		
+		if (TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED)
+		{
+			totalBytes = TrafficStats.getTotalRxBytes() + TrafficStats.getTotalTxBytes();
+		}
+		Log.i(TAG, "Sample at " + DateUtils.now() + ": " + totalBytes + " Bytes");
+		
+		long bytes = totalBytes - m_snapshotTotalBytes;
+		long time = (totalTimestamp - m_snapshotTotalTimestamp) / 1000;
+		long throughput = bytes / time;
+		Log.i(TAG, "Throughput: " + throughput + " Bytes/s" + "(" + bytes + "/" + time + ")");
+		
+		if (throughput >= 1024 )
+		{
+			Log.i(TAG, "Transferring (>= 1KB/s)");
+			ret = true;
+		}
+		else
+		{
+			Log.i(TAG, "Not transferring (< 1KB/s)");
+		}
+	
+		return ret;
+	}
 
 }
