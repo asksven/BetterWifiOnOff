@@ -16,6 +16,7 @@
 
 package com.asksven.betterwifionoff;
 
+import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.android.common.wifi.WifiManagerProxy;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
@@ -223,6 +224,17 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     			SetWifiStateService.scheduleWifiConnectedAlarm(PreferencesActivity.this);
     		}
     	}
+    	
+    	if (key.equals("wifi_on_if_wakelock"))
+    	{
+    		if (prefs.getBoolean(key, false))
+    		{
+    			// call the function once
+    			Wakelocks.hasWakelocks(PreferencesActivity.this);
+    			
+    		}
+    	}
+
 //    	if (key.equals("wifilock"))
 //    	{
 //    		if (!prefs.getBoolean("wifilock", false))

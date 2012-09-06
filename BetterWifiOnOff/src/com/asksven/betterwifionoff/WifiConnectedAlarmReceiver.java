@@ -24,6 +24,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
@@ -89,7 +90,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					EventBroadcaster.sendStatusEvent(context, "Connection active: leaving Wifi on");
 				}
 				
-				boolean bCheckCage 	= sharedPrefs.getBoolean("cgeck_for_cage", false);
+				boolean bCheckCage 	= sharedPrefs.getBoolean("check_for_cage", false);
 				if (bCheckCage)
 				{
 					if (WifiControl.isWifiCaged(context))
@@ -110,6 +111,29 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 						
 					}
 				}
+				
+				boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
+				
+				if (bCheckWakelocks)
+				{
+					if (!Wakelocks.hasWakelocks(context))
+					{
+						Log.d(TAG, "No wakelocks detected: turning Wifi off");
+						EventBroadcaster.sendStatusEvent(context, "No wakelock detected: turning Wifi off"); 
+
+						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "No wakelock detected: turning Wifi off");
+						context.startService(serviceIntent);
+						return;
+					}
+					else
+					{
+						Log.d(TAG, "Wakelocks detected: leaving Wifi on");
+						EventBroadcaster.sendStatusEvent(context, "Wakelock detected: leaving Wifi on"); 
+					}
+				}
+
 
 			}
 		}

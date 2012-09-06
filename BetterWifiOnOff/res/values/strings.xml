@@ -79,5 +79,7 @@
     <string name="pref_wifi_on_if_in_call_title">Leave on if in Call</string>
     <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on of screen goes off while a call is ongoing</string>
     <string name="pref_wifi_on_if_activity_title">Leave on if network activity</string>
-    <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (>= 1KB/s)</string>
+    <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (&amp;gt;= 1KB/s)</string>
+    <string name="pref_wifi_on_if_wakelock_title">Leave on if wakelock</string>
+    <string name="pref_wifi_on_if_wakelock_summary">Leave on as long as a wakelock is held (requires root)</string>
 </resources>

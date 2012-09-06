@@ -81,6 +81,13 @@
             android:key="wifi_on_if_activity"
             android:summary="@string/pref_wifi_on_if_activity_summary"
             android:title="@string/pref_wifi_on_if_activity_title" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_wakelock"
+            android:summary="@string/pref_wifi_on_if_wakelock_summary"
+            android:title="@string/pref_wifi_on_if_wakelock_title" />
         
         <ListPreference
             android:defaultValue="30"
