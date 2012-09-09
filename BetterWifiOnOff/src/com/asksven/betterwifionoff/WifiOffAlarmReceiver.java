@@ -17,6 +17,7 @@
 
 package com.asksven.betterwifionoff;
 
+import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
@@ -84,6 +85,26 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 					EventBroadcaster.sendStatusEvent(context, "No network activity detected,  turining wifi off");
 				}
 			}
+			
+			boolean bCheckWakelocks 	= prefs.getBoolean("wifi_on_if_wakelock", false);
+			
+			if (bCheckWakelocks)
+			{
+				if (Wakelocks.hasWakelocks(context))
+				{
+					Log.d(TAG, "No wakelocks detected: turning Wifi off");
+					EventBroadcaster.sendStatusEvent(context, "No wakelock detected: turning Wifi off"); 
+
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+				}
+				else
+				{
+					Log.d(TAG, "Wakelocks detected: leaving Wifi on");
+					EventBroadcaster.sendStatusEvent(context, "Wakelock detected: leaving Wifi on"); 
+				}
+			}
+
 
 			// start service to turn off wifi
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);

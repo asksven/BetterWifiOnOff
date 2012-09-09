@@ -111,30 +111,6 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 						
 					}
 				}
-				
-				boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
-				
-				if (bCheckWakelocks)
-				{
-					if (!Wakelocks.hasWakelocks(context))
-					{
-						Log.d(TAG, "No wakelocks detected: turning Wifi off");
-						EventBroadcaster.sendStatusEvent(context, "No wakelock detected: turning Wifi off"); 
-
-						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
-						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-						serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "No wakelock detected: turning Wifi off");
-						context.startService(serviceIntent);
-						return;
-					}
-					else
-					{
-						Log.d(TAG, "Wakelocks detected: leaving Wifi on");
-						EventBroadcaster.sendStatusEvent(context, "Wakelock detected: leaving Wifi on"); 
-					}
-				}
-
-
 			}
 		}
 		catch (Exception e)
