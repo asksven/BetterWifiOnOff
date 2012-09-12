@@ -24,6 +24,7 @@ import com.asksven.android.common.wifi.WifiManagerProxy;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.TrafficStats;
@@ -32,6 +33,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 /**
@@ -41,8 +43,8 @@ import android.util.Log;
 public class WifiControl
 {
 	private static String TAG = "BetterWifiOnOff.WifiControl";
-	private static long m_snapshotTotalBytes 		= 0;
-	private static long m_snapshotTotalTimestamp 	= 0;
+//	private static long m_snapshotTotalBytes 		= 0;
+//	private static long m_snapshotTotalTimestamp 	= 0;
 	
 	/**
 	 * Returns whether wifi is on or not
@@ -210,23 +212,32 @@ public class WifiControl
 	// alternative: parse /proc/net/xt_qtaguid/iface_stat_all (entry wlan0) at two times and determine the rate 
 	
 	@TargetApi(8)
-	public static void snapshot()
+	public static void snapshot(Context ctx)
 	{
-		m_snapshotTotalTimestamp = SystemClock.elapsedRealtime();
+		long snapshotTotalTimestamp = SystemClock.elapsedRealtime();
+		long snapshotTotalBytes = 0;
+		
 		if (TrafficStats.getTotalRxBytes() != TrafficStats.UNSUPPORTED)
 		{
-			m_snapshotTotalBytes = TrafficStats.getTotalRxBytes() + TrafficStats.getTotalTxBytes();
+			snapshotTotalBytes = TrafficStats.getTotalRxBytes() + TrafficStats.getTotalTxBytes();
 		}
 		else
 		{ 
-			m_snapshotTotalBytes = 0;
+			snapshotTotalBytes = 0;
 		}	
 		
-		Log.i(TAG, "Snapshot at " + DateUtils.now() + ": " + m_snapshotTotalBytes + " Bytes");
+		Log.i(TAG, "Snapshot at " + DateUtils.now() + ": " + snapshotTotalBytes + " Bytes");
+
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putLong("snapshot_time", snapshotTotalTimestamp);
+        editor.putLong("snapshot_bytes", snapshotTotalBytes);
+        editor.commit();
+
 	}
 
 	@TargetApi(8)
-	public static boolean isTransferring()
+	public static boolean isTransferring(Context ctx)
 	{
 		boolean ret = false;
 		
@@ -238,9 +249,14 @@ public class WifiControl
 			totalBytes = TrafficStats.getTotalRxBytes() + TrafficStats.getTotalTxBytes();
 		}
 		Log.i(TAG, "Sample at " + DateUtils.now() + ": " + totalBytes + " Bytes");
-		
-		long bytes = totalBytes - m_snapshotTotalBytes;
-		long time = (totalTimestamp - m_snapshotTotalTimestamp) / 1000;
+
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		long snapshotTotalTimestamp	= sharedPrefs.getLong("snapshot_time", 0);
+		long snapshotTotalBytes		= sharedPrefs.getLong("snapshot_bytes", 0);
+
+
+		long bytes = totalBytes - snapshotTotalBytes;
+		long time = (totalTimestamp - snapshotTotalTimestamp) / 1000;
 		long throughput = bytes / time;
 		Log.i(TAG, "Throughput: " + throughput + " Bytes/s" + "(" + bytes + "/" + time + ")");
 		

@@ -73,7 +73,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				Log.d(TAG, "Checking if there is network activity");
 
 				// is there any network activity?
-				if (WifiControl.isTransferring() || isDownloading(context))				{
+				if (WifiControl.isTransferring(context) || isDownloading(context))				{
 			    	Log.i(TAG, "Network activity detected,  leave wifi on");
 			    	EventBroadcaster.sendStatusEvent(context, "Network activity detected,  leave wifi on");
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
@@ -86,24 +86,6 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				}
 			}
 			
-			boolean bCheckWakelocks 	= prefs.getBoolean("wifi_on_if_wakelock", false);
-			
-			if (bCheckWakelocks)
-			{
-				if (Wakelocks.hasWakelocks(context))
-				{
-					Log.d(TAG, "No wakelocks detected: turning Wifi off");
-					EventBroadcaster.sendStatusEvent(context, "No wakelock detected: turning Wifi off"); 
-
-			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
-			    	return;
-				}
-				else
-				{
-					Log.d(TAG, "Wakelocks detected: leaving Wifi on");
-					EventBroadcaster.sendStatusEvent(context, "Wakelock detected: leaving Wifi on"); 
-				}
-			}
 
 
 			// start service to turn off wifi

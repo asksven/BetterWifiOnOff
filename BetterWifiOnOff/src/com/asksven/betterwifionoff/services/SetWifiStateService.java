@@ -17,6 +17,7 @@ package com.asksven.betterwifionoff.services;
 
 import java.util.Calendar;
 
+import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.utils.Logger;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
@@ -53,9 +54,31 @@ public class SetWifiStateService extends Service
 	
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
 		String message = intent.getStringExtra(EXTRA_MESSAGE);
-		
-
 		Log.i(TAG, "Called with extra " + state);
+		
+		boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
+		
+		// if Wifi is going to be tured off we may want to respect Wakelocks
+		// This must be done here (instead of the Alarm receiver as there is a wakelock being held while alarms are processed
+		if ((!state) && (bCheckWakelocks))
+		{
+			if (Wakelocks.hasWakelocks(this))
+			{
+				Log.d(TAG, "No wakelocks detected: turning Wifi off");
+				EventBroadcaster.sendStatusEvent(this, "No wakelock detected: turning Wifi off"); 
+
+		    	SetWifiStateService.scheduleRetryWifiOffAlarm(this);
+				stopSelf();
+				return START_NOT_STICKY;
+
+			}
+			else
+			{
+				Log.d(TAG, "Wakelocks detected: leaving Wifi on");
+				EventBroadcaster.sendStatusEvent(this, "Wakelock detected: leaving Wifi on"); 
+			}
+		}
+
 		
 		if ((message != null) && !message.equals(""))
 		{
@@ -90,12 +113,8 @@ public class SetWifiStateService extends Service
 		    	catch (Exception e)
 		    	{
 		    	}
-				
-				
-//				if (delay > 0)
-//				{
+								
 				SetWifiStateService.scheduleWifiConnectedAlarm(this);
-//				}
 			}
 		}
 		catch (Exception e)
@@ -104,9 +123,7 @@ public class SetWifiStateService extends Service
 		}
 		
 		stopSelf();
-		return START_NOT_STICKY;
-		
-		
+		return START_NOT_STICKY;		
 
 	}
 
@@ -122,9 +139,18 @@ public class SetWifiStateService extends Service
 	public static boolean scheduleWifiOffAlarm(Context ctx)
 	{
 		Logger.i(TAG, "scheduleOffAlarm called");
-		
+
+		// reset the retry counter
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        editor.putInt("wifi_off_retries", 0);
+        editor.commit();
+
 		// store a reference for throughput measurement
-		WifiControl.snapshot();
+        if (sharedPrefs.getBoolean("wifi_on_if_activity", false))
+        {
+        	WifiControl.snapshot(ctx);
+        }
 
 		// cancel any exiting alarms
 		cancelWifiOffAlarm(ctx);
@@ -168,8 +194,27 @@ public class SetWifiStateService extends Service
 		// cancel any exiting alarms
 		cancelWifiOffAlarm(ctx);
 		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+		int retries = sharedPrefs.getInt("wifi_off_retries", 0) + 1;
+		
+		if (retries > 5)
+		{
+			Log.i(TAG, "Retried " + retries + " times. Stop obsessing");
+			EventBroadcaster.sendStatusEvent(ctx, "Retried " + retries + " times. Stop obsessing");
+			return true;
+		}
+		else
+		{
+	        SharedPreferences.Editor editor = sharedPrefs.edit();
+	        editor.putInt("wifi_off_retries", retries);
+	        editor.commit();
+		}
+
 		// store a reference for throughput measurement
-		WifiControl.snapshot();
+        if (sharedPrefs.getBoolean("wifi_on_if_activity", false))
+        {
+        	WifiControl.snapshot(ctx);
+        }
 
 		// create a new one starting to count NOW
 		
@@ -183,8 +228,12 @@ public class SetWifiStateService extends Service
     	}
     	catch (Exception e)
     	{
+    		iInterval = 30;
     	}
 
+		// increase interval depending on retries
+		iInterval = iInterval + (iInterval * retries);
+		
 		EventBroadcaster.sendStatusEvent(ctx, "A Wifilock was detected. Re-scheduling Wifi to be turned off in " + iInterval + " seconds");
 		
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
