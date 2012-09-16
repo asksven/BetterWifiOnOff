@@ -319,8 +319,9 @@ public class MainActivity extends ListActivity
 				m_listViewAdapter = new EventAdapter(this, myService.getEventLogger());
 			}
 		
-			setListAdapter(m_listViewAdapter);
+			
 		}
+		setListAdapter(m_listViewAdapter);
 	}
 	
 	/**
