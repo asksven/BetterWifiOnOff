@@ -24,7 +24,7 @@
     <string name="pref_category_notification">Notifications</string>
     <string name="pref_category_service_settings">Service Settings</string>
     <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
-    <string name="pref_foreground_service_title">Run as foreground service (if unchecked Service will start when the App is first opened)</string>
+    <string name="pref_foreground_service_title">Run as foreground service</string>
     <string name="wifi_off_when_power_ununplug_title">Off when unplugged</string>
     <string name="wifi_off_when_power_ununplug_summary">Turn Wifi off when unplugged from charger</string>
     <string name="wifi_off_when_screen_off_title">Off when screen off</string>
