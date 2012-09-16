@@ -81,8 +81,11 @@ public class BroadcastHandler extends BroadcastReceiver
 
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
+			PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+			boolean screenOn = pm.isScreenOn();
 			
-			if (bProcess)
+			// turn on unplug only if screen is off. Else the screen off will take care of this later
+			if (!screenOn && bProcess)
 			{
 		    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
     	    	
