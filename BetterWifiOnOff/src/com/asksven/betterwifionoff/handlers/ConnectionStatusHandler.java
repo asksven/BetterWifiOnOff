@@ -56,30 +56,30 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 		if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
 		{
 			Log.d(TAG, "WifiManager.NETWORK_STATE_CHANGED_ACTION received");
-			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
+//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
+//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
+//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
 		if (intent.getAction().equals(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION))
 		{
 			Log.d(TAG, "WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION received");
-			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
+//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
+//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
+//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
 		if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION))
 		{
 			Log.d(TAG, "WifiManager.WIFI_STATE_CHANGED_ACTION received");
-			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
+//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
+//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
+//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
 		if (intent.getAction().equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION))
 		{
 			Log.d(TAG, "WifiManager.SUPPLICANT_STATE_CHANGED_ACTION received");
-			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
+//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
+//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
+//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
 
 	}

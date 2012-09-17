@@ -64,8 +64,8 @@ public class SetWifiStateService extends Service
 		{
 			if (Wakelocks.hasWakelocks(this))
 			{
-				Log.d(TAG, "No wakelocks detected: turning Wifi off");
-				EventBroadcaster.sendStatusEvent(this, "No wakelock detected: turning Wifi off"); 
+				Log.d(TAG, "Wakelock detected: postponing Wifi off");
+				EventBroadcaster.sendStatusEvent(this, "Wakelock detected: postponing Wifi off"); 
 
 		    	SetWifiStateService.scheduleRetryWifiOffAlarm(this);
 				stopSelf();
@@ -74,8 +74,8 @@ public class SetWifiStateService extends Service
 			}
 			else
 			{
-				Log.d(TAG, "Wakelocks detected: leaving Wifi on");
-				EventBroadcaster.sendStatusEvent(this, "Wakelock detected: leaving Wifi on"); 
+				Log.d(TAG, "No wakelocks detected: turning Wifi off");
+				EventBroadcaster.sendStatusEvent(this, "No wakelocks detected: turning Wifi off"); 
 			}
 		}
 
