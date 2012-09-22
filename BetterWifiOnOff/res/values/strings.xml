@@ -80,6 +80,8 @@
     <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (&amp;gt;= 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">If wakelock is held</string>
     <string name="pref_wifi_on_if_wakelock_summary">Leave on as long as a wakelock is held (requires root)</string>
+    <string name="pref_wifi_on_if_tethering_title">If Wifi tethering</string>
+    <string name="pref_wifi_on_if_tethering_summary">Leave of if Wifi tethering detected</string>
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
@@ -92,6 +94,9 @@
     <string name="event_in_call">Phone is ringing or in a phone call, leave wifi on</string>
     <string name="event_network_active">Network activity detected, leaving wifi on</string>
     <string name="event_network_inactive">No network activity detected, turning wifi off</string>
+    <string name="event_tethering_active">Tethering detected: turning Wifi off</string>
+    <string name="event_tethering_inactive">No tethering detected: tu</string>
+    
     <string name="event_disabled">Disabled: do nothing</string>
     <string name="event_scheduling_wifi_off_in">Scheduling Wifi to be turned off in %1$d seconds</string>
     <string name="event_scheduling_wifi_off_now">Turning off Wifi immediately</string>

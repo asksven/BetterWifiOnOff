@@ -87,6 +87,25 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			}
 			
 
+			bProcess = prefs.getBoolean("wifi_on_if_tethering", true);
+			
+			if (bProcess)
+			{
+				Log.d(TAG, "Checking if tethering is active");
+
+				if (WifiControl.isWifiTethering(context))				{
+			    	Log.i(TAG, "Wifi tethering,  leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+				}
+				else
+				{
+					Log.i(TAG, "No tethering detected");
+					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_inactive));
+				}
+			}
+			
 
 			// start service to turn off wifi
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);

@@ -89,6 +89,13 @@
             android:summary="@string/pref_wifi_on_if_wakelock_summary"
             android:title="@string/pref_wifi_on_if_wakelock_title" />
         
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_if_tethering"
+            android:summary="@string/pref_wifi_on_if_tethering_summary"
+            android:title="@string/pref_wifi_on_if_tethering_title" />
+        
         <ListPreference
             android:defaultValue="30"
             android:entries="@array/wifiConnectedDelayLabels"

@@ -80,6 +80,9 @@
     <string name="pref_wifi_on_if_activity_summary">Wifi an lassen solange Netz-Aktiviät erkannt (&amp;gt;= 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">Bei Wakelock</string>
     <string name="pref_wifi_on_if_wakelock_summary">Wifi an lassen solange ein Wakelock erkannt wurde (nur mit root)</string>
+    <string name="pref_wifi_on_if_tethering_title">Bei Tethering</string>
+    <string name="pref_wifi_on_if_tethering_summary">Wifi an lassen wenn Wifi Tethering aktiv</string>
+    
     <string name="support_version">Unterstütze den dev Version</string>
     <string name="free_version">Freie Version</string>
     <string name="event_no_wifi_connection">Keine Verbindung. Wifi wird ausgeschaltet</string>
@@ -92,6 +95,9 @@
     <string name="event_in_call">Handy klingelt oder laufender Anruf: Wifi bleibt aktiv</string>
     <string name="event_network_active">Netz-Aktivität erkannt: Wifi bleibt aktiv</string>
     <string name="event_network_inactive">Keine Netz-Aktivität erkannt: Wifi wird ausgeschaltet</string>
+    <string name="event_tethering_active">Tethering erkannt: Wifi bleibt aktiv</string>
+    <string name="event_tethering_inactive">Keine Tethering erkannt: Wifi wird ausgeschaltet</string>
+    
     <string name="event_disabled">Inaktiv</string>
     <string name="event_scheduling_wifi_off_in">Wifi wird in %1$d Sekunden ausgeschaltet</string>
     <string name="event_scheduling_wifi_off_now">Wifi wird sofort augeschaltet</string>

@@ -43,6 +43,9 @@
     <string name="pref_wifi_connected_delay_title">Delai de connection</string>
     <string name="pref_wifi_on_if_connected_summary">Laisser Wifi allumé seulement si une connection est active (Adresse IP non nulle)</string>
     <string name="pref_wifi_on_if_connected_title">Seulement si connecté</string>
+    <string name="pref_wifi_on_if_tethering_title">Si tethering</string>
+    <string name="pref_wifi_on_if_tethering_summary">Laisser allumé si tethering Wifi détecté</string>
+    
     <string name="pref_check_for_cage_title">Si connecté teste si cage</string>
     <string name="pref_check_for_cage_summary">Essaie d\'accéder un DNS Google pour vérifier si une connection internet est vraiment possible</string>
     <string name="menu_clear_events">Efface le protocolle</string>
@@ -92,6 +95,9 @@
     <string name="event_in_call">Téléphone sonne ou un appel est actif: Wifi reste allumé</string>
     <string name="event_network_active">Activité réseau détectée: Wifi reste allumé</string>
     <string name="event_network_inactive">Pas d\'activité réseau détectée: éteins Wifi</string>
+    <string name="event_tethering_active">Tethering détecté: Wifi reste allumé</string>
+    <string name="event_tethering_inactive">Pas de tethering détecté: éteins Wifi</string>
+    
     <string name="event_disabled">Inactiv: pas d\'action</string>
     <string name="event_scheduling_wifi_off_in">Wifi ca être éteint dans %1$d secondes</string>
     <string name="event_scheduling_wifi_off_now">Éteins Wifi</string>

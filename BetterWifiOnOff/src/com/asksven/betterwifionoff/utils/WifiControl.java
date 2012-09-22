@@ -16,6 +16,8 @@
 
 package com.asksven.betterwifionoff.utils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -272,5 +274,35 @@ public class WifiControl
 	
 		return ret;
 	}
-
+	
+	public static boolean isWifiTethering(Context context)
+	{
+		WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+		boolean ret = false;
+		Method[] wmMethods = wifi.getClass().getDeclaredMethods();
+		for(Method method: wmMethods)
+		{
+		
+			if (method.getName().equals("isWifiApEnabled"))
+			{
+				try
+				{
+					ret = (Boolean) method.invoke(wifi);
+				}
+				catch (IllegalArgumentException e)
+				{
+					e.printStackTrace();
+				} catch (IllegalAccessException e)
+				{
+					e.printStackTrace();
+				}
+				catch (InvocationTargetException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return ret;
+	}
 }
