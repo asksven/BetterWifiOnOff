@@ -96,7 +96,6 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				if (WifiControl.isWifiTethering(context))				{
 			    	Log.i(TAG, "Wifi tethering,  leave wifi on");
 			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
-			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
