@@ -152,13 +152,14 @@ public class MainActivity extends ListActivity
         	
         	if (Configuration.isFullVersion(this))
     		{
-        		nameTextView.setText("Support the devs Version");
+
+        		nameTextView.setText(getString(R.string.support_version));
         		hintTextView.setText("");
         		Log.i(TAG, "full version was detected");
     		}
         	else
         	{
-        		nameTextView.setText("Free Version");
+        		nameTextView.setText(R.string.free_version);
         		hintTextView.setText(getString(R.string.full_version_available));
         		Log.i(TAG, "free version was detected");
         	}

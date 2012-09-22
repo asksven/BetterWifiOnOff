@@ -80,4 +80,28 @@
     <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (&amp;gt;= 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">If wakelock is held</string>
     <string name="pref_wifi_on_if_wakelock_summary">Leave on as long as a wakelock is held (requires root)</string>
+    <string name="support_version">Support the dev Version</string>
+    <string name="free_version">Free Version</string>
+    <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
+    <string name="event_access_point_not_wl">Access point is not whitelisted: turning Wifi off</string>
+    <string name="event_access_point_wl">Access point is whitelisted: leaving Wifi on</string>
+    <string name="event_connection_active">Connection active: leaving Wifi on</string>
+    <string name="event_access_point_caged">Access point is caged: turning Wifi off</string>
+    <string name="event_access_point_not_caged">Access point is not caged: leaving Wifi on</string>
+    <string name="event_alarm">Alarm received: preparing to turn Wifi off</string>
+    <string name="event_in_call">Phone is ringing or in a phone call, leave wifi on</string>
+    <string name="event_network_active">Network activity detected, leaving wifi on</string>
+    <string name="event_network_inactive">No network activity detected, turning wifi off</string>
+    <string name="event_disabled">Disabled: do nothing</string>
+    <string name="event_scheduling_wifi_off_in">Scheduling Wifi to be turned off in %1$d seconds</string>
+    <string name="event_scheduling_wifi_off_now">Turning off Wifi immediately</string>
+    <string name="event_wifi_on">Turning Wifi on</string>
+    <string name="event_wifi_already_on">Wifi is already on: nothing to do</string>
+    <string name="event_screen_off">Screen was turned off</string>
+    <string name="event_screen_on">Screen was turned on</string>
+    <string name="event_screen_unlocked">Screen was unlocked</string>
+    <string name="event_leave_on_charing">Leaving Wifi on because charger is connected</string>
+    <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
+    <string name="event_no_wakelock_detected">No wakelock detected: turning Wifi off</string>
+    <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>
 </resources>

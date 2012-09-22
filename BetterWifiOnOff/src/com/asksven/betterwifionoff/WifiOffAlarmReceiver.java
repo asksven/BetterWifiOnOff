@@ -47,7 +47,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		Log.d(TAG, "Alarm received: preparing to turn Wifi off");
-		EventBroadcaster.sendStatusEvent(context, "Alarm received: preparing to turn Wifi off");
+		EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_alarm));
 		try
 		{
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -60,7 +60,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
 			    {
 			    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, "Phone is ringing or in a phone call, leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_in_call));
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 			    }
@@ -75,14 +75,14 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				// is there any network activity?
 				if (WifiControl.isTransferring(context) || isDownloading(context))				{
 			    	Log.i(TAG, "Network activity detected,  leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, "Network activity detected,  leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_network_active));
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
 				{
 					Log.i(TAG, "No network activity detected");
-					EventBroadcaster.sendStatusEvent(context, "No network activity detected,  turining wifi off");
+					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_network_inactive));
 				}
 			}
 			
@@ -91,9 +91,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			// start service to turn off wifi
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
-			serviceIntent.putExtra(SetWifiStateService.EXTRA_MESSAGE, "Timeout to turn Wifi off reached, turning Wifi off");
 			context.startService(serviceIntent);
-//			}
 		}
 		catch (Exception e)
 		{

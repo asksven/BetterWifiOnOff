@@ -20,6 +20,7 @@ import java.util.Calendar;
 import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.utils.Logger;
+import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
 import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
 import com.asksven.betterwifionoff.utils.WifiControl;
@@ -53,7 +54,6 @@ public class SetWifiStateService extends Service
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 	
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
-		String message = intent.getStringExtra(EXTRA_MESSAGE);
 		Log.i(TAG, "Called with extra " + state);
 		
 		boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
@@ -65,7 +65,7 @@ public class SetWifiStateService extends Service
 			if (Wakelocks.hasWakelocks(this))
 			{
 				Log.d(TAG, "Wakelock detected: postponing Wifi off");
-				EventBroadcaster.sendStatusEvent(this, "Wakelock detected: postponing Wifi off"); 
+				EventBroadcaster.sendStatusEvent(this, this.getString(R.string.event_wakelock_detected)); 
 
 		    	SetWifiStateService.scheduleRetryWifiOffAlarm(this);
 				stopSelf();
@@ -75,15 +75,11 @@ public class SetWifiStateService extends Service
 			else
 			{
 				Log.d(TAG, "No wakelocks detected: turning Wifi off");
-				EventBroadcaster.sendStatusEvent(this, "No wakelocks detected: turning Wifi off"); 
+				EventBroadcaster.sendStatusEvent(this, this.getString(R.string.event_no_wakelock_detected)); 
 			}
 		}
 
 		
-		if ((message != null) && !message.equals(""))
-		{
-			EventBroadcaster.sendStatusEvent(this, message);
-		}
 		try
 		{	
 			WifiControl.setWifi(this, state);
@@ -168,7 +164,7 @@ public class SetWifiStateService extends Service
     	{
     	}
 
-		EventBroadcaster.sendStatusEvent(ctx, "Scheduling Wifi to be turned off in " + iInterval + " seconds");
+		EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_scheduling_wifi_off_in, iInterval));
 
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
@@ -200,7 +196,7 @@ public class SetWifiStateService extends Service
 		if (retries > 5)
 		{
 			Log.i(TAG, "Retried " + retries + " times. Stop obsessing");
-			EventBroadcaster.sendStatusEvent(ctx, "Retried " + retries + " times. Stop obsessing");
+			EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_stop_retrying, retries));
 			return true;
 		}
 		else
@@ -234,7 +230,7 @@ public class SetWifiStateService extends Service
 		// increase interval depending on retries
 		iInterval = iInterval + (iInterval * retries);
 		
-		EventBroadcaster.sendStatusEvent(ctx, "A Wifilock was detected. Re-scheduling Wifi to be turned off in " + iInterval + " seconds");
+		EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_scheduling_wifi_off_in, iInterval));
 		
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
@@ -291,7 +287,7 @@ public class SetWifiStateService extends Service
     	{
     	}
 		
-		EventBroadcaster.sendStatusEvent(ctx, "Scheduling Wifi to be turned off if not connected in " + iInterval + " seconds");
+		EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_scheduling_wifi_off_in, iInterval));
 		long fireAt = System.currentTimeMillis() + (iInterval * 1000);
 
 		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
