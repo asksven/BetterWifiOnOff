@@ -53,7 +53,7 @@
     <string name="pref_events_show_status_summary">Show Status Changes</string>
     <string name="pref_events_show_status_title">Status</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_summary">Leave Wifi on when screen goes off but the phone is plugged</string>
-    <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">If plugged</string>
+    <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">If plugged in</string>
     <string name="pref_disable_control_summary">Suspend Wifi Control</string>
     <string name="pref_disable_control_title">Disable</string>
     <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
@@ -73,13 +73,13 @@
     <string name="pref_wifi_on_if_whitelisted_summary">Stay on if current SSID is in whitelist</string>
     <string name="pref_wifi_on_if_whitelisted_title">If connected to whitelisted SSID</string>
     <string name="pref_wifi_on_if_in_call_title">If in Call</string>
-    <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on of screen goes off while a call is ongoing</string>
+    <string name="pref_wifi_on_if_in_call_summary">Leave Wifi on if screen goes off while a call is ongoing</string>
     <string name="pref_wifi_on_if_activity_title">If network activity</string>
     <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (&amp;gt;= 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">If wakelock is held</string>
     <string name="pref_wifi_on_if_wakelock_summary">Leave on as long as a wakelock is held (requires root)</string>
     <string name="pref_wifi_on_if_tethering_title">If Wifi tethering</string>
-    <string name="pref_wifi_on_if_tethering_summary">Leave of if Wifi tethering detected</string>
+    <string name="pref_wifi_on_if_tethering_summary">Leave on if Wifi tethering detected</string>
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
