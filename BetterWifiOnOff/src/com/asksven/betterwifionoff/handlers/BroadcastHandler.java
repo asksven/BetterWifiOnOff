@@ -23,7 +23,6 @@ import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
-import com.asksven.betterwifionoff.utils.Logger;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -63,7 +62,7 @@ public class BroadcastHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
+			Log.i(TAG, "Received Broadcast ACTION_POWER_DISCONNECTED");
 			
 			// release any wakelocks / wifilocks
 			PluggedWakelock.releaseWakelock();
@@ -121,7 +120,7 @@ public class BroadcastHandler extends BroadcastReceiver
 		}
         if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
+			Log.i(TAG, "Received Broadcast ACTION_POWER_CONNECTED");
 			
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)

@@ -165,13 +165,6 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_logging" >
         <PreferenceScreen android:title="@string/pref_screen_logging" >
-            <CheckBoxPreference
-                android:defaultValue="false"
-                android:enabled="true"
-                android:key="own_logfile"
-                android:summary="@string/pref_own_logfile_summary"
-                android:title="@string/pref_own_logfile_title" />
-
             <PreferenceCategory android:title="@string/pref_category_events" >
                 <CheckBoxPreference
                     android:defaultValue="true"

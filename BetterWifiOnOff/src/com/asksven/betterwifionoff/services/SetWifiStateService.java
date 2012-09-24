@@ -19,7 +19,6 @@ import java.util.Calendar;
 
 import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
-import com.asksven.betterwifionoff.utils.Logger;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
 import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
@@ -134,7 +133,7 @@ public class SetWifiStateService extends Service
 	 */
 	public static boolean scheduleWifiOffAlarm(Context ctx)
 	{
-		Logger.i(TAG, "scheduleOffAlarm called");
+		Log.i(TAG, "scheduleOffAlarm called");
 
 		// reset the retry counter
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -185,7 +184,7 @@ public class SetWifiStateService extends Service
 	 */
 	public static boolean scheduleRetryWifiOffAlarm(Context ctx)
 	{
-		Logger.i(TAG, "scheduleOffAlarm called");
+		Log.i(TAG, "scheduleOffAlarm called");
 		
 		// cancel any exiting alarms
 		cancelWifiOffAlarm(ctx);
@@ -271,7 +270,7 @@ public class SetWifiStateService extends Service
 	 */
 	public static boolean scheduleWifiConnectedAlarm(Context ctx)
 	{
-		Logger.i(TAG, "scheduleWifiConnectedAlarm called");
+		Log.i(TAG, "scheduleWifiConnectedAlarm called");
 		
 		// create a new one starting to count NOW
 		

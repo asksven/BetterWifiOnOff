@@ -15,8 +15,6 @@
     <string name="status_notification_on">Benachrichtigung an</string>
     <string name="full_version_available">Version ohne Reklame bald verfügbar</string>
     <string name="status_service_running">Dienst gestartet</string>
-    <string name="pref_own_logfile_summary">Einge Logs nach /sdcard/betterwifionoff.log</string>
-    <string name="pref_own_logfile_title">Eigene Logs</string>
     <string name="pref_category_logging">Logging</string>
     <string name="pref_screen_logging">Logging Einstellungen</string>
     <string name="pref_start_on_boot_summary">Dienst beim Hochfahren starten (falls inaktiv erst wenn App gestartet)</string>

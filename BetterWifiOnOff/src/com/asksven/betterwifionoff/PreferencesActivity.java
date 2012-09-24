@@ -21,7 +21,6 @@ import com.asksven.android.common.wifi.WifiManagerProxy;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Configuration;
-import com.asksven.betterwifionoff.utils.Logger;
 
 
 import android.content.Context;
@@ -83,7 +82,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 			}
 			catch (Exception e)
 			{
-				Logger.e(TAG, "An error occured while loading the preferences.");
+				Log.e(TAG, "An error occured while loading the preferences.");
 			}
 		}
         // Set up a listener whenever a key changes

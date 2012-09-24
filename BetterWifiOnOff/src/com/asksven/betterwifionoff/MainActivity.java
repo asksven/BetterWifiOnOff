@@ -44,7 +44,6 @@ import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.utils.Configuration;
-import com.asksven.betterwifionoff.utils.Logger;
 import com.google.ads.*;
 
 public class MainActivity extends ListActivity 
@@ -172,7 +171,7 @@ public class MainActivity extends ListActivity
         }
         catch (Exception e)
         {
-        	Logger.e(TAG, "An error occured retrieveing the version info: " + e.getMessage());
+        	Log.e(TAG, "An error occured retrieveing the version info: " + e.getMessage());
         }
         
         	

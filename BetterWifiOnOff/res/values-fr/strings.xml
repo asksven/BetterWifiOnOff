@@ -15,8 +15,6 @@
     <string name="status_notification_on">Notification désactive</string>
     <string name="full_version_available">Version sans pub disponible prochainement</string>
     <string name="status_service_running">Service démaré</string>
-    <string name="pref_own_logfile_summary">Protocolle dans /sdcard/betterwifionoff.log</string>
-    <string name="pref_own_logfile_title">Protocolle propre</string>
     <string name="pref_category_logging">Protocolle</string>
     <string name="pref_screen_logging">Préférences de protocolle</string>
     <string name="pref_start_on_boot_summary">Démarre le service au boot (si inactif démarre au lancement de l\'application)</string>

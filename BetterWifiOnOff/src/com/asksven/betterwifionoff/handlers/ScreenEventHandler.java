@@ -21,7 +21,6 @@ import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
-import com.asksven.betterwifionoff.utils.Logger;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.content.BroadcastReceiver;
@@ -47,7 +46,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
+			Log.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
         	
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
@@ -68,7 +67,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 				if (bCheckIfPowered && ChargerUtil.isConnected(context))
 				{
 					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_leave_on_charing));
-					Logger.i(TAG, "Currently connected to A/C and preference is true: leaving on");
+					Log.i(TAG, "Currently connected to A/C and preference is true: leaving on");
 
 				}
 				else
@@ -91,7 +90,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
 
         	boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
@@ -126,7 +125,7 @@ public class ScreenEventHandler extends BroadcastReceiver
         
         if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 		{
-			Logger.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
+			Log.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
         	
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
