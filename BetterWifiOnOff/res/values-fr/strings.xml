@@ -107,4 +107,9 @@
     <string name="event_no_wakelock_detected">Pas de wakelock detecté: éteins Wifi</string>
     <string name="event_stop_retrying">%1$d essais. Abandon</string>
     <string name="menu_logcat">Sauver le log</string>
+    <string name="pref_expert_mode_title">Mode expert</string>
+    <string name="pref_expert_mode_summary">Aktive les préférences avancées (n\'utiliser que si vous savez ce que vous faites)</string>
+    <string name="dialog_expert_mode">Prière de réouvrir les préférences pour entrer le mode expert</string>
+    <string name="dialog_simple_mode">Prière de réouvrir les préférences pour entrer le mode simple</string>
+    
 </resources>

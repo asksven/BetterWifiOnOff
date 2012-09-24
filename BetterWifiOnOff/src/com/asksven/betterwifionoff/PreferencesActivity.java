@@ -17,25 +17,20 @@
 package com.asksven.betterwifionoff;
 
 import com.asksven.android.common.kernelutils.Wakelocks;
-import com.asksven.android.common.wifi.WifiManagerProxy;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.Configuration;
 
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.net.ConnectivityManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Activity for managing preferences using Android's preferences framework
@@ -59,21 +54,18 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.preferences);
 		
-		// disable preferences depending on SDK
-		 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD)
-		 {
-			 try
-			 {
-				 findPreference("wifi_on_if_downloading").setEnabled(false);
-			 }
-			 catch (Exception e)
-			 {
-				 Log.e(TAG, "An error occured disabling the preferences");
-			 }
-		 }
-		// disable all LocationListener prefs in free version
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		if (prefs.getBoolean("expert_mode", false))
+		{
+			addPreferencesFromResource(R.xml.advanced_preferences);			
+		}
+		else
+		{
+			addPreferencesFromResource(R.xml.preferences);
+		}
+
+		
 		if (!Configuration.isFullVersion(this))
 		{
 			try
@@ -233,23 +225,31 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
     			
     		}
     	}
-
-//    	if (key.equals("wifilock"))
-//    	{
-//    		if (!prefs.getBoolean("wifilock", false))
-//    		{
-//    			// option was uncheck: make sure to release wakelock straight away
-//    			Wakelock.releaseWifilock();
-//    			Toast.makeText(this, WifiManagerProxy.getWifiLocks(this) + " Wifilocks detected using API", Toast.LENGTH_LONG).show();
-//    			
-//    		}
-//    		else
-//    		{
-//    			// get Wifilock
-//    			Wakelock.acquireWifiLock(this);
-//    			Toast.makeText(this, WifiManagerProxy.getWifiLocks(this) + " Wifilocks detected using API", Toast.LENGTH_LONG).show();
-//    		}
-//    	}
-
+    	
+        if (key.equals("expert_mode"))
+        {
+    		boolean enabled = prefs.getBoolean(key, false);
+    		String message = "";
+    		if (enabled)
+    		{
+    			message = PreferencesActivity.this.getString(R.string.dialog_expert_mode);
+    		}
+    		else
+    		{
+    			message = PreferencesActivity.this.getString(R.string.dialog_simple_mode);
+    		}
+    			
+	        AlertDialog.Builder builder = new AlertDialog.Builder(PreferencesActivity.this);
+	        builder.setMessage(message)
+	               .setCancelable(false)
+	               .setPositiveButton("OK", new DialogInterface.OnClickListener()
+	               {
+	                   public void onClick(DialogInterface dialog, int id)
+	                   {		          
+	                	   PreferencesActivity.this.finish();
+	                   }
+	               });
+	        builder.create().show();
+        }
     }
 }
