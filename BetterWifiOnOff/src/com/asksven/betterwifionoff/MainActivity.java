@@ -16,9 +16,11 @@
 package com.asksven.betterwifionoff;
 
 import java.io.File;
+import java.util.Map;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -366,7 +368,7 @@ public class MainActivity extends ListActivity
 		@Override
 	    protected Object doInBackground(Object... params)
 	    {
-			MainActivity.this.writeLogcatToFile();
+			MainActivity.this.writeLoggingInfoToFile(MainActivity.this);
 	    	return true;
 	    }
 
@@ -378,7 +380,7 @@ public class MainActivity extends ListActivity
 	    }
 	 }
 	
-	public void writeLogcatToFile()
+	public void writeLoggingInfoToFile(Context context)
 	{
 		if (!DataStorage.isExternalStorageWritable())
 		{
@@ -394,9 +396,34 @@ public class MainActivity extends ListActivity
 			// check if file can be written
 			if (root.canWrite())
 			{
-				String filename = "logcat-"
+				String fileName = "betterwifionoff-"
 						+ DateUtils.now("yyyy-MM-dd_HHmmssSSS") + ".txt";
-				Util.run("logcat -d | grep \"BetterWifiOnOff\\.\" > " + path + "/" + filename);
+
+				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+				
+				DataStorage.LogToFile(fileName, "===========================");
+		        DataStorage.LogToFile(fileName, "BetterWifiOnOff preferences");
+		        DataStorage.LogToFile(fileName, "===========================");
+		        
+		        for (Map.Entry<String, ?> entry : prefs.getAll().entrySet())
+		        {
+		            Object val = entry.getValue();
+		            if (val == null)
+		            {
+		            	DataStorage.LogToFile(fileName, String.format("%s = <null>%n", entry.getKey()));
+		            }
+		            else
+		            {
+		            	DataStorage.LogToFile(fileName, String.format("%s = %s (%s)%n", entry.getKey(), String.valueOf(val), val.getClass()
+		                        .getSimpleName()));
+		            }
+		        }
+		        
+		        DataStorage.LogToFile(fileName, "======================");
+		        DataStorage.LogToFile(fileName, "BetterWifiOnOff logcat");
+		        DataStorage.LogToFile(fileName, "======================");
+
+				Util.run("logcat -d | grep \"BetterWifiOnOff\\.\" >> " + path + "/" + fileName);
 			} else
 			{
 				Log.i(TAG,

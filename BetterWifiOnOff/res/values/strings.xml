@@ -106,5 +106,5 @@
     <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
     <string name="event_no_wakelock_detected">No wakelock detected: turning Wifi off</string>
     <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>
-    <string name="menu_logcat">Save logcat</string>
+    <string name="menu_logcat">Save log</string>
 </resources>
