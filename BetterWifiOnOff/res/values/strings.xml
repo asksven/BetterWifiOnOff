@@ -104,7 +104,7 @@
     <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
     <string name="event_no_wakelock_detected">No wakelock detected: turning Wifi off</string>
     <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>
-    <string name="menu_logcat">Save log</string>
+    <string name="menu_logcat">Save debugging log</string>
     <string name="pref_expert_mode_title">Expert mode</string>
     <string name="pref_expert_mode_summary">Enables additional preferences (use if you know what you are doing)</string>
     <string name="dialog_expert_mode">Switching to expert mode requires you to reopen the preferences dialog</string>

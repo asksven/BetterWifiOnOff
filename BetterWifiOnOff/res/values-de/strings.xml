@@ -102,7 +102,7 @@
     <string name="event_wakelock_detected">Wakelock erkannt: Wifi bleibt vorerst aktiv</string>
     <string name="event_no_wakelock_detected">Kein Wakelock erkannt: Wifi wird ausgeschaltet</string>
     <string name="event_stop_retrying">%1$d Versuche. Keine Wiederholung</string>
-    <string name="menu_logcat">Log speichern</string>
+    <string name="menu_logcat">Debugging Log speichern</string>
     <string name="pref_expert_mode_title">Expertenmodus</string>
     <string name="pref_expert_mode_summary">Erweiterte Einstellungen (Know-How erforderlich)</string>
     <string name="dialog_expert_mode">Bitte öffnen Sie die Einstellungen erneut um in den Expertenmodus zu gelingen</string>
