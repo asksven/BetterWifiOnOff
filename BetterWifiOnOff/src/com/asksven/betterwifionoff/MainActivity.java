@@ -15,15 +15,16 @@
  */
 package com.asksven.betterwifionoff;
 
+import java.io.File;
+
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
@@ -33,10 +34,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.asksven.andoid.common.contrib.Util;
+import com.asksven.android.common.utils.DataStorage;
+import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
-import com.asksven.betterwifionoff.data.Event;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.utils.Configuration;
@@ -298,7 +302,12 @@ public class MainActivity extends ListActivity
             	Intent intentReleaseNotes = new Intent(this, ReadmeActivity.class);
             	intentReleaseNotes.putExtra("filename", "readme.html");
                 this.startActivity(intentReleaseNotes);
-            	break;	
+            	break;
+            case R.id.logcat:
+            	// Dump to File
+            	new WriteLogcatFile().execute("");
+            	break;
+
         }
         
         return true;
@@ -352,4 +361,55 @@ public class MainActivity extends ListActivity
         m_checkboxWifilock.setChecked(wifilock);
         m_checkboxHighPerfWifilock.setChecked(hpWifilock);
 	}
+	
+	private class WriteLogcatFile extends AsyncTask
+	{
+		@Override
+	    protected Object doInBackground(Object... params)
+	    {
+			MainActivity.this.writeLogcatToFile();
+	    	return true;
+	    }
+
+		@Override
+		protected void onPostExecute(Object o)
+	    {
+			super.onPostExecute(o);
+	        // update hourglass
+	    }
+	 }
+	
+	public void writeLogcatToFile()
+	{
+		if (!DataStorage.isExternalStorageWritable())
+		{
+			Log.e(TAG, "External storage can not be written");
+			Toast.makeText(this, "External Storage can not be written",
+					Toast.LENGTH_SHORT).show();
+		}
+		try
+		{
+			// open file for writing
+			File root = Environment.getExternalStorageDirectory();
+			String path = root.getAbsolutePath();
+			// check if file can be written
+			if (root.canWrite())
+			{
+				String filename = "logcat-"
+						+ DateUtils.now("yyyy-MM-dd_HHmmssSSS") + ".txt";
+				Util.run("logcat -d | grep \"BetterWifiOnOff\\.\" > " + path + "/" + filename);
+			} else
+			{
+				Log.i(TAG,
+						"Write error. "
+								+ Environment.getExternalStorageDirectory()
+								+ " couldn't be written");
+			}
+		} catch (Exception e)
+		{
+			Log.e(TAG, "Exception: " + e.getMessage());
+		}
+	}
+
+
 }

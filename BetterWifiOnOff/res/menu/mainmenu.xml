@@ -10,6 +10,10 @@
         android:id="@+id/clear_events"
         android:title="@string/menu_clear_events"/>
     <item
+        android:id="@+id/logcat"
+        android:title="@string/menu_logcat"/>
+    
+    <item
         android:id="@+id/preferences"
         android:icon="@drawable/ic_menu_settings"
         android:showAsAction="ifRoom"

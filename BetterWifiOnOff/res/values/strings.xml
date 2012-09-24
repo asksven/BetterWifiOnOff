@@ -96,7 +96,6 @@
     <string name="event_network_inactive">No network activity detected, turning wifi off</string>
     <string name="event_tethering_active">Tethering detected: leaving Wifi on</string>
     <string name="event_tethering_inactive">No tethering detected: turning Wifi off</string>
-    
     <string name="event_disabled">Disabled: do nothing</string>
     <string name="event_scheduling_wifi_off_in">Scheduling Wifi to be turned off in %1$d seconds</string>
     <string name="event_scheduling_wifi_off_now">Turning off Wifi immediately</string>
@@ -109,4 +108,5 @@
     <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
     <string name="event_no_wakelock_detected">No wakelock detected: turning Wifi off</string>
     <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>
+    <string name="menu_logcat">Save logcat</string>
 </resources>
