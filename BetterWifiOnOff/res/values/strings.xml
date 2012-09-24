@@ -78,8 +78,6 @@
     <string name="pref_wifi_on_if_activity_summary">Leave on as long as there is network activity (&amp;gt;= 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">If wakelock is held</string>
     <string name="pref_wifi_on_if_wakelock_summary">Leave on as long as a wakelock is held (requires root)</string>
-    <string name="pref_wifi_on_if_tethering_title">If Wifi tethering</string>
-    <string name="pref_wifi_on_if_tethering_summary">Leave on if Wifi tethering detected</string>
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
@@ -111,5 +109,4 @@
     <string name="pref_expert_mode_summary">Enables additional preferences (use if you know what you are doing)</string>
     <string name="dialog_expert_mode">Switching to expert mode requires you to reopen the preferences dialog</string>
     <string name="dialog_simple_mode">Switching to simple mode requires you to reopen the preferences dialog</string>
-    
 </resources>

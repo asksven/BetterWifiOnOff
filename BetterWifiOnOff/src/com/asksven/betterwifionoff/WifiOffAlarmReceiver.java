@@ -51,22 +51,19 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		try
 		{
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-			boolean bProcess = prefs.getBoolean("wifi_on_if_in_call", false);
-			if (bProcess)
-			{
-				Log.d(TAG, "Checking if in call");
-				TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-			    if ((telephony.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK)
-			                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
-			    {
-			    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_in_call));
-			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
-			    	return;
-			    }
-			}
 
-			bProcess = prefs.getBoolean("wifi_on_if_activity", false);
+			// if in call do nothing
+			Log.d(TAG, "Checking if in call");
+			TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		    if ((telephony.getCallState() == TelephonyManager.CALL_STATE_OFFHOOK)
+		                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
+		    {
+		    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
+		    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_in_call));
+		    	return;
+		    }
+
+			boolean bProcess = prefs.getBoolean("wifi_on_if_activity", false);
 			
 			if (bProcess)
 			{
@@ -88,21 +85,19 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			
 
 			bProcess = prefs.getBoolean("wifi_on_if_tethering", true);
-			
-			if (bProcess)
-			{
-				Log.d(TAG, "Checking if tethering is active");
 
-				if (WifiControl.isWifiTethering(context))				{
-			    	Log.i(TAG, "Wifi tethering,  leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
-			    	return;
-				}
-				else
-				{
-					Log.i(TAG, "No tethering detected");
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_inactive));
-				}
+			// tethering prevent Wifi to go off
+			Log.d(TAG, "Checking if tethering is active");
+
+			if (WifiControl.isWifiTethering(context))				{
+		    	Log.i(TAG, "Wifi tethering,  leave wifi on");
+		    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
+		    	return;
+			}
+			else
+			{
+				Log.i(TAG, "No tethering detected");
+				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_inactive));
 			}
 			
 
