@@ -423,7 +423,7 @@ public class MainActivity extends ListActivity
 		        DataStorage.LogToFile(fileName, "BetterWifiOnOff logcat");
 		        DataStorage.LogToFile(fileName, "======================");
 
-				Util.run("logcat -d | grep \"BetterWifiOnOff\\.\" >> " + path + "/" + fileName);
+				Util.run("logcat -d >> " + path + "/" + fileName);
 			} else
 			{
 				Log.i(TAG,
