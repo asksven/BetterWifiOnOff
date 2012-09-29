@@ -13,7 +13,7 @@
     <string name="status_connection_changed">La connection a changé</string>
     <string name="status_service_not_started">Service pas encore démarré</string>
     <string name="status_notification_on">Notification désactive</string>
-    <string name="full_version_available">Version sans pub disponible prochainement</string>
+    <string name="full_version_available">Version sans pub disponible</string>
     <string name="status_service_running">Service démaré</string>
     <string name="pref_category_logging">Protocolle</string>
     <string name="pref_screen_logging">Préférences de protocolle</string>

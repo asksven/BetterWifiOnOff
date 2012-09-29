@@ -13,7 +13,7 @@
     <string name="status_connection_changed">Connection status changed</string>
     <string name="status_service_not_started">Service not started yet</string>
     <string name="status_notification_on">Notification activated</string>
-    <string name="full_version_available">Add-free support version available soon</string>
+    <string name="full_version_available">Add-free donate version available</string>
     <string name="status_service_running">Service running</string>
     <string name="pref_category_logging">Logging</string>
     <string name="pref_screen_logging">Logging Preferences</string>
@@ -54,7 +54,7 @@
     <string name="pref_events_show_status_title">Status</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_summary">Leave Wifi on when screen goes off but the phone is plugged</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">If plugged in</string>
-    <string name="pref_disable_control_summary">Suspend Wifi Control</string>
+    <string name="pref_disable_control_summary">Disable all processing</string>
     <string name="pref_disable_control_title">Disable</string>
     <string name="pref_foreground_service_summary">Avoid the service to be killed by Android</string>
     <string name="pref_foreground_service_title">Run as foreground service</string>

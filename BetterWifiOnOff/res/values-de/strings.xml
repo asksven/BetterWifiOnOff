@@ -13,7 +13,7 @@
     <string name="status_connection_changed">Verbindungsstatus hat sich geändert</string>
     <string name="status_service_not_started">Dienst ist noch nicht gestartet</string>
     <string name="status_notification_on">Benachrichtigung an</string>
-    <string name="full_version_available">Version ohne Reklame bald verfügbar</string>
+    <string name="full_version_available">Version ohne Reklame verfügbar</string>
     <string name="status_service_running">Dienst gestartet</string>
     <string name="pref_category_logging">Logging</string>
     <string name="pref_screen_logging">Logging Einstellungen</string>
@@ -54,7 +54,7 @@
     <string name="pref_events_show_status_title">Status</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_summary">Wifi eingeschaltet lasen wenn Bildschirm ausgeht aber am Strom</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">Falls am Strom</string>
-    <string name="pref_disable_control_summary">Wifisteuerung aus</string>
+    <string name="pref_disable_control_summary">Deaktiviert die app</string>
     <string name="pref_disable_control_title">Inaktiv</string>
     <string name="pref_foreground_service_summary">Vermeidet, dass der Dienst von Android gestoppt wird</string>
     <string name="pref_foreground_service_title">Als Dienst im Vordergrund</string>
@@ -109,5 +109,4 @@
     <string name="dialog_simple_mode">Bitte öffnen Sie die Einstellungen erneut um in den einfachen Modus zu gelingen</string>
     <string name="pref_disable_control_title">Inaktiv</string>
     <string name="pref_disable_control_summary">Deaktiviert die app</string>
-    
 </resources>
