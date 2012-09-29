@@ -42,7 +42,7 @@ public class Configuration
 		{
 	          // ClassLoader cl = ctx.getClassLoader();
 	          Context foreignContext = ctx.createPackageContext(
-	        		  "com.asksven.betterlatitude_license",
+	        		  "com.asksven.betterwifionoff_donate",
 	        		  Context.CONTEXT_INCLUDE_CODE |
 	        		  Context.CONTEXT_IGNORE_SECURITY);
 	          Class<?> c =
