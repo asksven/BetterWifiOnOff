@@ -2,16 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.asksven.betterwifionoff"
       android:versionCode="17"
-      android:versionName="1.0.0.0RC1">
+      android:versionName="1.0.0.0RC2">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="15"/>
     
 	<!-- Required to control wifi state -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.UPDATE_DEVICE_STATS"></uses-permission>
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+
+		<!-- Required to be able to hold wakelocks -->
 	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-	<!-- Required to be able to hold wakelocks -->
-	<uses-permission android:name="android.permission.DEVICE_POWER"/>
+	
 	
 	<!-- admob and ConnectivityManager-->
   	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -19,15 +20,20 @@
   	
 	<!--  required for writing own logs files -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-   	<!--  start service on boot -->
+
+    	<!--  start service on boot -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<!--  detect when battery is charged -->
+
+		<!--  detect when battery is charged -->
     <uses-permission android:name="android.permission.BATTERY_STATS" />
-	<!-- detect  when screen is turned on/off-->
+
+    	<!-- detect  when screen is turned on/off-->
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<!-- detect unplug actions -->
 	<uses-permission android:name="android.permission.DEVICE_POWER" />
 	
+	<!-- access own logcat -->
+	<uses-permission android:name="android.permission.READ_LOGS" />	
 	
     <application android:icon="@drawable/ic_launcher" android:label="@string/app_name">
         <activity android:name=".MainActivity"
