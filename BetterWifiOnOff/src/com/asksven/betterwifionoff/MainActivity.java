@@ -63,9 +63,9 @@ public class MainActivity extends ListActivity
 
     
 	private EventAdapter m_listViewAdapter;
-    CheckBox m_checkboxDisabled;
-    CheckBox m_checkboxWifilock;
-    CheckBox m_checkboxHighPerfWifilock;
+//    CheckBox m_checkboxDisabled;
+//    CheckBox m_checkboxWifilock;
+//    CheckBox m_checkboxHighPerfWifilock;
     OnClickListener m_checkBoxListener;
     private Intent broadcastIntent;
     
@@ -85,56 +85,56 @@ public class MainActivity extends ListActivity
 		
 		setContentView(R.layout.main);
 		
-	    m_checkboxDisabled 			= (CheckBox) findViewById(R.id.checkBoxDisable);
-	    m_checkboxWifilock 			= (CheckBox) findViewById(R.id.checkBoxWifilock);
-	    m_checkboxHighPerfWifilock 	= (CheckBox) findViewById(R.id.checkBoxHighPerfWifilock);
+//	    m_checkboxDisabled 			= (CheckBox) findViewById(R.id.checkBoxDisable);
+//	    m_checkboxWifilock 			= (CheckBox) findViewById(R.id.checkBoxWifilock);
+//	    m_checkboxHighPerfWifilock 	= (CheckBox) findViewById(R.id.checkBoxHighPerfWifilock);
 	    
-	    m_checkBoxListener = new OnClickListener()
-	    {
-	    	 @Override
-	    	 public void onClick(View v)
-	    	 {
-	    			switch (v.getId())
-	    			{
-	    				case R.id.checkBoxDisable:
-	    				{
-	    					break;
-	    				}
-	    				case R.id.checkBoxWifilock:
-	    				{
-	    					if (m_checkboxWifilock.isChecked())
-	    					{
-	    						WifiLock.acquireWifiLock(MainActivity.this);
-	    					}
-	    					else
-	    					{
-	    						WifiLock.releaseWifilock();
-	    					}
-	    					break;
-	    				}
-	    				case R.id.checkBoxHighPerfWifilock:
-	    				{
-	    					if (m_checkboxHighPerfWifilock.isChecked())
-	    					{
-	    						WifiLock.acquireHighPerfWifiLock(MainActivity.this);
-	    					}
-	    					else
-	    					{
-	    						WifiLock.releaseWifilock();
-	    					}
-	    					break;
-	    				}
-	    			}
-	    			savePrefs();
-
-	       	 }
-	    };
-
-	    m_checkboxDisabled.setOnClickListener(m_checkBoxListener);
-	    m_checkboxWifilock.setOnClickListener(m_checkBoxListener);
-	    m_checkboxHighPerfWifilock.setOnClickListener(m_checkBoxListener);
-	    
-	    readPrefs();
+//	    m_checkBoxListener = new OnClickListener()
+//	    {
+//	    	 @Override
+//	    	 public void onClick(View v)
+//	    	 {
+//	    			switch (v.getId())
+//	    			{
+//	    				case R.id.checkBoxDisable:
+//	    				{
+//	    					break;
+//	    				}
+//	    				case R.id.checkBoxWifilock:
+//	    				{
+//	    					if (m_checkboxWifilock.isChecked())
+//	    					{
+//	    						WifiLock.acquireWifiLock(MainActivity.this);
+//	    					}
+//	    					else
+//	    					{
+//	    						WifiLock.releaseWifilock();
+//	    					}
+//	    					break;
+//	    				}
+//	    				case R.id.checkBoxHighPerfWifilock:
+//	    				{
+//	    					if (m_checkboxHighPerfWifilock.isChecked())
+//	    					{
+//	    						WifiLock.acquireHighPerfWifiLock(MainActivity.this);
+//	    					}
+//	    					else
+//	    					{
+//	    						WifiLock.releaseWifilock();
+//	    					}
+//	    					break;
+//	    				}
+//	    			}
+//	    			savePrefs();
+//
+//	       	 }
+//	    };
+//
+//	    m_checkboxDisabled.setOnClickListener(m_checkBoxListener);
+//	    m_checkboxWifilock.setOnClickListener(m_checkBoxListener);
+//	    m_checkboxHighPerfWifilock.setOnClickListener(m_checkBoxListener);
+//	    
+//	    readPrefs();
 	    
 		// detect free/full version and enable/disable ads
 		if (!Configuration.isFullVersion(this))
@@ -335,33 +335,33 @@ public class MainActivity extends ListActivity
 		setListAdapter(m_listViewAdapter);
 	}
 	
-	/**
-	 * save the preferences 
-	 */
-	void savePrefs()		
-	{
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		SharedPreferences.Editor editor = prefs.edit();
-		boolean disabled 	= m_checkboxDisabled.isChecked();
-		boolean wifilock 	= m_checkboxWifilock.isChecked();
-		boolean hpWifilock = m_checkboxHighPerfWifilock.isChecked();
-        editor.putBoolean("disable_control", disabled);
-        editor.putBoolean("wifilock", wifilock);
-        editor.putBoolean("highperf_wifilock", hpWifilock);
-        editor.commit();
-	}
-
-	void readPrefs()
-	{
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		boolean disabled 	= prefs.getBoolean("disable_control", false);
-		boolean wifilock 	= prefs.getBoolean("wifilock", false);
-		boolean hpWifilock = prefs.getBoolean("highperf_wifilock", false);
-
-        m_checkboxDisabled.setChecked(disabled);
-        m_checkboxWifilock.setChecked(wifilock);
-        m_checkboxHighPerfWifilock.setChecked(hpWifilock);
-	}
+//	/**
+//	 * save the preferences 
+//	 */
+//	void savePrefs()		
+//	{
+//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//		SharedPreferences.Editor editor = prefs.edit();
+//		boolean disabled 	= m_checkboxDisabled.isChecked();
+//		boolean wifilock 	= m_checkboxWifilock.isChecked();
+//		boolean hpWifilock = m_checkboxHighPerfWifilock.isChecked();
+//        editor.putBoolean("disable_control", disabled);
+//        editor.putBoolean("wifilock", wifilock);
+//        editor.putBoolean("highperf_wifilock", hpWifilock);
+//        editor.commit();
+//	}
+//
+//	void readPrefs()
+//	{
+//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//		boolean disabled 	= prefs.getBoolean("disable_control", false);
+//		boolean wifilock 	= prefs.getBoolean("wifilock", false);
+//		boolean hpWifilock = prefs.getBoolean("highperf_wifilock", false);
+//
+//        m_checkboxDisabled.setChecked(disabled);
+//        m_checkboxWifilock.setChecked(wifilock);
+//        m_checkboxHighPerfWifilock.setChecked(hpWifilock);
+//	}
 	
 	private class WriteLogcatFile extends AsyncTask
 	{

@@ -107,4 +107,7 @@
     <string name="pref_expert_mode_summary">Aktive les préférences avancées (n\'utiliser que si vous savez ce que vous faites)</string>
     <string name="dialog_expert_mode">Prière de réouvrir les préférences pour entrer le mode expert</string>
     <string name="dialog_simple_mode">Prière de réouvrir les préférences pour entrer le mode simple</string>
+    <string name="pref_disable_control_title">Inactif</string>
+    <string name="pref_disable_control_summary">Désactive l\'application</string>
+    
 </resources>

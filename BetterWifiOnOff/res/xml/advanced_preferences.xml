@@ -20,6 +20,13 @@
         android:summary="@string/pref_foreground_service_summary"
         android:title="@string/pref_foreground_service_title" />
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="disable_control"
+        android:summary="@string/pref_disable_control_summary"
+        android:title="@string/pref_disable_control_title" />
+
     <!-- <CheckBoxPreference -->
     <!-- android:defaultValue="false" -->
     <!-- android:enabled="true" -->
