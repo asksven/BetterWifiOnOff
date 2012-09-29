@@ -54,8 +54,8 @@
     <string name="pref_events_show_status_title">Status</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_summary">Laisser Wifi allumé quand l\'écran s\'éteit et le téléphone est connecté auf chargeur</string>
     <string name="pref_wifi_on_when_screen_off_but_power_plugged_title">Connecté auf chargeur</string>
-    <string name="pref_disable_control_summary">Suspendre le contrôle de Wifi</string>
-    <string name="pref_disable_control_title">Suspendre</string>
+    <string name="pref_disable_control_summary">Désactive l\'application</string>
+    <string name="pref_disable_control_title">Inactif</string>
     <string name="pref_foreground_service_summary">´Evite que le service soit suspendu par Android</string>
     <string name="pref_foreground_service_title">Service en avant plan</string>
     <string name="pref_wakelock_while_power_plugged_title">Wakelock quand connecté au chargeur</string>
@@ -109,5 +109,4 @@
     <string name="dialog_simple_mode">Prière de réouvrir les préférences pour entrer le mode simple</string>
     <string name="pref_disable_control_title">Inactif</string>
     <string name="pref_disable_control_summary">Désactive l\'application</string>
-    
 </resources>
