@@ -29,8 +29,8 @@
     <string name="wifi_on_when_screen_on_title">On when screen on</string>
     <string name="wifi_on_when_screen_unlock_summary">Turn on when screen unlocked (avoid turning Wifi on when screen goes on due to notifications)</string>
     <string name="wifi_on_when_screen_unlock_title">On when screen unlocked</string>
-    <string name="pref_wifi_off_delay_title">Wifi off delay</string>
-    <string name="pref_wifi_off_delay_summary">Time to wait before turning Wifi off</string>
+    <string name="pref_wifi_off_delay_title">Delay</string>
+    <string name="pref_wifi_off_delay_summary">Time to wait before checking Wifi status</string>
     <string name="pref_category_rules_on">Rules for turning Wifi on</string>
     <string name="pref_category_rules_leave_on">Rules for leaving Wifi on</string>
     <string name="pref_category_rules_plugged">Rules when plugged</string>

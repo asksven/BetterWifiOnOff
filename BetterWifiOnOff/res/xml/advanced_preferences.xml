@@ -26,7 +26,15 @@
         android:key="disable_control"
         android:summary="@string/pref_disable_control_summary"
         android:title="@string/pref_disable_control_title" />
-
+    
+    <ListPreference
+        android:defaultValue="30"
+        android:entries="@array/wifiConnectedDelayLabels"
+        android:entryValues="@array/wifiConnectedDelayValues"
+        android:key="wifi_connected_delay"
+        android:summary="@string/pref_wifi_connected_delay_summary"
+        android:title="@string/pref_wifi_connected_delay_title" />
+    
     <!-- <CheckBoxPreference -->
     <!-- android:defaultValue="false" -->
     <!-- android:enabled="true" -->
@@ -89,13 +97,6 @@
             android:summary="@string/pref_wifi_on_if_wakelock_summary"
             android:title="@string/pref_wifi_on_if_wakelock_title" />
                 
-        <ListPreference
-            android:defaultValue="30"
-            android:entries="@array/wifiConnectedDelayLabels"
-            android:entryValues="@array/wifiConnectedDelayValues"
-            android:key="wifi_connected_delay"
-            android:summary="@string/pref_wifi_connected_delay_summary"
-            android:title="@string/pref_wifi_connected_delay_title" />
         <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="true"
