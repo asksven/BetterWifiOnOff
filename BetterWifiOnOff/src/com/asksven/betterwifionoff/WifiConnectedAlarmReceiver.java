@@ -54,6 +54,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+				serviceIntent.putExtra(SetWifiStateService.EXTRA_REASON_OFF, false);
 				context.startService(serviceIntent);
 				return;
 			}
@@ -73,6 +74,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_REASON_OFF, false);
 						context.startService(serviceIntent);
 						return;
 					}
@@ -98,6 +100,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
+						serviceIntent.putExtra(SetWifiStateService.EXTRA_REASON_OFF, false);
 						context.startService(serviceIntent);
 						return;
 					}

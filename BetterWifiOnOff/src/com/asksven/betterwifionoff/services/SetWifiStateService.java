@@ -42,7 +42,7 @@ public class SetWifiStateService extends Service
 {
 	private static final String TAG = "BetterWifiOnOff.SetWifiStateService";
 	public static final String EXTRA_STATE = "com.asksven.betterwifionoff.WifiState";
-	public static final String EXTRA_MESSAGE = "com.asksven.betterwifionoff.WifiStateMessage";
+	public static final String EXTRA_REASON_OFF = "com.asksven.betterwifionoff.WifiReasonOff";
 	
 	private static final int ALARM_WIFI_OFF 		= 12;
 	private static final int ALARM_WIFI_CONNECTED 	= 13;
@@ -53,13 +53,16 @@ public class SetWifiStateService extends Service
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 	
 		boolean state = intent.getBooleanExtra(EXTRA_STATE, false);
-		Log.i(TAG, "Called with extra " + state);
+		
+		// tells whether Wifi is turned off because it was scheduled to go off
+		boolean reasonOff = intent.getBooleanExtra(EXTRA_REASON_OFF, false);
+		Log.i(TAG, "Called with extra " + state + ", " + reasonOff);
 		
 		boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
 		
-		// if Wifi is going to be tured off we may want to respect Wakelocks
+		// if Wifi is going to be tured off (reasonOff distinguishes the case) we may want to respect Wakelocks
 		// This must be done here (instead of the Alarm receiver as there is a wakelock being held while alarms are processed
-		if ((!state) && (bCheckWakelocks))
+		if (reasonOff && !state && (bCheckWakelocks))
 		{
 			if (Wakelocks.hasWakelocks(this))
 			{
