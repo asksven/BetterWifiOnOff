@@ -29,8 +29,8 @@
     <string name="wifi_on_when_screen_on_title">An wenn Bildschirm an</string>
     <string name="wifi_on_when_screen_unlock_summary">Wifi an wenn Bildschirm entsperrt wird (vermeidete, dass Wifi angeht wenn Bildschirm blinkt)</string>
     <string name="wifi_on_when_screen_unlock_title">An wenn entsperrt</string>
-    <string name="pref_wifi_off_delay_title">Verzögerung bei aus</string>
-    <string name="pref_wifi_off_delay_summary">Wartezeit bevor Wifi ausgeschaltet wird</string>
+    <string name="pref_wifi_off_delay_title">Verzögerung</string>
+    <string name="pref_wifi_off_delay_summary">Wartezeit bis der Wifi Zustand überpüft wird</string>
     <string name="pref_category_rules_on">Regeln um Wifi einzuschalten</string>
     <string name="pref_category_rules_leave_on">Regeln um Wifi an zu lassen</string>
     <string name="pref_category_rules_plugged">Regeln wenn am Strom</string>

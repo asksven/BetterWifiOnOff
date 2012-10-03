@@ -29,8 +29,8 @@
     <string name="wifi_on_when_screen_on_title">Allumer avec l\'écran</string>
     <string name="wifi_on_when_screen_unlock_summary">Allumer Wifi quand l\'écran est déverouillé (évite d\'allumer Wifi quand l\'écran est allumé par une alerte)</string>
     <string name="wifi_on_when_screen_unlock_title">Allumer auf déverouillage</string>
-    <string name="pref_wifi_off_delay_title">Délai d\'extinction</string>
-    <string name="pref_wifi_off_delay_summary">Délai avant d\'éteindre Wifi</string>
+    <string name="pref_wifi_off_delay_title">Délai</string>
+    <string name="pref_wifi_off_delay_summary">Délai avant de contrôler le status du Wifi</string>
     <string name="pref_category_rules_on">Règles pour éteindre Wifi</string>
     <string name="pref_category_rules_leave_on">Règles pour laisser Wifi allumé</string>
     <string name="pref_category_rules_plugged">Règles quand déconnecté du chargeur</string>
