@@ -37,11 +37,13 @@
             android:summary="@string/pref_wifi_on_if_whitelisted_summary"
             android:title="@string/pref_wifi_on_if_whitelisted_title" />
         
-        <EditTextPreference
-            android:key="wifi_whitelist"
+  		<com.asksven.betterwifionoff.SsidWhitelistPreference
+	        android:dialogTitle="Whitelist"
+	        android:key="wifi_whitelist_v11"
             android:summary="@string/pref_wifi_whitelist_summary"
             android:title="@string/pref_wifi_whitelist_title" />
-               
+	        />
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_logging" >
         <PreferenceScreen android:title="@string/pref_screen_logging" >

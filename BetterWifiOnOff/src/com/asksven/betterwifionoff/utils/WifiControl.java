@@ -168,11 +168,13 @@ public class WifiControl
 		ArrayList<String> myList = new ArrayList<String>();
 		
 		List<WifiConfiguration> myConfiguredAccessPoints = wifiManager.getConfiguredNetworks();
-		for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+		if (myConfiguredAccessPoints != null)
 		{
-			myList.add(myConfiguredAccessPoints.get(i).SSID);
+			for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+			{
+				myList.add(myConfiguredAccessPoints.get(i).SSID);
+			}
 		}
-		
 		return myList;
 	}
 	
@@ -188,11 +190,13 @@ public class WifiControl
 		ArrayList<String> myList = new ArrayList<String>();
 		
 		List<ScanResult> myConfiguredAccessPoints = wifiManager.getScanResults();
-		for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+		if (myConfiguredAccessPoints != null)
 		{
-			myList.add(myConfiguredAccessPoints.get(i).SSID);
+			for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+			{
+				myList.add(myConfiguredAccessPoints.get(i).SSID);
+			}
 		}
-		
 		return myList;
 	}
 
