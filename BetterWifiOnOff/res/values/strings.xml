@@ -32,13 +32,12 @@
     <string name="pref_wifi_off_delay_title">Delay</string>
     <string name="pref_wifi_off_delay_summary">Time to wait before checking Wifi status</string>
     <string name="pref_category_rules_on">Rules for turning Wifi on</string>
-    <string name="pref_category_rules_leave_on">Rules for leaving Wifi on</string>
+    <string name="pref_category_rules_leave_on_when_screen_on">Rules for leaving Wifi on when screen is on</string>
+    <string name="pref_category_rules_leave_on_when_screen_off">Rules for leaving Wifi on when screen is off</string>
     <string name="pref_category_rules_plugged">Rules when plugged</string>
     <string name="pref_category_rules_off">Rules for turning Wifi off</string>
     <string name="pref_wifi_on_when_power_plug_title">On when plugged in</string>
     <string name="pref_wifi_on_when_power_plug_summary">Turn Wifi on when power is plugged in</string>
-    <string name="pref_wifi_connected_delay_summary">Delay till an active connection is expected</string>
-    <string name="pref_wifi_connected_delay_title">Connection timeout</string>
     <string name="pref_wifi_on_if_connected_summary">Leave Wifi on only if a connection could be established (has a non zero IP address)</string>
     <string name="pref_wifi_on_if_connected_title">Only if connected</string>
     <string name="pref_check_for_cage_title">If connected check for cage</string>

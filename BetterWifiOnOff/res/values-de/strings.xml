@@ -32,13 +32,12 @@
     <string name="pref_wifi_off_delay_title">Verzögerung</string>
     <string name="pref_wifi_off_delay_summary">Wartezeit bis der Wifi Zustand überpüft wird</string>
     <string name="pref_category_rules_on">Regeln um Wifi einzuschalten</string>
-    <string name="pref_category_rules_leave_on">Regeln um Wifi an zu lassen</string>
+    <string name="pref_category_rules_leave_on_when_screen_on">Regeln um Wifi an zu lassen wenn Bildschirm an</string>
+    <string name="pref_category_rules_leave_on_when_screen_off">Regeln um Wifi an zu lassen wenn Bildschirm aus</string>
     <string name="pref_category_rules_plugged">Regeln wenn am Strom</string>
     <string name="pref_category_rules_off">Regeln um Wifi auszuschalten</string>
     <string name="pref_wifi_on_when_power_plug_title">An wenn am Strom</string>
     <string name="pref_wifi_on_when_power_plug_summary">Wifi einschalten wenn an eine Stromquelle</string>
-    <string name="pref_wifi_connected_delay_summary">Wartezeit bis eine Verbindung aktiv ist</string>
-    <string name="pref_wifi_connected_delay_title">Wartezeit</string>
     <string name="pref_wifi_on_if_connected_summary">Wifi nur wenn eine aktive Verbindung (IP Adresse) besteht an lassen</string>
     <string name="pref_wifi_on_if_connected_title">Nur wenn verbunden</string>
     <string name="pref_check_for_cage_title">Nach Käfig prüfen</string>

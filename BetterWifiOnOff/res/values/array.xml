@@ -17,19 +17,5 @@
         <item name="3">30</item>
         <item name="4">60</item>
         <item name="5">120</item>
-    </string-array>
-        
-    <!-- Values for delay till we check if a connection was established -->
-    <string-array name="wifiConnectedDelayLabels" translatable="false">
-        <item>10 s</item>
-        <item>30 s *</item>
-        <item>1 Min.</item>
-    </string-array>
-
-    <string-array name="wifiConnectedDelayValues" translatable="false">
-        <item name="2">10</item>
-        <item name="3">30</item>
-        <item name="4">60</item>
-    </string-array>
-    
+    </string-array>    
 </resources>

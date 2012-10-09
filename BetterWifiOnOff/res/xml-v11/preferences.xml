@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-
+	<com.asksven.betterwifionoff.SsidWhitelistPreference
+      android:dialogTitle="Whitelist"
+      android:key="wifi_whitelist_v11"
+         android:summary="@string/pref_wifi_whitelist_summary"
+         android:title="@string/pref_wifi_whitelist_title" />
+    
 
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
@@ -22,7 +27,7 @@
             android:summary="@string/pref_wifi_on_when_power_plug_summary"
             android:title="@string/pref_wifi_on_when_power_plug_title" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/pref_category_rules_leave_on" >
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
         <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
@@ -37,12 +42,6 @@
             android:summary="@string/pref_wifi_on_if_whitelisted_summary"
             android:title="@string/pref_wifi_on_if_whitelisted_title" />
         
-  		<com.asksven.betterwifionoff.SsidWhitelistPreference
-	        android:dialogTitle="Whitelist"
-	        android:key="wifi_whitelist_v11"
-            android:summary="@string/pref_wifi_whitelist_summary"
-            android:title="@string/pref_wifi_whitelist_title" />
-	        />
         
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_logging" >

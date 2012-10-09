@@ -32,13 +32,12 @@
     <string name="pref_wifi_off_delay_title">Délai</string>
     <string name="pref_wifi_off_delay_summary">Délai avant de contrôler le status du Wifi</string>
     <string name="pref_category_rules_on">Règles pour éteindre Wifi</string>
-    <string name="pref_category_rules_leave_on">Règles pour laisser Wifi allumé</string>
+    <string name="pref_category_rules_leave_on_when_screen_on">Règles pour laisser Wifi allumé quand l\'écran est allumé</string>
+    <string name="pref_category_rules_leave_on_when_screen_off">Règles pour laisser Wifi allumé quand l\'écran est éteint</string>
     <string name="pref_category_rules_plugged">Règles quand déconnecté du chargeur</string>
     <string name="pref_category_rules_off">Règles pour éteindre Wifi</string>
     <string name="pref_wifi_on_when_power_plug_title">Allumer quand connecté</string>
     <string name="pref_wifi_on_when_power_plug_summary">Allumer Wifi quand le chargeut est connecté</string>
-    <string name="pref_wifi_connected_delay_summary">Délai jusqu\'à connection</string>
-    <string name="pref_wifi_connected_delay_title">Delai de connection</string>
     <string name="pref_wifi_on_if_connected_summary">Laisser Wifi allumé seulement si une connection est active (Adresse IP non nulle)</string>
     <string name="pref_wifi_on_if_connected_title">Seulement si connecté</string>
     <string name="pref_check_for_cage_title">Si connecté teste si cage</string>
