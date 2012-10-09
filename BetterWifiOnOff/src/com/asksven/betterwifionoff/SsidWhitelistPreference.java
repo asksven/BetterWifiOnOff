@@ -33,7 +33,7 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
     @TargetApi(11)
 	public SsidWhitelistPreference(Context context, AttributeSet attrs)
     {
-        super(context, attrs);
+    	super(context, attrs);
         m_context = context;
         // retrieve the list of configured access points
         List<String> whitelistedSsids = new ArrayList<String>();
@@ -74,6 +74,8 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
         }
         setEntries(entries);
         setEntryValues(entryValues);
+        
+        
     }
 
     public SsidWhitelistPreference(Context context)

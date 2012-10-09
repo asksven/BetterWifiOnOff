@@ -72,7 +72,7 @@
     <string name="pref_wifi_on_if_whitelisted_summary">Reste allumé seulement si connecté à un point d\'accès de la liste blanche</string>
     <string name="pref_wifi_on_if_whitelisted_title">Si connecté à un SSID de la liste blanche</string>
     <string name="pref_wifi_on_if_activity_title">Si activité réseau</string>
-    <string name="pref_wifi_on_if_activity_summary">Laisse Wifi allumé si une activité réseau est détectée (\>= 1KB/s)</string>
+    <string name="pref_wifi_on_if_activity_summary">Laisse Wifi allumé si une activité réseau est détectée (plus que 1KB/s)</string>
     <string name="pref_wifi_on_if_wakelock_title">Si un wakelock est présent</string>
     <string name="pref_wifi_on_if_wakelock_summary">Laisse Wifi allumé tant qu\'un wakelock d\'une application tierce est détecté (root requis)</string>
     <string name="support_version">Version de support du développeur</string>

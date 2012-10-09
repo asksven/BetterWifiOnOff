@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <!-- <CheckBoxPreference -->
-    <!-- android:defaultValue="false" -->
-    <!-- android:enabled="false" -->
-    <!-- android:key="disable_control" -->
-    <!-- android:summary="@string/pref_disable_control_summary" -->
-    <!-- android:title="@string/pref_disable_control_title" /> -->
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:enabled="true"
-        android:key="start_on_boot"
-        android:summary="@string/pref_start_on_boot_summary"
-        android:title="@string/pref_start_on_boot_title" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:enabled="true"
-        android:key="foreground_service"
-        android:summary="@string/pref_foreground_service_summary"
-        android:title="@string/pref_foreground_service_title" />
-
+    
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
         android:key="disable_control"
         android:summary="@string/pref_disable_control_summary"
         android:title="@string/pref_disable_control_title" />
+    
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="start_on_boot"
+        android:summary="@string/pref_start_on_boot_summary"
+        android:title="@string/pref_start_on_boot_title" />
+    
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="foreground_service"
+        android:summary="@string/pref_foreground_service_summary"
+        android:title="@string/pref_foreground_service_title" />
+    
+	<com.asksven.betterwifionoff.SsidWhitelistPreference
+        android:dialogTitle="Whitelist"
+        android:key="wifi_whitelist_v11"
+        android:summary=""
+        android:title="@string/pref_wifi_whitelist_title" />
     
     <ListPreference
         android:defaultValue="30"
@@ -34,11 +35,7 @@
         android:key="wifi_off_delay"
         android:summary="@string/pref_wifi_off_delay_summary"
         android:title="@string/pref_wifi_off_delay_title" />
-	<com.asksven.betterwifionoff.SsidWhitelistPreference
-        android:dialogTitle="Whitelist"
-        android:key="wifi_whitelist_v11"
-        android:summary="@string/pref_wifi_whitelist_summary"
-        android:title="@string/pref_wifi_whitelist_title" />
+
 
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
@@ -60,7 +57,6 @@
             android:summary="@string/pref_wifi_on_when_power_plug_summary"
             android:title="@string/pref_wifi_on_when_power_plug_title" />
     </PreferenceCategory>
-    
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
         <CheckBoxPreference
             android:defaultValue="true"
@@ -79,9 +75,8 @@
             android:enabled="true"
             android:key="wifi_on_if_whitelisted"
             android:summary="@string/pref_wifi_on_if_whitelisted_summary"
-            android:title="@string/pref_wifi_on_if_whitelisted_title" />    
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
     </PreferenceCategory>
-    
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_off" >
         <CheckBoxPreference
             android:defaultValue="false"
@@ -106,10 +101,8 @@
             android:enabled="true"
             android:key="wifi_on_when_screen_off_but_whitelisted"
             android:summary="@string/pref_wifi_on_if_whitelisted_summary"
-            android:title="@string/pref_wifi_on_if_whitelisted_title" />    
-        
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
     </PreferenceCategory>
-    
     <PreferenceCategory android:title="@string/pref_category_rules_plugged" >
         <CheckBoxPreference
             android:defaultValue="false"
@@ -143,7 +136,6 @@
             android:key="wifi_off_when_screen_off"
             android:summary="@string/wifi_off_when_screen_off_summary"
             android:title="@string/wifi_off_when_screen_off_title" />
-
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_logging" >
         <PreferenceScreen android:title="@string/pref_screen_logging" >
@@ -169,13 +161,12 @@
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>
-    
+
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
         android:key="expert_mode"
         android:summary="@string/pref_expert_mode_summary"
         android:title="@string/pref_expert_mode_title" />
-
 
 </PreferenceScreen>
