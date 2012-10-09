@@ -101,7 +101,7 @@ public class SetWifiStateService extends Service
 			
 			if (state && bProcess)
 			{
-		    	String strInterval = sharedPrefs.getString("wifi_connected_delay", "30");
+		    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
     	    	
 				int delay = 30;
 				try
@@ -280,7 +280,7 @@ public class SetWifiStateService extends Service
 		// create a new one starting to count NOW
 		
     	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-    	String strInterval = prefs.getString("wifi_connected_delay", "30");
+    	String strInterval = prefs.getString("wifi_off_delay", "30");
     	    	
 		int iInterval = 30;
 		try
