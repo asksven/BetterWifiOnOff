@@ -38,7 +38,7 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
         // retrieve the list of configured access points
         List<String> whitelistedSsids = new ArrayList<String>();
         
-        List<String> ssids = WifiControl.getAvailableAccessPoints(context);
+        List<String> ssids = WifiControl.getConfiguredAccessPoints(context);
         
         // retrieve the list of witelisted accesspoints
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
