@@ -3,8 +3,8 @@
 	<com.asksven.betterwifionoff.SsidWhitelistPreference
       android:dialogTitle="Whitelist"
       android:key="wifi_whitelist_v11"
-         android:summary="@string/pref_wifi_whitelist_summary"
-         android:title="@string/pref_wifi_whitelist_title" />
+      android:summary="@string/pref_wifi_whitelist_summary"
+      android:title="@string/pref_wifi_whitelist_title" />
     
 
     <PreferenceCategory android:title="@string/pref_category_rules_on" >

@@ -34,8 +34,9 @@
         android:key="wifi_off_delay"
         android:summary="@string/pref_wifi_off_delay_summary"
         android:title="@string/pref_wifi_off_delay_title" />
-    <EditTextPreference
-        android:key="wifi_whitelist"
+	<com.asksven.betterwifionoff.SsidWhitelistPreference
+        android:dialogTitle="Whitelist"
+        android:key="wifi_whitelist_v11"
         android:summary="@string/pref_wifi_whitelist_summary"
         android:title="@string/pref_wifi_whitelist_title" />
 
