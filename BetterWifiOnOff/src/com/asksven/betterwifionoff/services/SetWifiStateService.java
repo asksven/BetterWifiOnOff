@@ -195,13 +195,7 @@ public class SetWifiStateService extends Service
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		int retries = sharedPrefs.getInt("wifi_off_retries", 0) + 1;
 		
-		if (retries > 5)
-		{
-			Log.i(TAG, "Retried " + retries + " times. Stop obsessing");
-			EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_stop_retrying, retries));
-			return true;
-		}
-		else
+		if (retries <= 5)
 		{
 	        SharedPreferences.Editor editor = sharedPrefs.edit();
 	        editor.putInt("wifi_off_retries", retries);
@@ -229,8 +223,16 @@ public class SetWifiStateService extends Service
     		iInterval = 30;
     	}
 
-		// increase interval depending on retries
-		iInterval = iInterval + (iInterval * retries);
+		if (retries >= 5)
+		{
+			// set timeout to 15 minutes
+			iInterval = 15 * 60;
+		}
+		else
+		{
+			// increase interval depending on retries
+			iInterval = iInterval + (iInterval * retries);
+		}
 		
 		EventBroadcaster.sendStatusEvent(ctx, ctx.getString(R.string.event_scheduling_wifi_off_in, iInterval));
 		
