@@ -83,13 +83,11 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				}
 			}
 			
-
-			bProcess = prefs.getBoolean("wifi_on_if_tethering", true);
-
-			// tethering prevent Wifi to go off
+			// tethering always prevent Wifi to go off
 			Log.d(TAG, "Checking if tethering is active");
 
-			if (WifiControl.isWifiTethering(context))				{
+			if (WifiControl.isWifiTethering(context))
+			{
 		    	Log.i(TAG, "Wifi tethering,  leave wifi on");
 		    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
 		    	return;
@@ -98,6 +96,25 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			{
 				Log.i(TAG, "No tethering detected");
 				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_inactive));
+			}
+			
+
+			bProcess = prefs.getBoolean("wifi_on_when_screen_off_but_whitelisted", false);
+			
+			if (bProcess)
+			{
+				String whitelist = prefs.getString("wifi_whitelist", "");
+				if (WifiControl.isWhitelistedWifiConnected(context, whitelist))
+				{
+			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");
+			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_wl));
+			    	return;
+				}
+				else
+				{
+					Log.d(TAG, "Access Point not whitelisted: turning  Wifi off");
+					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_not_wl)); 
+				}
 			}
 			
 
