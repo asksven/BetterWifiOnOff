@@ -111,4 +111,5 @@
     <string name="dialog_simple_mode">Switching to simple mode requires you to reopen the preferences dialog</string>
     <string name="pref_disable_control_title">Disable</string>
     <string name="pref_disable_control_summary">Disable all processing</string>
+    <string name="event_airplane_mode">Airplane Mode on: do nothing</string>
 </resources>

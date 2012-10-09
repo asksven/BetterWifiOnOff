@@ -99,6 +99,14 @@ public class ScreenEventHandler extends BroadcastReceiver
     			Log.i(TAG, "Wifi handling is disabled: do nothing");
     			return;
     		}
+    		
+    		// respect airplane mode
+    		if (WifiControl.isAirplaneModeOn(context))
+    		{
+    			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_airplane_mode));
+    			Log.i(TAG, "Airplane Mode on: do nothing");
+    			return;
+    		}
 
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);

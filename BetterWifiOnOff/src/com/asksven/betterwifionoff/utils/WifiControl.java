@@ -36,6 +36,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.util.Log;
 
 /**
@@ -308,5 +309,19 @@ public class WifiControl
 		}
 		
 		return ret;
+	}
+	
+	/**
+	* Gets the state of Airplane Mode.
+	* 
+	* @param context
+	* @return true if enabled.
+	*/
+	public static boolean isAirplaneModeOn(Context context)
+	{
+
+	   return Settings.System.getInt(context.getContentResolver(),
+	           Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+
 	}
 }

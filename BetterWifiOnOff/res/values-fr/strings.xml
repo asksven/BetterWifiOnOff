@@ -109,4 +109,5 @@
     <string name="dialog_simple_mode">Prière de réouvrir les préférences pour entrer le mode simple</string>
     <string name="pref_disable_control_title">Inactif</string>
     <string name="pref_disable_control_summary">Désactive l\'application</string>
+    <string name="event_airplane_mode">Mode Avion activ: pas d\'action</string>
 </resources>
