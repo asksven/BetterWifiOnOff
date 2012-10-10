@@ -15,9 +15,6 @@
  */
 package com.asksven.betterwifionoff.data;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -31,30 +28,22 @@ import android.preference.PreferenceManager;
  */
 public class EventLogger
 {
-	private List<Event> m_data;
 	private Context m_ctx;
-	private static final int MAX_ENTRIES = 50;
 	
 	public EventLogger(Context ctx)
 	{
 		m_ctx = ctx;
-		m_data = new ArrayList<Event>();
-		// add some dummy data
-		addSystemEvent("Logging started");
 	}
 
 	public void addEvent(int type, String event)
 	{
-		m_data.add(0, new Event(type, event));
-		if (m_data.size() > MAX_ENTRIES)
-		{
-			m_data.remove(MAX_ENTRIES);
-		}
+		Event entry = new Event(type, event);
+		EventDBHelper.getInstance(m_ctx).addEvent(entry);
 	}
 	
 	public void clear()
 	{
-		m_data.clear();
+		EventDBHelper.getInstance(m_ctx).purgeEvents();
 	}
 
 	public void addUserEvent(String event)
@@ -90,6 +79,6 @@ public class EventLogger
 	
 	public List<Event> getEvents()
 	{
-		return m_data;
+		return EventDBHelper.getInstance(m_ctx).fetchAllRows();
 	}
 }

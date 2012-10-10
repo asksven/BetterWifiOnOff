@@ -17,20 +17,11 @@
 package com.asksven.betterwifionoff.handlers;
 
 
-import com.asksven.android.common.wifi.WifiManagerProxy;
-import com.asksven.betterwifionoff.PluggedWakelock;
-import com.asksven.betterwifionoff.services.EventWatcherService;
-import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
-import com.asksven.betterwifionoff.services.SetWifiStateService;
-import com.asksven.betterwifionoff.utils.WifiControl;
-
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.wifi.WifiManager;
-import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 

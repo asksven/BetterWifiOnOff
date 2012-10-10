@@ -21,7 +21,6 @@ import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.EventWatcherService;
-import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 
 import android.content.BroadcastReceiver;

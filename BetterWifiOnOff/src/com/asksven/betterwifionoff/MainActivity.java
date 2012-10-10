@@ -32,9 +32,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,8 +41,8 @@ import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
-import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
 
@@ -63,9 +61,6 @@ public class MainActivity extends ListActivity
 
     
 	private EventAdapter m_listViewAdapter;
-//    CheckBox m_checkboxDisabled;
-//    CheckBox m_checkboxWifilock;
-//    CheckBox m_checkboxHighPerfWifilock;
     OnClickListener m_checkBoxListener;
     private Intent broadcastIntent;
     
@@ -85,56 +80,6 @@ public class MainActivity extends ListActivity
 		
 		setContentView(R.layout.main);
 		
-//	    m_checkboxDisabled 			= (CheckBox) findViewById(R.id.checkBoxDisable);
-//	    m_checkboxWifilock 			= (CheckBox) findViewById(R.id.checkBoxWifilock);
-//	    m_checkboxHighPerfWifilock 	= (CheckBox) findViewById(R.id.checkBoxHighPerfWifilock);
-	    
-//	    m_checkBoxListener = new OnClickListener()
-//	    {
-//	    	 @Override
-//	    	 public void onClick(View v)
-//	    	 {
-//	    			switch (v.getId())
-//	    			{
-//	    				case R.id.checkBoxDisable:
-//	    				{
-//	    					break;
-//	    				}
-//	    				case R.id.checkBoxWifilock:
-//	    				{
-//	    					if (m_checkboxWifilock.isChecked())
-//	    					{
-//	    						WifiLock.acquireWifiLock(MainActivity.this);
-//	    					}
-//	    					else
-//	    					{
-//	    						WifiLock.releaseWifilock();
-//	    					}
-//	    					break;
-//	    				}
-//	    				case R.id.checkBoxHighPerfWifilock:
-//	    				{
-//	    					if (m_checkboxHighPerfWifilock.isChecked())
-//	    					{
-//	    						WifiLock.acquireHighPerfWifiLock(MainActivity.this);
-//	    					}
-//	    					else
-//	    					{
-//	    						WifiLock.releaseWifilock();
-//	    					}
-//	    					break;
-//	    				}
-//	    			}
-//	    			savePrefs();
-//
-//	       	 }
-//	    };
-//
-//	    m_checkboxDisabled.setOnClickListener(m_checkBoxListener);
-//	    m_checkboxWifilock.setOnClickListener(m_checkBoxListener);
-//	    m_checkboxHighPerfWifilock.setOnClickListener(m_checkBoxListener);
-//	    
-//	    readPrefs();
 	    
 		// detect free/full version and enable/disable ads
 		if (!Configuration.isFullVersion(this))
@@ -276,20 +221,19 @@ public class MainActivity extends ListActivity
         switch (item.getItemId())
         {
 	        case R.id.clear_events:
-				EventWatcherService myService = EventWatcherServiceBinder.getInstance(this).getService();
-				if (myService != null)
-				{
-					myService.clearEvents();
-			    	if (m_listViewAdapter != null)
-			    	{
-			    		m_listViewAdapter.notifyDataSetChanged();
-			    	}
+				EventLogger myLogger = new EventLogger(this);
+				myLogger.clear();
+		    	if (m_listViewAdapter != null)
+		    	{
+		    		m_listViewAdapter.update();
+		    		m_listViewAdapter.notifyDataSetChanged();
+		    	}
 
-				}
 	        	break;
 	        case R.id.refresh_events:
 		    	if (m_listViewAdapter != null)
 		    	{
+		    		m_listViewAdapter.update();
 		    		m_listViewAdapter.notifyDataSetChanged();
 		    	}
 	        	break;	
@@ -324,44 +268,12 @@ public class MainActivity extends ListActivity
 		// make sure we only instanciate when the reference does not exist
 		if (m_listViewAdapter == null)
 		{
-			EventWatcherService myService = EventWatcherServiceBinder.getInstance(this).getService();
-			if (myService != null)
-			{
-				m_listViewAdapter = new EventAdapter(this, myService.getEventLogger());
-			}
-		
-			
+			m_listViewAdapter = new EventAdapter(this);
 		}
 		setListAdapter(m_listViewAdapter);
+		m_listViewAdapter.update();
 	}
 	
-//	/**
-//	 * save the preferences 
-//	 */
-//	void savePrefs()		
-//	{
-//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//		SharedPreferences.Editor editor = prefs.edit();
-//		boolean disabled 	= m_checkboxDisabled.isChecked();
-//		boolean wifilock 	= m_checkboxWifilock.isChecked();
-//		boolean hpWifilock = m_checkboxHighPerfWifilock.isChecked();
-//        editor.putBoolean("disable_control", disabled);
-//        editor.putBoolean("wifilock", wifilock);
-//        editor.putBoolean("highperf_wifilock", hpWifilock);
-//        editor.commit();
-//	}
-//
-//	void readPrefs()
-//	{
-//		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-//		boolean disabled 	= prefs.getBoolean("disable_control", false);
-//		boolean wifilock 	= prefs.getBoolean("wifilock", false);
-//		boolean hpWifilock = prefs.getBoolean("highperf_wifilock", false);
-//
-//        m_checkboxDisabled.setChecked(disabled);
-//        m_checkboxWifilock.setChecked(wifilock);
-//        m_checkboxHighPerfWifilock.setChecked(hpWifilock);
-//	}
 	
 	private class WriteLogcatFile extends AsyncTask
 	{

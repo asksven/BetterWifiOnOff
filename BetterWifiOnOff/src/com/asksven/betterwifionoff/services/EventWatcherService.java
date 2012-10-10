@@ -19,8 +19,6 @@ import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.MainActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.WifiLock;
-import com.asksven.betterwifionoff.data.Event;
-import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.handlers.ConnectionStatusHandler;
 import com.asksven.betterwifionoff.handlers.ScreenEventHandler;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
@@ -30,7 +28,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.app.ActivityManager.RunningServiceInfo;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -39,7 +36,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.net.wifi.WifiManager;
 import android.os.Binder;
 import android.os.IBinder;
-import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -54,7 +50,7 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 	public static String SERVICE_NAME = "com.asksven.betterwifionoff.services.EventWatcherService";
 	public static final int NOTFICATION_ID = 1002;
 	
-	private EventLogger m_events;
+//	private EventLogger m_events;
 	ScreenEventHandler m_screenEventReceiver = null;
 	ConnectionStatusHandler m_connectionEventReceiver = null;
 
@@ -64,14 +60,6 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 	// RemoteService for a more complete example.
 	private final IBinder mBinder = new LocalBinder();
 
-	private BroadcastReceiver m_broadcastReceiver = new BroadcastReceiver()
-	{
-        @Override
-        public void onReceive(Context context, Intent intent)
-        {
-        	updateLog(intent);       
-        }
-    };
     
 	/**
 	 * Class for clients to access. Because we know this service always runs in
@@ -113,8 +101,6 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 		intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
 		intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
 		registerReceiver(m_connectionEventReceiver, intentFilter);
-
-		m_events = new EventLogger(this);
 		
         // Set up a listener whenever a key changes
     	PreferenceManager.getDefaultSharedPreferences(this)
@@ -133,23 +119,7 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
         	WifiLock.acquireWifiLock(this);
         }
         
-        registerReceiver(m_broadcastReceiver, new IntentFilter(MainActivity.BROADCAST_ACTION));
     	
-	}
-
-//	private static EventWatcherService getInstance()
-//	{
-//		return m_instance;
-//	}
-
-	public EventLogger getEventLogger()
-	{
-		return m_events;
-	}
-
-	public void clearEvents()
-	{
-		m_events.clear();
 	}
 
 	/**
@@ -212,7 +182,6 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 		{
 			unregisterReceiver(m_screenEventReceiver);
 			unregisterReceiver(m_connectionEventReceiver);
-			unregisterReceiver(m_broadcastReceiver);
 		}
 		catch (IllegalArgumentException e)
 		{
@@ -298,30 +267,6 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 			startService(i);
 		}
 
-	}
-    /**
-	 * @param intent
-	 */
-	protected void updateLog(Intent intent)
-	{
-		int type = intent.getIntExtra("type", 0);
-		String event = intent.getStringExtra("event"); 
-		
-		switch (type)
-		{
-			case Event.STATUS_CHANGE:
-				this.getEventLogger().addStatusChangedEvent(event);
-				break;
-			case Event.SYSTEM_EVENT:
-				this.getEventLogger().addSystemEvent(event);
-				break;
-			case Event.USER_INTERACTION:
-				this.getEventLogger().addUserEvent(event);
-				break;
-			default:
-				this.getEventLogger().addUserEvent(event);
-				break;	
-		}
 	}
 	
 

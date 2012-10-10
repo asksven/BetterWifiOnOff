@@ -34,18 +34,25 @@ public class EventAdapter extends BaseAdapter
     private Context context;
 
     private List<Event> m_listData;
+    EventLogger m_data;
     private static final String TAG = "EventAdapter";
 
 
-    public EventAdapter(Context context, EventLogger data)
+    public EventAdapter(Context context)
     {
         this.context = context;
-        this.m_listData = data.getEvents();
+        this.m_data = new EventLogger(context);
+        this.update();
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
         boolean bKbEnabled = sharedPrefs.getBoolean("enable_kb", true);
     }
 
+    public void update()
+    {
+    	this.m_listData = m_data.getEvents();
+    }
+    
     public int getCount()
     {
         return m_listData.size();

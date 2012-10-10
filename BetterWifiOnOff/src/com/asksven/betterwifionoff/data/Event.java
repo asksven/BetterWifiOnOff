@@ -41,6 +41,13 @@ public class Event
 		m_timestamp	= System.currentTimeMillis();
 	}
 	
+	Event(int type, String event, long timestamp)
+	{
+		m_type 		= type;
+		m_text 		= event;
+		m_timestamp	= timestamp;
+	}
+
 	public String getTime()
 	{
 		return DateUtils.formatShort(m_timestamp);

@@ -17,11 +17,6 @@
 
 package com.asksven.betterwifionoff;
 
-import com.asksven.android.common.kernelutils.Wakelocks;
-import com.asksven.betterwifionoff.data.EventBroadcaster;
-import com.asksven.betterwifionoff.services.SetWifiStateService;
-import com.asksven.betterwifionoff.utils.WifiControl;
-
 import android.annotation.TargetApi;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -32,6 +27,10 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.asksven.betterwifionoff.data.EventBroadcaster;
+import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 /**
  * Handles alarms set to turn off Wifi with a delay 
@@ -127,7 +126,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		catch (Exception e)
 		{
 			EventBroadcaster.sendErrorEvent(context, "An error occured receiving the alarm: " + e.getMessage());
-			Log.e(TAG, "An error occured receiving the alarm");
+			Log.e(TAG, "An error occured receiving the alarm: " + Log.getStackTraceString(e));
 		}
 	}
 	

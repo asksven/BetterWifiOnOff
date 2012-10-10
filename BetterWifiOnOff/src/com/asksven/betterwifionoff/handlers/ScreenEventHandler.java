@@ -18,7 +18,6 @@ package com.asksven.betterwifionoff.handlers;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventBroadcaster;
 import com.asksven.betterwifionoff.services.EventWatcherService;
-import com.asksven.betterwifionoff.services.EventWatcherServiceBinder;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.WifiControl;
