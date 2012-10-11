@@ -31,26 +31,24 @@ import com.asksven.betterwifionoff.data.EventLogger;
 
 public class EventAdapter extends BaseAdapter
 {
-    private Context context;
+    private Context m_context;
 
     private List<Event> m_listData;
-    EventLogger m_data;
     private static final String TAG = "EventAdapter";
 
 
     public EventAdapter(Context context)
     {
-        this.context = context;
-        this.m_data = new EventLogger(context);
+        this.m_context = context;
         this.update();
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.context);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this.m_context);
         boolean bKbEnabled = sharedPrefs.getBoolean("enable_kb", true);
     }
 
     public void update()
     {
-    	this.m_listData = m_data.getEvents();
+    	this.m_listData = EventLogger.getInstance(m_context).getEvents();
     }
     
     public int getCount()
@@ -73,7 +71,7 @@ public class EventAdapter extends BaseAdapter
     	Event entry = m_listData.get(position);
         if (convertView == null)
         {
-            LayoutInflater inflater = (LayoutInflater) context
+            LayoutInflater inflater = (LayoutInflater) m_context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.event_row, null);
         }

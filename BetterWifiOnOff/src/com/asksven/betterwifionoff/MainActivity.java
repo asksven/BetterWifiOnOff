@@ -221,8 +221,7 @@ public class MainActivity extends ListActivity
         switch (item.getItemId())
         {
 	        case R.id.clear_events:
-				EventLogger myLogger = new EventLogger(this);
-				myLogger.clear();
+				EventLogger.getInstance(this).clear();
 		    	if (m_listViewAdapter != null)
 		    	{
 		    		m_listViewAdapter.update();

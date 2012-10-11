@@ -19,7 +19,7 @@ package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.PluggedWakelock;
 import com.asksven.betterwifionoff.R;
-import com.asksven.betterwifionoff.data.EventBroadcaster;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 
@@ -70,13 +70,13 @@ public class BroadcastHandler extends BroadcastReceiver
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_disabled));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
 
 				Log.i(TAG, "Wifi handling is disabled: do nothing");
 				return;
 			}
 
-			EventBroadcaster.sendStatusEvent(context, "Power was disconnected");
+			EventLogger.getInstance(context).addStatusChangedEvent("Power was disconnected");
 
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
@@ -102,14 +102,14 @@ public class BroadcastHandler extends BroadcastReceiver
 				{
 					SetWifiStateService.scheduleWifiOffAlarm(context);
 
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_scheduling_wifi_off_in, delay));
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_scheduling_wifi_off_in, delay));
 
 
 				}
 				else
 				{	
 					// start service to turn off wifi
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_scheduling_wifi_off_now));
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_scheduling_wifi_off_now));
 
 					Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 					serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -124,7 +124,7 @@ public class BroadcastHandler extends BroadcastReceiver
 			boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
 			if (bDisabled)
 			{
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_disabled));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
 				Log.i(TAG, "Wifi handling is disabled: do nothing");
 				return;
 			}
@@ -157,7 +157,7 @@ public class BroadcastHandler extends BroadcastReceiver
 			if (bProcess)
 			{
 				// start service to turn on wifi
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_wifi_on));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_on));
 
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);

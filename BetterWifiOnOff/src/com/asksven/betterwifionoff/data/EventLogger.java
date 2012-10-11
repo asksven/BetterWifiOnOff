@@ -22,15 +22,24 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * Wrapper for an event collection
+ * Singleton wrapper for an event collection
  * @author sven
  *
  */
 public class EventLogger
 {
 	private Context m_ctx;
+	private static EventLogger m_logger;
 	
-	public EventLogger(Context ctx)
+	public static EventLogger getInstance(Context context)
+	{
+		if (m_logger == null)
+		{
+			m_logger = new EventLogger(context);
+		}
+		return m_logger;
+	}
+	private EventLogger(Context ctx)
 	{
 		m_ctx = ctx;
 	}

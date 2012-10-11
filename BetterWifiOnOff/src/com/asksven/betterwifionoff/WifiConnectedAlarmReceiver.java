@@ -25,7 +25,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.asksven.android.common.kernelutils.Wakelocks;
-import com.asksven.betterwifionoff.data.EventBroadcaster;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -50,7 +50,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 			if (!WifiControl.isWifiConnected(context))
 			{
 				Log.d(TAG, "No connection: turning Wifi off");
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_no_wifi_connection));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_no_wifi_connection));
 
 				Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 				serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -70,7 +70,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					if (!WifiControl.isWhitelistedWifiConnected(context, whitelist))
 					{
 						Log.d(TAG, "Access point is not whitelisted: turning Wifi off");
-						EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_not_wl)); 
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl)); 
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -81,13 +81,13 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					else
 					{
 						Log.d(TAG, "Access Point wihtelisted: leaving Wifi on");
-						EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_wl)); 
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl)); 
 					}
 				}
 				else
 				{
 					Log.d(TAG, "Connection active: leaving Wifi on");
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_connection_active));
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_connection_active));
 				}
 				
 				boolean bCheckCage 	= sharedPrefs.getBoolean("check_for_cage", false);
@@ -96,7 +96,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					if (WifiControl.isWifiCaged(context))
 					{
 						Log.d(TAG, "Access point is caged: turning Wifi off");
-						EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_caged)); 
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_caged)); 
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -107,7 +107,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					else
 					{
 						Log.d(TAG, "Connection not caged: leaving Wifi on");
-						EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_not_caged));
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_caged));
 						
 					}
 				}

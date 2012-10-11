@@ -16,7 +16,7 @@
 package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.R;
-import com.asksven.betterwifionoff.data.EventBroadcaster;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
@@ -50,12 +50,12 @@ public class ScreenEventHandler extends BroadcastReceiver
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
-    			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_disabled));
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
     			Log.i(TAG, "Wifi handling is disabled: do nothing");
     			return;
     		}
 
-    		EventBroadcaster.sendUserEvent(context, context.getString(R.string.event_screen_off));
+    		EventLogger.getInstance(context).addUserEvent(context.getString(R.string.event_screen_off));
     		
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
 			boolean bCheckIfPowered = sharedPrefs.getBoolean("wifi_on_when_screen_off_but_power_plugged", true);
@@ -65,7 +65,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			{
 				if (bCheckIfPowered && ChargerUtil.isConnected(context))
 				{
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_leave_on_charing));
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_leave_on_charing));
 					Log.i(TAG, "Currently connected to A/C and preference is true: leaving on");
 
 				}
@@ -94,7 +94,7 @@ public class ScreenEventHandler extends BroadcastReceiver
         	boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
-    			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_disabled));
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
     			Log.i(TAG, "Wifi handling is disabled: do nothing");
     			return;
     		}
@@ -102,7 +102,7 @@ public class ScreenEventHandler extends BroadcastReceiver
     		// respect airplane mode
     		if (WifiControl.isAirplaneModeOn(context))
     		{
-    			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_airplane_mode));
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_airplane_mode));
     			Log.i(TAG, "Airplane Mode on: do nothing");
     			return;
     		}
@@ -110,14 +110,14 @@ public class ScreenEventHandler extends BroadcastReceiver
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
-			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_screen_on));
+			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_screen_on));
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
 			
 			if (WifiControl.isWifiConnected(context))
 			{
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_wifi_already_on));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_already_on));
 				
 			}
 			else
@@ -137,7 +137,7 @@ public class ScreenEventHandler extends BroadcastReceiver
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
-    			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_disabled));
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
 
     			Log.i(TAG, "Wifi handling is disabled: do nothing");
     			return;
@@ -146,7 +146,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
-			EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_screen_unlocked));
+			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_screen_unlocked));
 
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 
@@ -167,7 +167,7 @@ public class ScreenEventHandler extends BroadcastReceiver
     public void wifiOn(Context context)
     {
 		// start service to turn off wifi
-    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_wifi_on));
+    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_on));
 
 		Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 		serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, true);

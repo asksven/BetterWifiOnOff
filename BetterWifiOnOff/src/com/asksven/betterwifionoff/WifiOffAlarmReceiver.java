@@ -28,7 +28,7 @@ import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-import com.asksven.betterwifionoff.data.EventBroadcaster;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -46,7 +46,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		Log.d(TAG, "Alarm received: preparing to turn Wifi off");
-		EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_alarm));
+		EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_alarm));
 		try
 		{
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -58,7 +58,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		                || (telephony.getCallState() == TelephonyManager.CALL_STATE_RINGING))
 		    {
 		    	Log.w(TAG, "Phone is ringing or in a phone call, leave wifi on");
-		    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_in_call));
+		    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_in_call));
 		    	return;
 		    }
 
@@ -71,14 +71,14 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				// is there any network activity?
 				if (WifiControl.isTransferring(context) || isDownloading(context))				{
 			    	Log.i(TAG, "Network activity detected,  leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_network_active));
+			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_network_active));
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
 				{
 					Log.i(TAG, "No network activity detected");
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_network_inactive));
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_network_inactive));
 				}
 			}
 			
@@ -88,13 +88,13 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			if (WifiControl.isWifiTethering(context))
 			{
 		    	Log.i(TAG, "Wifi tethering,  leave wifi on");
-		    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_active));
+		    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_tethering_active));
 		    	return;
 			}
 			else
 			{
 				Log.i(TAG, "No tethering detected");
-				EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_tethering_inactive));
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_tethering_inactive));
 			}
 			
 
@@ -106,13 +106,13 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				if (WifiControl.isWhitelistedWifiConnected(context, whitelist))
 				{
 			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");
-			    	EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_wl));
+			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl));
 			    	return;
 				}
 				else
 				{
 					Log.d(TAG, "Access Point not whitelisted: turning  Wifi off");
-					EventBroadcaster.sendStatusEvent(context, context.getString(R.string.event_access_point_not_wl)); 
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl)); 
 				}
 			}
 			
@@ -125,7 +125,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		}
 		catch (Exception e)
 		{
-			EventBroadcaster.sendErrorEvent(context, "An error occured receiving the alarm: " + e.getMessage());
+			EventLogger.getInstance(context).addSystemEvent("An error occured receiving the alarm: " + e.getMessage());
 			Log.e(TAG, "An error occured receiving the alarm: " + Log.getStackTraceString(e));
 		}
 	}
