@@ -53,14 +53,14 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 			if ((!wl[i].equals("")) && (wl[i] != null))
 			{
 				
-				whitelistedSsids.add(StringUtils.stripLeadingAndTrailingQuotes(wl[i]));
+				whitelistedSsids.add(StringUtils.stripLeadingAndTrailingQuotes(wl[i]).trim());
 			}
 		}
 
 		// next add the available ssid not yet listed
         for (int i = 0; i < ssids.size(); i++)
         {
-        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i));
+        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i).trim());
         	
         	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
         	{
