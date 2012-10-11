@@ -17,6 +17,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import com.asksven.android.common.utils.StringUtils;
 import com.asksven.betterwifionoff.utils.WifiControl;
 import com.google.ads.e;
 
@@ -51,16 +52,19 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 		{
 			if ((!wl[i].equals("")) && (wl[i] != null))
 			{
-				whitelistedSsids.add(wl[i]);
+				
+				whitelistedSsids.add(StringUtils.stripLeadingAndTrailingQuotes(wl[i]));
 			}
 		}
 
 		// next add the available ssid not yet listed
         for (int i = 0; i < ssids.size(); i++)
         {
-        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(ssids.get(i))))
+        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i));
+        	
+        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
         	{
-        		whitelistedSsids.add(ssids.get(i));
+        		whitelistedSsids.add(availableSSID);
         	}
         }
         
