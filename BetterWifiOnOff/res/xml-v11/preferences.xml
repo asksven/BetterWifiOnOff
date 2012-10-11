@@ -28,12 +28,6 @@
             android:title="@string/pref_wifi_on_when_power_plug_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:enabled="true"
-            android:key="wifi_on_when_screen_off_but_power_plugged"
-            android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
-            android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
 
         <CheckBoxPreference
             android:defaultValue="false"
@@ -44,6 +38,15 @@
         
         
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_off" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_off_but_power_plugged"
+            android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
+            android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
+        
+	</PreferenceCategory>    
     <PreferenceCategory android:title="@string/pref_category_logging" >
         <PreferenceScreen android:title="@string/pref_screen_logging" >
             <PreferenceCategory android:title="@string/pref_category_events" >
