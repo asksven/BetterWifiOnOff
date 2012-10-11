@@ -224,7 +224,7 @@ public class EventDBHelper
 	    {
 			db = m_context.openOrCreateDatabase(DATABASE_NAME, 0,null);
 	        Cursor c;
-	        c = db.query(TABLE_NAME, COLS, null, null, null, null, null);
+	        c = db.query(TABLE_NAME, COLS, null, null, null, null, "ID DESC");
 	        int numRows = c.getCount();
 	        c.moveToFirst();
 	        for (int i = 0; i < numRows; ++i)
