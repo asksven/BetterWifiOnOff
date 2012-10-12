@@ -24,10 +24,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
+import com.asksven.betterwifionoff.data.Constants;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
@@ -49,7 +51,10 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 		EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_alarm));
 		try
 		{
-			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+			//SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+			
+			SharedPreferences prefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
+			
 
 			// if in call do nothing
 			Log.d(TAG, "Checking if in call");
@@ -103,6 +108,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			if (bProcess)
 			{
 				String whitelist = prefs.getString("wifi_whitelist", "");
+				Log.i(TAG, "Checking against whitelist: " + whitelist);
 				if (WifiControl.isWhitelistedWifiConnected(context, whitelist))
 				{
 			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");

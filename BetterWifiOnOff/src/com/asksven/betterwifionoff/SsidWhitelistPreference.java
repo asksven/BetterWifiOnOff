@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.asksven.android.common.utils.StringUtils;
+import com.asksven.betterwifionoff.data.Constants;
 import com.asksven.betterwifionoff.utils.WifiControl;
 import com.google.ads.e;
 
@@ -122,7 +123,8 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
                 pref = pref.substring(0, pref.length()-SEPARATOR.length());   
             }
             
-    		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(m_context);
+			SharedPreferences prefs = m_context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
+
 	        SharedPreferences.Editor editor = prefs.edit();
 	        editor.putString("wifi_whitelist", pref);
 	        editor.commit();

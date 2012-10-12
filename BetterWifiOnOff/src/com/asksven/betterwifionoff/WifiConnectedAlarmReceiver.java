@@ -25,6 +25,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.asksven.android.common.kernelutils.Wakelocks;
+import com.asksven.betterwifionoff.data.Constants;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.WifiControl;
@@ -61,7 +62,8 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 			else
 			{
 				// check if the SSID needs to be checked against whitelist
-				SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+				SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
+
 				boolean bCheckWhiteList 	= sharedPrefs.getBoolean("wifi_on_if_whitelisted", false);
 				
 				if (bCheckWhiteList)
