@@ -126,6 +126,13 @@ public class EventDBHelper
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
 		}
+		finally
+		{
+			if (db.isOpen())
+			{
+				db.close();
+			}
+		}
     }
 
     private void createDatabase(SQLiteDatabase db)
@@ -177,7 +184,10 @@ public class EventDBHelper
 		}
         finally 
 		{
-			db.close();
+        	if (db.isOpen())
+        	{
+        		db.close();
+        	}
 		}    	
     }
 
@@ -208,7 +218,10 @@ public class EventDBHelper
 		}
 		finally 
 		{
-			db.close();
+			if (db.isOpen())
+			{
+				db.close();
+			}
 		}
 	}
 	
@@ -244,7 +257,10 @@ public class EventDBHelper
 		}
 	    finally 
 		{
-			db.close();
+	    	if (db.isOpen())
+	    	{
+	    		db.close();
+	    	}
 		}
 	    return ret;
 	}
