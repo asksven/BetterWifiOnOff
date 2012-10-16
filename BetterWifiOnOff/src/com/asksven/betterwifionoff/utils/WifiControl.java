@@ -18,6 +18,8 @@ package com.asksven.betterwifionoff.utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -131,18 +133,45 @@ public class WifiControl
 	 */
 	public static final boolean isWifiCaged(Context ctx)
 	{
-		if (!isWifiConnected(ctx))
+		try
 		{
-			return false;
+			if (!isWifiConnected(ctx))
+			{
+				Log.i(TAG, "isWifiCaged: no connection active, aborting");
+	
+				return false;
+			}
+			
+			ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+	
+			int ip = ipToInt("8.8.8.8");  
+	
+			boolean ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+			Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret);
+			
+			return (!ret);
 		}
-		
-		ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-		// google DNS
-		int ip = 8 << 24 + 8 << 16 + 4 << 8 + 4;  
-
-		return (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+		catch (Exception e)
+		{
+			Log.e(TAG, "isWifiCaged: An exception occured: " + e.fillInStackTrace());
+		}
+		return false;
 	}
+	
+	public static int ipToInt(String addr)
+	{
+		String[] addrArray = addr.split("\\.");
 
+		int num = 0;
+		for (int i = 0; i < addrArray.length; i++)
+		{
+			int power = 3 - i;
+
+			num += ((Integer.parseInt(addrArray[i]) % 256 * Math.pow(256, power)));
+		}
+		return num;
+	}
+	
 	/**
 	 * Return true if the connected access point is in the given whitelist
 	 * @param ctx a Context
