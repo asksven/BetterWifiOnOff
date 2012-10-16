@@ -11,6 +11,7 @@ import android.preference.ListPreference;
 import android.preference.MultiSelectListPreference;
 import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,6 +32,7 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 
 	private static final String SEPARATOR=",";
 	private Context m_context = null;
+	private final static String TAG = "SsidWhitelistPreference";
 	
     @TargetApi(11)
 	public SsidWhitelistPreference(Context context, AttributeSet attrs)
@@ -53,8 +55,9 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 		{
 			if ((!wl[i].equals("")) && (wl[i] != null))
 			{
-				
-				whitelistedSsids.add(StringUtils.stripLeadingAndTrailingQuotes(wl[i]).trim());
+				String entry = StringUtils.stripLeadingAndTrailingQuotes(wl[i]).trim();
+				whitelistedSsids.add(entry);
+				Log.i(TAG, "Added whitelist entry: **" + entry + "**");
 			}
 		}
 
@@ -66,6 +69,8 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
         	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
         	{
         		whitelistedSsids.add(availableSSID);
+				Log.i(TAG, "Added configured SSID entry: **" + availableSSID + "**");
+        		
         	}
         }
         
