@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.asksven.betterwifionoff"
-      android:versionCode="25"
-      android:versionName="1.0.0.0RC9">
+      android:versionCode="26"
+      android:versionName="1.0.0.0">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="15"/>
     
 	<!-- Required to control wifi state -->
@@ -11,9 +11,8 @@
 	<uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"></uses-permission>
 	
-			<!-- Required to be able to hold wakelocks -->
-		<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
-	
+	<!-- Required to be able to hold wakelocks -->
+	<uses-permission android:name="android.permission.WAKE_LOCK"></uses-permission>
 	
 	<!-- admob and ConnectivityManager-->
   	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
