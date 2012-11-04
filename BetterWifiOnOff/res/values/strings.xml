@@ -111,4 +111,7 @@
     <string name="pref_disable_control_title">Disable</string>
     <string name="pref_disable_control_summary">Disable all processing</string>
     <string name="event_airplane_mode">Airplane Mode on: do nothing</string>
+    <string name="pref_disregard_airplane_mode_title">Disregard airplane mode</string>
+    <string name="pref_disregard_airplane_mode_summary">Turn Wifi on/off even if airplaine mode is on</string>
+    
 </resources>

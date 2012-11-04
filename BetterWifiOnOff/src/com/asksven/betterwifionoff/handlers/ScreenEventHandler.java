@@ -54,9 +54,11 @@ public class ScreenEventHandler extends BroadcastReceiver
     			Log.i(TAG, "Wifi handling is disabled: do nothing");
     			return;
     		}
-    		    		
+
+    		boolean bDisregard = sharedPrefs.getBoolean("disregard_airplane_mode", false);
+
     		// respect airplane mode
-    		if (WifiControl.isAirplaneModeOn(context))
+    		if (!bDisregard && (WifiControl.isAirplaneModeOn(context)))
     		{
     			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_airplane_mode));
     			Log.i(TAG, "Airplane Mode on: do nothing");
@@ -108,8 +110,10 @@ public class ScreenEventHandler extends BroadcastReceiver
     			return;
     		}
     		
+    		boolean bDisregard = sharedPrefs.getBoolean("disregard_airplane_mode", false);
+
     		// respect airplane mode
-    		if (WifiControl.isAirplaneModeOn(context))
+    		if (!bDisregard && (WifiControl.isAirplaneModeOn(context)))
     		{
     			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_airplane_mode));
     			Log.i(TAG, "Airplane Mode on: do nothing");

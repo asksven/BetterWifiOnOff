@@ -30,11 +30,19 @@
         android:summary="@string/pref_wifi_off_delay_summary"
         android:title="@string/pref_wifi_off_delay_title" />
     
+    
     <EditTextPreference
         android:key="wifi_whitelist"
         android:summary="@string/pref_wifi_whitelist_summary"
         android:title="@string/pref_wifi_whitelist_title" />
 
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="disregard_airplane_mode"
+        android:summary="@string/pref_disregard_airplane_mode_summary"
+        android:title="@string/pref_disregard_airplane_mode_title" />
+    
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
             android:defaultValue="true"

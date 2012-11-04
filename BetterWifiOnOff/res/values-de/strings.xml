@@ -109,4 +109,7 @@
     <string name="pref_disable_control_title">Inaktiv</string>
     <string name="pref_disable_control_summary">Deaktiviert die app</string>
     <string name="event_airplane_mode">Flugmodus aktiv: keine Aktion</string>
+    <string name="pref_disregard_airplane_mode_title">Flugmodus ignorieren</string>
+    <string name="pref_disregard_airplane_mode_summary">Wifi ein- und ausschalten auch wenn im Flugmodus</string>
+    
 </resources>
