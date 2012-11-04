@@ -78,7 +78,7 @@
     <string name="support_version">Version de support du développeur</string>
     <string name="free_version">Version gratuite</string>
     <string name="event_no_wifi_connection">Une connexion n\'a pas pû être établie: éteins Wifi</string>
-    <string name="event_access_point_not_wl">Point d\'accès n\'est pas dans la liste blanche: éteins Wifi</string>
+    <string name="event_access_point_not_wl">Point d\'accès n\'est pas dans la liste blanche</string>
     <string name="event_access_point_wl">Le point d\'accès est la liste blache: Wifi reste allumé</string>
     <string name="event_connection_active">Connexion active: Wifi reste allumé</string>
     <string name="event_access_point_caged">Point d\'accès est en cage: éteins Wifi</string>
@@ -87,7 +87,7 @@
     <string name="event_network_active">Activité réseau détectée: Wifi reste allumé</string>
     <string name="event_network_inactive">Pas d\'activité réseau détectée: éteins Wifi</string>
     <string name="event_tethering_active">Tethering détecté: Wifi reste allumé</string>
-    <string name="event_tethering_inactive">Pas de tethering détecté: éteins Wifi</string>
+    <string name="event_tethering_inactive">Pas de tethering détecté</string>
     <string name="event_disabled">Inactiv: pas d\'action</string>
     <string name="event_scheduling_wifi_off_in">Wifi ca être éteint dans %1$d secondes</string>
     <string name="event_scheduling_wifi_off_now">Éteins Wifi</string>
@@ -98,7 +98,7 @@
     <string name="event_screen_unlocked">L\'écran à été déverouillé</string>
     <string name="event_leave_on_charing">Chargeur connecté: Wifi rest allumé</string>
     <string name="event_wakelock_detected">Wakelock detecté: Wifi reste allumé</string>
-    <string name="event_no_wakelock_detected">Pas de wakelock detecté: éteins Wifi</string>
+    <string name="event_no_wakelock_detected">Pas de wakelock detecté</string>
     <string name="event_stop_retrying">%1$d essais. Abandon</string>
     <string name="menu_logcat">Sauver le log de debug</string>
     <string name="pref_expert_mode_title">Mode expert</string>
@@ -110,5 +110,6 @@
     <string name="event_airplane_mode">Mode Avion activ: pas d\'action</string>
     <string name="pref_disregard_airplane_mode_title">Ignorer le mode avion</string>
     <string name="pref_disregard_airplane_mode_summary">Allumer/éteindre Wifi malgré le mode avion</string>
+    <string name="event_wifi_off">Éteins Wifi</string>
     
 </resources>

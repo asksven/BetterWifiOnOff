@@ -124,6 +124,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			
 
 			// start service to turn off wifi
+			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_off)); 
 			Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 			serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
 			serviceIntent.putExtra(SetWifiStateService.EXTRA_REASON_OFF, true);

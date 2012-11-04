@@ -101,7 +101,12 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
-
+			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
+			
+			if (!bProcess)
+			{
+				return;
+			}
         	boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
@@ -124,9 +129,6 @@ public class ScreenEventHandler extends BroadcastReceiver
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
 			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_screen_on));
-
-			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
-			
 			
 			if (WifiControl.isWifiConnected(context))
 			{
@@ -146,7 +148,13 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_USER_PRESENT))
 		{
 			Log.i(TAG, "Received Broadcast ACTION_USER_PRESENT");
-        	
+			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
+
+			if (!bProcess)
+			{
+				return;
+			}
+			
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
@@ -169,8 +177,6 @@ public class ScreenEventHandler extends BroadcastReceiver
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
 			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_screen_unlocked));
-
-			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_unlock", false);
 
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			if (bProcess)

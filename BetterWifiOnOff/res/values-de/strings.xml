@@ -78,7 +78,7 @@
     <string name="support_version">Unterstütze den dev Version</string>
     <string name="free_version">Freie Version</string>
     <string name="event_no_wifi_connection">Keine Verbindung. Wifi wird ausgeschaltet</string>
-    <string name="event_access_point_not_wl">Access Point ist nicht in der Whitelisted: Wifi wird ausgeschaltet</string>
+    <string name="event_access_point_not_wl">Access Point ist nicht in der Whitelisted</string>
     <string name="event_access_point_wl">Access Point ist in der Whitelisted: Wifi bleibt aktiv</string>
     <string name="event_connection_active">Aktive Verindung: Wifi bleibt aktiv</string>
     <string name="event_access_point_caged">Access Point ist ein Käfig: Wifi wird ausgeschaltet</string>
@@ -88,7 +88,7 @@
     <string name="event_network_active">Netz-Aktivität erkannt: Wifi bleibt aktiv</string>
     <string name="event_network_inactive">Keine Netz-Aktivität erkannt: Wifi wird ausgeschaltet</string>
     <string name="event_tethering_active">Tethering erkannt: Wifi bleibt aktiv</string>
-    <string name="event_tethering_inactive">Keine Tethering erkannt: Wifi wird ausgeschaltet</string>
+    <string name="event_tethering_inactive">Keine Tethering erkannt</string>
     <string name="event_disabled">Inaktiv</string>
     <string name="event_scheduling_wifi_off_in">Wifi wird in %1$d Sekunden ausgeschaltet</string>
     <string name="event_scheduling_wifi_off_now">Wifi wird sofort augeschaltet</string>
@@ -99,7 +99,7 @@
     <string name="event_screen_unlocked">Bildschirm wurde entsperrt</string>
     <string name="event_leave_on_charing">Wifi bleibt aktiv da Handy am Strom</string>
     <string name="event_wakelock_detected">Wakelock erkannt: Wifi bleibt vorerst aktiv</string>
-    <string name="event_no_wakelock_detected">Kein Wakelock erkannt: Wifi wird ausgeschaltet</string>
+    <string name="event_no_wakelock_detected">Kein Wakelock erkannt</string>
     <string name="event_stop_retrying">%1$d Versuche. Keine Wiederholung</string>
     <string name="menu_logcat">Debugging Log speichern</string>
     <string name="pref_expert_mode_title">Expertenmodus</string>
@@ -111,5 +111,6 @@
     <string name="event_airplane_mode">Flugmodus aktiv: keine Aktion</string>
     <string name="pref_disregard_airplane_mode_title">Flugmodus ignorieren</string>
     <string name="pref_disregard_airplane_mode_summary">Wifi ein- und ausschalten auch wenn im Flugmodus</string>
+    <string name="event_wifi_off">Wifi wird ausgeschaltet</string>
     
 </resources>

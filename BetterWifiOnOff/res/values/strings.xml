@@ -80,7 +80,7 @@
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
-    <string name="event_access_point_not_wl">Access point is not whitelisted: turning Wifi off</string>
+    <string name="event_access_point_not_wl">Access point is not whitelisted</string>
     <string name="event_access_point_wl">Access point is whitelisted: leaving Wifi on</string>
     <string name="event_connection_active">Connection active: leaving Wifi on</string>
     <string name="event_access_point_caged">Access point is caged: turning Wifi off</string>
@@ -90,7 +90,7 @@
     <string name="event_network_active">Network activity detected, leaving wifi on</string>
     <string name="event_network_inactive">No network activity detected, turning wifi off</string>
     <string name="event_tethering_active">Tethering detected: leaving Wifi on</string>
-    <string name="event_tethering_inactive">No tethering detected: turning Wifi off</string>
+    <string name="event_tethering_inactive">No tethering detected</string>
     <string name="event_disabled">Disabled: do nothing</string>
     <string name="event_scheduling_wifi_off_in">Scheduling Wifi to be turned off in %1$d seconds</string>
     <string name="event_scheduling_wifi_off_now">Turning off Wifi immediately</string>
@@ -101,7 +101,7 @@
     <string name="event_screen_unlocked">Screen was unlocked</string>
     <string name="event_leave_on_charing">Leaving Wifi on because charger is connected</string>
     <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
-    <string name="event_no_wakelock_detected">No wakelock detected: turning Wifi off</string>
+    <string name="event_no_wakelock_detected">No wakelock detected</string>
     <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>
     <string name="menu_logcat">Save debugging log</string>
     <string name="pref_expert_mode_title">Expert mode</string>
@@ -113,5 +113,6 @@
     <string name="event_airplane_mode">Airplane Mode on: do nothing</string>
     <string name="pref_disregard_airplane_mode_title">Disregard airplane mode</string>
     <string name="pref_disregard_airplane_mode_summary">Turn Wifi on/off even if airplaine mode is on</string>
+    <string name="event_wifi_off">Turning Wifi off</string>
     
 </resources>
