@@ -112,5 +112,5 @@
     <string name="pref_disregard_airplane_mode_title">Flugmodus ignorieren</string>
     <string name="pref_disregard_airplane_mode_summary">Wifi ein- und ausschalten auch wenn im Flugmodus</string>
     <string name="event_wifi_off">Wifi wird ausgeschaltet</string>
-    
+    <string name="message_hint_set_status">Aktiv / Inaktiv</string>
 </resources>

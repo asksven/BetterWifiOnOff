@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <resources>
+    <string name="plugin_name">Better Wifi on/off</string>
     <string name="app_name">Better Wifi on/off</string>
     <string name="menu_preferences">Preferences</string>
     <string name="menu_release_notes">Release Notes</string>
@@ -114,5 +115,5 @@
     <string name="pref_disregard_airplane_mode_title">Disregard airplane mode</string>
     <string name="pref_disregard_airplane_mode_summary">Turn Wifi on/off even if airplaine mode is on</string>
     <string name="event_wifi_off">Turning Wifi off</string>
-    
+    <string name="message_hint_set_status">Enable / disable</string>
 </resources>
