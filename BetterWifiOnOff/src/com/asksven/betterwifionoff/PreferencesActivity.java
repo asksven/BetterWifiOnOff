@@ -24,6 +24,7 @@ import com.asksven.betterwifionoff.utils.Configuration;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
@@ -84,6 +85,7 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 
 	}
 	
+
 	/* (non-Javadoc)
 	 * @see android.preference.PreferenceActivity#onDestroy()
 	 */
@@ -251,6 +253,16 @@ public class PreferencesActivity extends PreferenceActivity implements OnSharedP
 	                   }
 	               });
 	        builder.create().show();
+        }
+        
+        if (key.equals("disable_control"))
+        {
+        	// refresh widget
+    		Intent intent = new Intent(this.getApplicationContext(),
+    				MyWidgetProvider.class);
+    		intent.setAction(MyWidgetProvider.ACTION_REFRESH);
+    		this.sendBroadcast(intent);
+
         }
     }
 }

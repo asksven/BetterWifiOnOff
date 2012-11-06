@@ -15,6 +15,7 @@
  */
 package com.asksven.betterwifionoff;
 
+import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.services.UpdateWidgetService;
 
 import android.appwidget.AppWidgetManager;
@@ -22,14 +23,76 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class MyWidgetProvider extends AppWidgetProvider
 {
 
-	private static final String ACTION_CLICK = "ACTION_CLICK";
+	public static final String ACTION_CLICK = "ACTION_CLICK";
+	public static final String ACTION_REFRESH = "ACTION_REFRESH";
 	private static final String TAG = "BetterWifOnOff.MyWidgetProvider";
+	@Override
+	public void onReceive(Context context, Intent intent)
+	{
+		super.onReceive(context, intent);
 
+		Log.i(TAG, "onReceive method called, action = '" + intent.getAction() + "' at " + DateUtils.now());
+		
+		if ( (ACTION_CLICK.equals(intent.getAction())) )
+		{
+			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+    		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
+
+    		// write back the new value
+    		boolean bNewState = !bDisabled;
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            editor.putBoolean("disable_control", bNewState);
+            editor.commit();
+
+			AppWidgetManager appWidgetManager = AppWidgetManager
+					.getInstance(context);
+			ComponentName thisAppWidget = new ComponentName(
+					context.getPackageName(),
+					this.getClass().getName());
+			int[] appWidgetIds = appWidgetManager
+					.getAppWidgetIds(thisAppWidget);
+
+			if (appWidgetIds.length > 0)
+			{
+				onUpdate(context, appWidgetManager, appWidgetIds);
+			}
+			else
+			{
+				Log.i(TAG, "No widget found to update");
+			}
+		}
+		
+		if ( (ACTION_REFRESH.equals(intent.getAction())) )
+		{
+
+			AppWidgetManager appWidgetManager = AppWidgetManager
+					.getInstance(context);
+			ComponentName thisAppWidget = new ComponentName(
+					context.getPackageName(),
+					this.getClass().getName());
+			int[] appWidgetIds = appWidgetManager
+					.getAppWidgetIds(thisAppWidget);
+
+			if (appWidgetIds.length > 0)
+			{
+				onUpdate(context, appWidgetManager, appWidgetIds);
+			}
+			else
+			{
+				Log.i(TAG, "No widget found to update");
+			}
+		}
+
+	}
+
+	
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
 	{

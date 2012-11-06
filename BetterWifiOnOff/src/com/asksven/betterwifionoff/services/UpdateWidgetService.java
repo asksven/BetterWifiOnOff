@@ -56,19 +56,14 @@ public class UpdateWidgetService extends Service
 		{
 			// read the current status
 			SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-    		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
-
-    		// write back the new value
-    		boolean bNewState = !bDisabled;
-            SharedPreferences.Editor editor = sharedPrefs.edit();
-            editor.putBoolean("disable_control", bNewState);
-            editor.commit();
+    		boolean bState = sharedPrefs.getBoolean("disable_control", false);
 
             // update widgets
 			RemoteViews remoteViews = new RemoteViews(this.getApplicationContext().getPackageName(),
 					R.layout.widget_layout);
-			// Set the text
-			if (bNewState)
+			
+			// Set the icon
+			if (bState)
 			{
 				//remoteViews.setTextViewText(R.id.status, "Off");
 				remoteViews.setImageViewResource(R.id.icon, R.drawable.icon_widget_disabled);
@@ -82,7 +77,7 @@ public class UpdateWidgetService extends Service
 			// Register an onClickListener
 			Intent clickIntent = new Intent(this.getApplicationContext(), MyWidgetProvider.class);
 
-			clickIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+			clickIntent.setAction(MyWidgetProvider.ACTION_CLICK); //AppWidgetManager.ACTION_APPWIDGET_UPDATE);
 			clickIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, allWidgetIds);
 
 			// make the widget clickable
