@@ -17,6 +17,7 @@ package com.asksven.betterwifionoff.services;
 
 import java.util.Random;
 
+import com.asksven.android.common.privateapiproxies.R.drawable;
 import com.asksven.betterwifionoff.MyWidgetProvider;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
@@ -69,11 +70,13 @@ public class UpdateWidgetService extends Service
 			// Set the text
 			if (bNewState)
 			{
-				remoteViews.setTextViewText(R.id.status, "Off");
+				//remoteViews.setTextViewText(R.id.status, "Off");
+				remoteViews.setImageViewResource(R.id.icon, R.drawable.icon_widget_disabled);
 			}
 			else
 			{
-				remoteViews.setTextViewText(R.id.status, "On");
+				//remoteViews.setTextViewText(R.id.status, "On");
+				remoteViews.setImageViewResource(R.id.icon, R.drawable.icon_widget_enabled);
 			}
 			
 			// Register an onClickListener
@@ -85,7 +88,7 @@ public class UpdateWidgetService extends Service
 			// make the widget clickable
 			PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, clickIntent,
 					PendingIntent.FLAG_UPDATE_CURRENT);
-			remoteViews.setOnClickPendingIntent(R.id.status, pendingIntent);
+			remoteViews.setOnClickPendingIntent(R.id.icon, pendingIntent);
 			appWidgetManager.updateAppWidget(widgetId, remoteViews);
 		}
 		stopSelf();

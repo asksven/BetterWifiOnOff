@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:layout_margin="8dip"
     android:background="@drawable/myshape" >
-
+<!-- 
     <TextView
         android:id="@+id/status"
         style="@android:style/TextAppearance.Medium"
@@ -16,5 +16,12 @@
         android:layout_margin="4dip"
         android:text="Static Text" >
     </TextView>
+     -->
+    <ImageView
+	    android:id="@+id/icon"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:contentDescription="blah"
+	    android:src="@drawable/icon_widget_enabled"/>
 
 </LinearLayout> 
