@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.asksven.betterwifionoff.MyWidgetProvider;
 import com.asksven.betterwifionoff.localeplugin.Constants;
 import com.asksven.betterwifionoff.localeplugin.bundle.BundleScrubber;
 import com.asksven.betterwifionoff.localeplugin.bundle.PluginBundleManager;
@@ -41,7 +42,7 @@ import com.asksven.betterwifionoff.localeplugin.ui.EditActivity;
  */
 public final class FireReceiver extends BroadcastReceiver
 {
-
+	private static String TAG = "BetterWifiOnOff.FireReceiver";
 
     /**
      * @param context {@inheritDoc}.
@@ -81,10 +82,21 @@ public final class FireReceiver extends BroadcastReceiver
         // TODO add processing code here
         boolean bEnable = bundle.getBoolean(PluginBundleManager.BUNDLE_EXTRA_BOOL_ENABLE);
         
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("disable_control", !bEnable);
-        editor.commit();
+        Log.i(TAG, "Received parameter: " + bEnable);
+		// refresh widget
+		Intent intentWidget = new Intent(context, //.getApplicationContext(),
+				MyWidgetProvider.class);
+		if (bEnable)
+		{
+			intentWidget.setAction(MyWidgetProvider.ACTION_ENABLE);
+		}
+		else
+		{
+			intentWidget.setAction(MyWidgetProvider.ACTION_DISABLE);
+		}
+		
+		context.sendBroadcast(intentWidget);
+
 
 
     }

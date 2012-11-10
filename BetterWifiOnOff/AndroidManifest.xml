@@ -49,7 +49,7 @@
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
 		
 		<activity
-            android:name="com.asksven.betterlatitude.localeplugin.ui.EditActivity"
+            android:name="com.asksven.betterwifionoff.localeplugin.ui.EditActivity"
             android:exported="true"
             android:icon="@drawable/icon"
             android:label="@string/plugin_name"
@@ -70,7 +70,7 @@
                 - There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
         -->
         <receiver
-            android:name="com.asksven.betterlatitude.localeplugin.receiver.FireReceiver"
+            android:name="com.asksven.betterwifionoff.localeplugin.receiver.FireReceiver"
             android:exported="true"
             android:process=":background" >
 
