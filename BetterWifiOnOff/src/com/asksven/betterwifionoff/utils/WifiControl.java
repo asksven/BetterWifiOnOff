@@ -144,11 +144,22 @@ public class WifiControl
 			
 			ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
 	
-			int ip = ipToInt("8.8.8.8");  
+			final String googleDns = "8.8.8.8";
+			final String bingSearch = "131.253.13.32";
+			int ip = ipToInt(googleDns);  
 	
 			boolean ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
-			Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret);
+			Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + googleDns);
 			
+			if (!ret)
+			{
+				// retry with bing.com
+				ip = ipToInt(bingSearch);  
+				
+				ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+				Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + bingSearch);
+
+			}
 			return (!ret);
 		}
 		catch (Exception e)
