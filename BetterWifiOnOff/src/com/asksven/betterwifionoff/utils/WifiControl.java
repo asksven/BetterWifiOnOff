@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.asksven.android.common.utils.DateUtils;
+import com.asksven.android.common.utils.StringUtils;
 import com.asksven.android.common.wifi.WifiManagerProxy;
 
 import android.annotation.TargetApi;
@@ -192,7 +193,8 @@ public class WifiControl
 	public static final boolean isWhitelistedWifiConnected(Context ctx, String whiteList)
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
-		String ssid = wifiManager.getConnectionInfo().getSSID();
+		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
+		Log.i(TAG, "Whitelist check: ssid: " + ssid + ", whitelist: " + whiteList + ", result: " + (whiteList.indexOf(ssid) != -1));
 		return (whiteList.indexOf(ssid) != -1);
 	}
 	
@@ -225,6 +227,28 @@ public class WifiControl
 	 * @return the list as List<String>
 	 */
 	public static final List<String> getAvailableAccessPoints(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+
+		ArrayList<String> myList = new ArrayList<String>();
+		
+		List<ScanResult> myConfiguredAccessPoints = wifiManager.getScanResults();
+		if (myConfiguredAccessPoints != null)
+		{
+			for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+			{
+				myList.add(myConfiguredAccessPoints.get(i).SSID);
+			}
+		}
+		return myList;
+	}
+
+	/**
+	 * Returns the list of access points in range, disregarded if they can be connected or not
+	 * @param ctx a Context
+	 * @return the list as List<String>
+	 */
+	public static final List<String> getBestAvailableAccessPoints(Context ctx)
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 
