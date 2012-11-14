@@ -112,4 +112,7 @@
     <string name="pref_disregard_airplane_mode_summary">Allumer/éteindre Wifi malgré le mode avion</string>
     <string name="event_wifi_off">Éteins Wifi</string>
     <string name="message_hint_set_status">Activer / Désactiver</string>
+    <string name="pref_disable_on_user_off_title">Désactiver si l\'utilisateur éteint Wifi</string>
+    <string name="pref_disable_on_user_off_summary">Désactive la gestion du Wifi si l\'utilisateur décide d\'éteindre Wifi manuellement</string>
+    <string name="event_disable_due_to_user_interaction">Désactivé: l\'utilisateur a éteint Wifi manuellement</string>
 </resources>

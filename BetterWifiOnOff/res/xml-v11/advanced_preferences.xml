@@ -11,6 +11,13 @@
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
+        android:key="disable_on_user_off"
+        android:summary="@string/pref_disable_on_user_off_summary"
+        android:title="@string/pref_disable_on_user_off_title" />
+    
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
         android:key="start_on_boot"
         android:summary="@string/pref_start_on_boot_summary"
         android:title="@string/pref_start_on_boot_title" />

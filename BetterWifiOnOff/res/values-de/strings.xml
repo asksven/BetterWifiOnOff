@@ -113,4 +113,7 @@
     <string name="pref_disregard_airplane_mode_summary">Wifi ein- und ausschalten auch wenn im Flugmodus</string>
     <string name="event_wifi_off">Wifi wird ausgeschaltet</string>
     <string name="message_hint_set_status">Aktiv / Inaktiv</string>
+    <string name="pref_disable_on_user_off_title">Deaktivieren wenn User Wifi ausschaltet</string>
+    <string name="pref_disable_on_user_off_summary">Deaktiviert das Handling falls der User Wifi per Hand ausschaltet</string>
+    <string name="event_disable_due_to_user_interaction">Deaktiviert: Benutzer hat Wifi ausgeschaltet</string>
 </resources>

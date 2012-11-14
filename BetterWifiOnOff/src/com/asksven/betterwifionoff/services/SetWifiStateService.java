@@ -86,6 +86,20 @@ public class SetWifiStateService extends Service
 		{	
 			WifiControl.setWifi(this, state);
 			
+			// write the last action 
+            SharedPreferences.Editor editor = sharedPrefs.edit();
+            if (state)
+            {
+            	editor.putString("last_action", "on");
+            }
+            else
+            {
+            	editor.putString("last_action", "off");
+            }
+            
+            editor.commit();
+
+			
 			// cancel pending alarms planned to turn wifi on or off
 			if (state)
 			{

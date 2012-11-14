@@ -116,4 +116,7 @@
     <string name="pref_disregard_airplane_mode_summary">Turn Wifi on/off even if airplaine mode is on</string>
     <string name="event_wifi_off">Turning Wifi off</string>
     <string name="message_hint_set_status">Enable / disable</string>
+    <string name="pref_disable_on_user_off_title">Disable when user turns Wifi off</string>
+    <string name="pref_disable_on_user_off_summary">Disable Wifi handling if user decides to turn Wifi off</string>
+    <string name="event_disable_due_to_user_interaction">Processing disabled: user turned Wifi off</string>
 </resources>
