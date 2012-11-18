@@ -20,6 +20,7 @@ package com.asksven.betterwifionoff.handlers;
 import com.asksven.betterwifionoff.MyWidgetProvider;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -51,25 +52,26 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 		if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
 		{
 			Log.d(TAG, "WifiManager.NETWORK_STATE_CHANGED_ACTION received");
-			
+
 			// detect if connection was dropped
-			NetworkInfo info = (NetworkInfo)intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-		  if (info.getState().equals(NetworkInfo.State.DISCONNECTED))
-		  {
-			  Log.d(TAG, "Wifi was turned off");
-			  if ( sharedPrefs.getBoolean("disable_on_user_off", false) && sharedPrefs.getString("last_action", "").equals("on"))
-			  {
-				  // User turned Wifi off. Respect that and disable processing
-				  Log.d(TAG, "User turned Wifi off: disable processing");
-				  EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disable_due_to_user_interaction));
-				  Intent intent2 = new Intent(context.getApplicationContext(),
-		    				MyWidgetProvider.class);
-		    		intent2.setAction(MyWidgetProvider.ACTION_DISABLE);
-		    		context.sendBroadcast(intent2);
-			  }
-				
-		  }
-//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
+//			NetworkInfo info = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+			if (!WifiControl.isWifiOn(context)) // (info.getState().equals(NetworkInfo.State.DISCONNECTED))
+			{
+				Log.d(TAG, "Wifi was turned off");
+				if (sharedPrefs.getBoolean("disable_on_user_off", false)
+						&& sharedPrefs.getString("last_action", "").equals("on"))
+				{
+					// User turned Wifi off. Respect that and disable processing
+					Log.d(TAG, "User turned Wifi off: disable processing");
+					EventLogger.getInstance(context).addStatusChangedEvent(
+							context.getString(R.string.event_disable_due_to_user_interaction));
+					Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
+					intent2.setAction(MyWidgetProvider.ACTION_DISABLE);
+					context.sendBroadcast(intent2);
+				}
+
+			}
+			//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
 //			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
 //			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
