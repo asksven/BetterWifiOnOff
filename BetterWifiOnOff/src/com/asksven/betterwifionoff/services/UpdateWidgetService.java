@@ -61,7 +61,11 @@ public class UpdateWidgetService extends Service
             // update widgets
 			RemoteViews remoteViews = new RemoteViews(this.getApplicationContext().getPackageName(),
 					R.layout.widget_layout);
-			
+
+			int opacity	= 0;
+			opacity = (255 * opacity) / 100; 
+			remoteViews.setInt(R.id.layout, "setBackgroundColor", (opacity << 24) & android.graphics.Color.BLACK);
+
 			// Set the icon
 			if (bState)
 			{
