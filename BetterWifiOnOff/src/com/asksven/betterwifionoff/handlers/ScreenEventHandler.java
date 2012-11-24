@@ -101,6 +101,9 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+			// make sure to cancel pendng alarms that may still be running from a previous screen off event
+			SetWifiStateService.cancelWifiOffAlarm(context);
+
 			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", true);
 			
 			if (!bProcess)
