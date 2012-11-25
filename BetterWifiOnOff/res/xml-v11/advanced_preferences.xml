@@ -50,6 +50,13 @@
         android:summary="@string/pref_disregard_airplane_mode_summary"
         android:title="@string/pref_disregard_airplane_mode_title" />
     
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="connect_to_strongest_ap"
+        android:summary="@string/pref_connect_to_strongest_ap_summary"
+        android:title="@string/pref_connect_to_strongest_ap_title" />
+    
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
             android:defaultValue="true"

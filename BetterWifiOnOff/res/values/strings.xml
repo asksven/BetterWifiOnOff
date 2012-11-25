@@ -119,4 +119,6 @@
     <string name="pref_disable_on_user_off_title">Disable when user turns Wifi off</string>
     <string name="pref_disable_on_user_off_summary">Disable Wifi handling if user decides to turn Wifi off</string>
     <string name="event_disable_due_to_user_interaction">Processing disabled: user turned Wifi off</string>
+    <string name="pref_connect_to_strongest_ap_title">Connect to strongest AP</string>
+    <string name="pref_connect_to_strongest_ap_summary">Connects to the strongest configured AP (respects the whitelist)</string>
 </resources>

@@ -243,28 +243,109 @@ public class WifiControl
 		return myList;
 	}
 
-	/**
-	 * Returns the list of access points in range, disregarded if they can be connected or not
-	 * @param ctx a Context
-	 * @return the list as List<String>
-	 */
-	public static final List<String> getBestAvailableAccessPoints(Context ctx)
+
+	public static String connectToBestNetwork(Context ctx, String whitelist)
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 
-		ArrayList<String> myList = new ArrayList<String>();
-		
-		List<ScanResult> myConfiguredAccessPoints = wifiManager.getScanResults();
-		if (myConfiguredAccessPoints != null)
+		List<ScanResult> myAvailableAccessPoints = wifiManager.getScanResults();
+		List<WifiConfiguration> myConfiguredAccessPoints = wifiManager.getConfiguredNetworks();
+
+		List<ScanResult> myConfiguredAvailableAccessPoints = new ArrayList<ScanResult>();
+		// the best network is the avalable network from the configured ones with the stronges signal
+		for (int i=0; i < myAvailableAccessPoints.size(); i++)
 		{
-			for (int i = 0; i < myConfiguredAccessPoints.size(); i++)
+			String ssid = myAvailableAccessPoints.get(i).SSID;
+			boolean found = false;
+			for (int j=0; j < myConfiguredAccessPoints.size(); j++)
 			{
-				myList.add(myConfiguredAccessPoints.get(i).SSID);
+				if (myConfiguredAccessPoints.get(j).SSID.equals(ssid))
+				{
+					if (whitelist != null)
+					{
+						if (whitelist.indexOf(ssid) != -1)
+						{
+							found = true;
+						}
+					}
+					else
+					{
+						found = true;
+					}
+				}
+				if (found)
+				{
+					myConfiguredAvailableAccessPoints.add(myAvailableAccessPoints.get(i));
+				}
 			}
 		}
-		return myList;
+		
+		// myConfiguredAvailableAccessPoints contains the whitelisted available configured access points
+		if (myConfiguredAvailableAccessPoints.size() != 0)
+		{
+			ScanResult bestAP = getBestAccessPoint(myConfiguredAvailableAccessPoints);
+			if (bestAP == null)
+			{
+				Log.e(TAG, "Best AP could not be deternimed");
+				return null;
+			}
+			else
+			{
+				Log.i(TAG, "Best AP: " + bestAP.SSID);
+			}
+			// now find the id of the configured AP for that SSID
+			int id = -1;
+			String ssid = bestAP.SSID;
+			Log.i(TAG, "Searching net id for best AP " + ssid);
+			for (int j=0; j < myConfiguredAccessPoints.size(); j++)
+			{
+				if (myConfiguredAccessPoints.get(j).SSID.equals(ssid))
+				{
+					id = myConfiguredAccessPoints.get(j).networkId;
+					Log.i(TAG, "Found id " + id);
+				}
+			}
+			
+			boolean done = false;
+			if (id != -1)
+			{
+				done = wifiManager.enableNetwork(id, true);
+				if (!done)
+				{
+					Log.i(TAG, "Unable to connect to AP " + ssid);
+					return null;
+				}
+				else
+				{
+					Log.i(TAG, "Connected to " + ssid);
+					return ssid;
+				}
+			}
+			else
+			{
+				Log.e(TAG, "Best AP could not be determined");
+				return null;
+			}
+		}
+		
+		return null;
 	}
+	
+	static ScanResult getBestAccessPoint(List<ScanResult> sResults)
+	{
+		ScanResult bestSignal = null;
+		for (ScanResult result : sResults)
+		{
+			if (bestSignal == null || WifiManager.compareSignalLevel(bestSignal.level, result.level) < 0)
+				bestSignal = result;
+		}
 
+		String message = String.format("%s networks found. %s is the strongest. %s is the bsid", sResults.size(),
+				bestSignal.SSID, bestSignal.BSSID);
+
+		Log.d("sResult", message);
+		return bestSignal;
+	}
 	/**
 	 * Returns the speed of the current Wifi connection
 	 * @param ctx a Context

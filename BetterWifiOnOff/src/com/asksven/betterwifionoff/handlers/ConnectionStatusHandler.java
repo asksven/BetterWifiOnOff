@@ -102,12 +102,31 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 			// An access point scan has completed, and results are available from the supplicant.
 			Log.d(TAG, "WifiManager.SCAN_RESULTS_AVAILABLE_ACTION received: scan result is available");
 			
+			if (sharedPrefs.getBoolean("connect_to_strongest_ap", false))
+			{
+				String whitelist = "";
+				if (sharedPrefs.getBoolean("wifi_on_if_whitelisted", false))
+				{
+					whitelist = sharedPrefs.getString("wifi_whitelist", "");
+					
+				}
+				String ssid = WifiControl.connectToBestNetwork(context, whitelist);
+				if ((ssid != null) && (!ssid.equals("")))
+				{
+					Log.i(TAG, "No ssid connected to");
+				}
+				else
+				{
+					Log.i(TAG, "Connected to " + ssid);
+				}
+			}
 		}
 		
 		if (intent.getAction().equals(WifiManager.RSSI_CHANGED_ACTION))
 		{
 			// The RSSI (signal strength) has changed.
 			Log.d(TAG, "WifiManager.RSSI_CHANGED_ACTION received: signal strength has changed");
+			
 		}
 
 	}
