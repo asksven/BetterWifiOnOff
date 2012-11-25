@@ -259,7 +259,7 @@ public class WifiControl
 			boolean found = false;
 			for (int j=0; j < myConfiguredAccessPoints.size(); j++)
 			{
-				if (myConfiguredAccessPoints.get(j).SSID.equals(ssid))
+				if (StringUtils.stripLeadingAndTrailingQuotes(myConfiguredAccessPoints.get(j).SSID).equals(ssid))
 				{
 					if (whitelist != null)
 					{
@@ -299,7 +299,7 @@ public class WifiControl
 			Log.i(TAG, "Searching net id for best AP " + ssid);
 			for (int j=0; j < myConfiguredAccessPoints.size(); j++)
 			{
-				if (myConfiguredAccessPoints.get(j).SSID.equals(ssid))
+				if (StringUtils.stripLeadingAndTrailingQuotes(myConfiguredAccessPoints.get(j).SSID).equals(ssid))
 				{
 					id = myConfiguredAccessPoints.get(j).networkId;
 					Log.i(TAG, "Found id " + id);
