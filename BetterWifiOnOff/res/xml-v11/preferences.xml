@@ -19,7 +19,7 @@
             android:enabled="true"
             android:key="wifi_on_when_screen_on"
             android:summary="@string/wifi_on_when_screen_on_summary"
-            android:title="@string/wifi_on_when_screen_on_title" />
+            android:title="@string/wifi_on_when_screen_on_title" />        
         <CheckBoxPreference
             android:defaultValue="true"
             android:enabled="true"
