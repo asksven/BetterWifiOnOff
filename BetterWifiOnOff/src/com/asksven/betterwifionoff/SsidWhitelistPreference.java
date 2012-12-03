@@ -64,13 +64,20 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 		// next add the available ssid not yet listed
         for (int i = 0; i < ssids.size(); i++)
         {
-        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i).trim());
-        	
-        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
+        	if (ssids.get(i) != null)
         	{
-        		whitelistedSsids.add(availableSSID);
-				Log.i(TAG, "Added configured SSID entry: **" + availableSSID + "**");
-        		
+	        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i).trim());
+	        	
+	        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
+	        	{
+	        		whitelistedSsids.add(availableSSID);
+					Log.i(TAG, "Added configured SSID entry: **" + availableSSID + "**");
+	        		
+	        	}
+        	}
+        	else
+        	{
+        		Log.e(TAG, "ssids contain null object. That is not supposed to happen: " + ssids.toString());
         	}
         }
         
