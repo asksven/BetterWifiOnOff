@@ -251,6 +251,11 @@ public class WifiControl
 		List<ScanResult> myAvailableAccessPoints = wifiManager.getScanResults();
 		List<WifiConfiguration> myConfiguredAccessPoints = wifiManager.getConfiguredNetworks();
 
+		if (myAvailableAccessPoints == null || myConfiguredAccessPoints == null)
+		{
+			return null;
+		}
+		
 		List<ScanResult> myConfiguredAvailableAccessPoints = new ArrayList<ScanResult>();
 		// the best network is the avalable network from the configured ones with the stronges signal
 		for (int i=0; i < myAvailableAccessPoints.size(); i++)

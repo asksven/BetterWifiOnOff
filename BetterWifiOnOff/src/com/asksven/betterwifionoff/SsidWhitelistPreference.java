@@ -61,26 +61,28 @@ public class SsidWhitelistPreference extends MultiSelectListPreference
 			}
 		}
 
-		// next add the available ssid not yet listed
-        for (int i = 0; i < ssids.size(); i++)
-        {
-        	if (ssids.get(i) != null)
-        	{
-	        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i).trim());
-	        	
-	        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
+		// next add the available ssid not yet liste
+		if (ssids != null)
+		{
+	        for (int i = 0; i < ssids.size(); i++)
+	        {
+	        	if (ssids.get(i) != null)
 	        	{
-	        		whitelistedSsids.add(availableSSID);
-					Log.i(TAG, "Added configured SSID entry: **" + availableSSID + "**");
-	        		
+		        	String availableSSID = StringUtils.stripLeadingAndTrailingQuotes(ssids.get(i).trim());
+		        	
+		        	if ((!ssids.get(i).equals("")) && (!whitelistedSsids.contains(availableSSID)))
+		        	{
+		        		whitelistedSsids.add(availableSSID);
+						Log.i(TAG, "Added configured SSID entry: **" + availableSSID + "**");
+		        		
+		        	}
 	        	}
-        	}
-        	else
-        	{
-        		Log.e(TAG, "ssids contain null object. That is not supposed to happen: " + ssids.toString());
-        	}
-        }
-        
+	        	else
+	        	{
+	        		Log.e(TAG, "ssids contain null object. That is not supposed to happen: " + ssids.toString());
+	        	}
+	        }
+		}
         CharSequence[] entries = new CharSequence[whitelistedSsids.size()];
         CharSequence[] entryValues = new CharSequence[whitelistedSsids.size()];
 
