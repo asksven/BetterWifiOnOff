@@ -22,6 +22,7 @@ import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -75,6 +76,15 @@ public class BroadcastHandler extends BroadcastReceiver
 				Log.i(TAG, "Wifi handling is disabled: do nothing");
 				return;
 			}
+    		boolean bDisregard = sharedPrefs.getBoolean("disregard_airplane_mode", false);
+
+    		// respect airplane mode
+    		if (!bDisregard && (WifiControl.isAirplaneModeOn(context)))
+    		{
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_airplane_mode));
+    			Log.i(TAG, "Airplane Mode on: do nothing");
+    			return;
+    		}
 
 			EventLogger.getInstance(context).addStatusChangedEvent("Power was disconnected");
 
@@ -133,7 +143,16 @@ public class BroadcastHandler extends BroadcastReceiver
 			boolean bWifilock = sharedPrefs.getBoolean("wifiock_while_power_plugged", false);
 			boolean bWifilockHighPerf = sharedPrefs.getBoolean("wifilock_high_perf_while_power_plugged", false);
 
-			
+    		boolean bDisregard = sharedPrefs.getBoolean("disregard_airplane_mode", false);
+
+    		// respect airplane mode
+    		if (!bDisregard && (WifiControl.isAirplaneModeOn(context)))
+    		{
+    			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_airplane_mode));
+    			Log.i(TAG, "Airplane Mode on: do nothing");
+    			return;
+    		}
+
 			if (bWakelock)
 			{
 				// get a wakelock
