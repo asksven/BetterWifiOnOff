@@ -30,12 +30,12 @@ import android.util.Log;
 public class MyWidgetProvider extends AppWidgetProvider
 {
 
-	public static final String ACTION_CLICK = "ACTION_CLICK";
 	public static final String ACTION_REFRESH = "ACTION_REFRESH";
 	public static final String ACTION_ENABLE = "ACTION_DISABLE";
 	public static final String ACTION_DISABLE = "ACTION_ENABLE";
 	
 	private static final String TAG = "BetterWifiOnOff.MyWidgetProvider";
+	public static final String ACTION_CLICK = "ACTION_CLICK";
 	@Override
 	public void onReceive(Context context, Intent intent)
 	{
