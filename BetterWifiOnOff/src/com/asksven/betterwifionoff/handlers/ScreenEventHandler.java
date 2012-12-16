@@ -104,7 +104,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
-			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", true);
+			boolean bProcess = sharedPrefs.getBoolean("wifi_on_when_screen_on", false);
 			
 			if (!bProcess)
 			{
