@@ -115,6 +115,9 @@
     <string name="pref_disable_on_user_off_title">Désactiver si l\'utilisateur éteint Wifi</string>
     <string name="pref_disable_on_user_off_summary">Désactive la gestion du Wifi si l\'utilisateur décide d\'éteindre Wifi manuellement</string>
     <string name="event_disable_due_to_user_interaction">Désactivé: l\'utilisateur a éteint Wifi manuellement</string>
+    <string name="pref_enable_on_user_on_title">Réactiver si l\'utilisateur allume Wifi</string>
+    <string name="pref_enable_on_user_on_summary">Réactive la gestion du Wifi si l\'utilisateur décide d\'allumer Wifi manuellement</string>
+    <string name="event_disable_due_to_user_interaction">Réactivé: l\'utilisateur a allumé Wifi manuellement</string>    
     <string name="pref_connect_to_strongest_ap_title">Connexion avec le meilleur AP</string>
     <string name="pref_connect_to_strongest_ap_summary">Connexion avec l\'AP configuré ayant le meilleur signal (respecte la whitelist)</string>
 </resources>

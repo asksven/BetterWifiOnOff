@@ -73,6 +73,21 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 			}
 			else
 			{
+				Log.d(TAG, "Wifi was turned on");
+				boolean enableWhenOn = sharedPrefs.getBoolean("enable_on_user_on", false);
+				String lastAction = sharedPrefs.getString("last_action", ""); 		
+				if (enableWhenOn)
+				{
+					// User turned Wifi off. Respect that and disable processing
+					Log.d(TAG, "User turned Wifi on: enable processing");
+					EventLogger.getInstance(context).addStatusChangedEvent(
+							context.getString(R.string.event_disable_due_to_user_interaction));
+					Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
+					intent2.setAction(MyWidgetProvider.ACTION_ENABLE);
+					context.sendBroadcast(intent2);
+				}
+
+				// scan for strongest AP if prefs are set so 
 				if (sharedPrefs.getBoolean("connect_to_strongest_ap", false))
 				{
 					String whitelist = "";

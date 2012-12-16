@@ -14,6 +14,14 @@
         android:key="disable_on_user_off"
         android:summary="@string/pref_disable_on_user_off_summary"
         android:title="@string/pref_disable_on_user_off_title" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="enable_on_user_on"
+        android:summary="@string/pref_enable_on_user_on_summary"
+        android:title="@string/pref_enable_on_user_on_title" />
+    
     
     <CheckBoxPreference
         android:defaultValue="false"
