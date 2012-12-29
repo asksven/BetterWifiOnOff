@@ -81,7 +81,7 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 					// User turned Wifi off. Respect that and disable processing
 					Log.d(TAG, "User turned Wifi on: enable processing");
 					EventLogger.getInstance(context).addStatusChangedEvent(
-							context.getString(R.string.event_disable_due_to_user_interaction));
+							context.getString(R.string.event_enable_due_to_user_interaction));
 					Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
 					intent2.setAction(MyWidgetProvider.ACTION_ENABLE);
 					context.sendBroadcast(intent2);

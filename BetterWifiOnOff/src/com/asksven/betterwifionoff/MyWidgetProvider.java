@@ -16,6 +16,7 @@
 package com.asksven.betterwifionoff;
 
 import com.asksven.android.common.utils.DateUtils;
+import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.UpdateWidgetService;
 
 import android.appwidget.AppWidgetManager;
@@ -51,6 +52,18 @@ public class MyWidgetProvider extends AppWidgetProvider
     		// write back the new value
     		boolean bNewState = !bDisabled;
             SharedPreferences.Editor editor = sharedPrefs.edit();
+            if (bDisabled)
+            {
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_disable_due_to_user_interaction));
+
+            }
+            else
+            {
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_enable_due_to_user_interaction));
+
+            }
             editor.putBoolean("disable_control", bNewState);
             editor.commit();
 
@@ -85,6 +98,19 @@ public class MyWidgetProvider extends AppWidgetProvider
     		{
     			bDisabled = true;
     		}
+
+            if (bDisabled)
+            {
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_disable_due_to_user_interaction));
+
+            }
+            else
+            {
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_enable_due_to_user_interaction));
+
+            }
 
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putBoolean("disable_control", bDisabled);
