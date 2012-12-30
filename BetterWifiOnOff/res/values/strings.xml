@@ -8,9 +8,11 @@
     <string name="layout_main_disable">Disabled</string>
     <string name="layout_main_wifilock">Hold Wifilock</string>
     <string name="layout_main_high_perf_wifilock">Hold high perf Wifilock</string>
-    <string name="dialog_rate">Rate</string>
+    <string name="dialog_apps">Other Apps</string>
     <string name="dialog_dismiss">Dismiss</string>
     <string name="dialog_follow_me">Follow me</string>
+    <string name="twitter_link">https://twitter.com/#!/asksven</string>
+    <string name="market_link">market://search?q=com.asksven</string>
     <string name="status_connection_changed">Connection status changed</string>
     <string name="status_service_not_started">Service not started yet</string>
     <string name="status_notification_on">Notification activated</string>
@@ -124,4 +126,9 @@
     <string name="event_enable_due_to_user_interaction">Processing enabled: user turned Wifi on</string>
     <string name="pref_connect_to_strongest_ap_title">Connect to strongest AP</string>
     <string name="pref_connect_to_strongest_ap_summary">Connects to the strongest configured AP (respects the whitelist)</string>
+    <string name="app_pname">com.asksven.betterwifionoff</string>
+    <string name="label_button_remind">Remind me later</string>
+    <string name="label_button_rate">Rate</string>
+    <string name="label_button_no">No, thanks</string>
+    <string name="text_dialog_rate">If you enjoy using %s, please take a moment to rate it. Thanks for your support!</string>
 </resources>

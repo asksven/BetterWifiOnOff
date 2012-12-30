@@ -36,10 +36,11 @@ import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.asksven.android.common.AppRater;
+import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
 import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
-import com.asksven.betterwifionoff.ReadmeActivity;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
@@ -151,13 +152,19 @@ public class MainActivity extends ListActivity
 	        editor.putString("last_release", strCurrentRelease);
 	        editor.commit();
     	}
+		else
+		{
+	    	// show "rate" dialog
+	    	// for testing: AppRater.showRateDialog(this, null);
+	    	AppRater.app_launched(this);
+			
+		}
 
         // start the service
     	startService(new Intent(this, EventWatcherService.class));
     	
     	// add listview adapter
     	this.setListViewAdapter();
-
   	}
 
 

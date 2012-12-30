@@ -7,7 +7,7 @@
     <string name="layout_main_disable">Inaktiv</string>
     <string name="layout_main_wifilock">Wifilock halten</string>
     <string name="layout_main_high_perf_wifilock">Hoch Perf Wifilock halten</string>
-    <string name="dialog_rate">Bewerten</string>
+    <string name="dialog_apps">Weiter Apps</string>
     <string name="dialog_dismiss">Schließen</string>
     <string name="dialog_follow_me">Folgen</string>
     <string name="status_connection_changed">Verbindungsstatus hat sich geändert</string>
@@ -118,7 +118,11 @@
     <string name="event_disable_due_to_user_interaction">Deaktiviert: Benutzer hat Wifi ausgeschaltet</string>
     <string name="pref_enable_on_user_on_title">Reaktivieren wenn User Wifi einschaltet</string>
     <string name="pref_enable_on_user_on_summary">Reaktiviert das Handling falls der User Wifi per Hand einschaltet</string>
-    <string name="event_enable_due_to_user_interaction">Reaktiviert: Benutzer hat Wifi eingeschaltet</string>    
+    <string name="event_enable_due_to_user_interaction">Reaktiviert: Benutzer hat Wifi eingeschaltet</string>
     <string name="pref_connect_to_strongest_ap_title">Verbinden zum AP mit bestem Signal</string>
     <string name="pref_connect_to_strongest_ap_summary">Verbinden mit dem konfigurierten AP mit dem stärksten Signal (berücksichtigt die whitelist)</string>
+    <string name="label_button_remind">Später</string>
+    <string name="label_button_rate">Bewerten</string>
+    <string name="label_button_no">Nein danke</string>
+    <string name="text_dialog_rate">Wenn Sie %s mögen wäre es nett eine Bewertung abzugeben. Danke für die Unterstützung!</string>
 </resources>
