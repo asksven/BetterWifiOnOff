@@ -70,6 +70,10 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 					intent2.setAction(MyWidgetProvider.ACTION_DISABLE);
 					context.sendBroadcast(intent2);
 				}
+				else
+				{
+					Log.d(TAG, "User turned Wifi off but previous action was off as well: no nothing");
+				}
 			}
 			else
 			{
