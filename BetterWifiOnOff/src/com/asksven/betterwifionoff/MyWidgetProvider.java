@@ -52,7 +52,7 @@ public class MyWidgetProvider extends AppWidgetProvider
     		// write back the new value
     		boolean bNewState = !bDisabled;
             SharedPreferences.Editor editor = sharedPrefs.edit();
-            if (bDisabled)
+            if (bNewState)
             {
 				EventLogger.getInstance(context).addStatusChangedEvent(
 						context.getString(R.string.event_disable_due_to_user_interaction));
