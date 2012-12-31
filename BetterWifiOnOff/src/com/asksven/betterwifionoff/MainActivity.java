@@ -33,12 +33,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View.OnClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asksven.android.common.AppRater;
 import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
+import com.asksven.android.common.privateapiproxies.BatteryInfoUnavailableException;
 import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.R;
@@ -46,6 +48,9 @@ import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 public class MainActivity extends ListActivity 
 
@@ -73,7 +78,8 @@ public class MainActivity extends ListActivity
 	 */
 	ProgressDialog m_progressDialog;
 	
-
+	PullToRefreshListView m_pullToRefreshView = null;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -165,6 +171,19 @@ public class MainActivity extends ListActivity
     	
     	// add listview adapter
     	this.setListViewAdapter();
+    	
+    	m_pullToRefreshView = (PullToRefreshListView) findViewById(R.id.pull_to_refresh_listview);
+    	m_pullToRefreshView.setScrollingWhileRefreshingEnabled(false);
+    	m_pullToRefreshView.setOnRefreshListener(new OnRefreshListener<ListView>()
+    	{
+    	    @Override
+    	    public void onRefresh(PullToRefreshBase<ListView> refreshView)
+    	    {
+    	        // Do work to refresh the list here.
+    	        new GetDataTask().execute();
+    	    }
+    	});
+
   	}
 
 
@@ -236,14 +255,7 @@ public class MainActivity extends ListActivity
 		    	}
 
 	        	break;
-	        case R.id.refresh_events:
-		    	if (m_listViewAdapter != null)
-		    	{
-		    		m_listViewAdapter.update();
-		    		m_listViewAdapter.notifyDataSetChanged();
-		    	}
-	        	break;	
-	
+
 	        case R.id.preferences:  
 	        	Intent intentPrefs = new Intent(this, PreferencesActivity.class);
 	            this.startActivity(intentPrefs);
@@ -353,6 +365,27 @@ public class MainActivity extends ListActivity
 		{
 			Log.e(TAG, "Exception: " + e.getMessage());
 		}
+	}
+	
+	private class GetDataTask extends AsyncTask<Void, Void, Void>
+	{
+		@Override
+	    protected Void doInBackground(Void... refresh)
+	    {
+			m_listViewAdapter.update();
+    		
+    		return null;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Void result)
+	    {
+	    	m_listViewAdapter.notifyDataSetChanged();
+	        // Call onRefreshComplete when the list has been refreshed.
+	    	
+	        m_pullToRefreshView.onRefreshComplete();
+	        super.onPostExecute(result);
+	    }
 	}
 
 

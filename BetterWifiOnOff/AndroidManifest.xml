@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.asksven.betterwifionoff"
       android:versionCode="38"
-      android:versionName="1.3.0.0RC2">
+      android:versionName="2.0.0.0RC1">
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="15"/>
     
 	<!-- Required to control wifi state -->
