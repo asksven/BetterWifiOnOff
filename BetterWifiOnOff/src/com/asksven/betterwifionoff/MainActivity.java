@@ -213,8 +213,6 @@ public class MainActivity extends ListActivity
     	{
     		m_listViewAdapter.notifyDataSetChanged();
     	}
-		// update the status
-		this.updateStatus();
 	}
 
 
@@ -274,11 +272,6 @@ public class MainActivity extends ListActivity
         }
         
         return true;
-    }
-
-    private void updateStatus()
-    {
-	    // Set the wifi state
     }
     
 	private void setListViewAdapter()
