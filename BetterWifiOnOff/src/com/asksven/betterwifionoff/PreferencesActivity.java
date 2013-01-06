@@ -16,6 +16,7 @@
 
 package com.asksven.betterwifionoff;
 
+import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
@@ -46,7 +47,7 @@ import android.util.Log;
  * @author sven
  *
  */
-public class PreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener
+public class PreferencesActivity extends SherlockPreferenceActivity implements OnSharedPreferenceChangeListener
 {
 	private static String TAG = "PreferencesActivity";
 	/**

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 asksven
+ * Copyright (C) 2013 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,6 @@ package com.asksven.betterwifionoff;
 import java.io.File;
 import java.util.Map;
 
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -29,18 +28,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.asksven.android.common.AppRater;
 import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
-import com.asksven.android.common.privateapiproxies.BatteryInfoUnavailableException;
 import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.R;
@@ -52,7 +51,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class MainActivity extends ListActivity 
+public class MainActivity extends SherlockListActivity 
 
 {
 	/**
@@ -68,10 +67,6 @@ public class MainActivity extends ListActivity
     
 	private EventAdapter m_listViewAdapter;
     OnClickListener m_checkBoxListener;
-    private Intent broadcastIntent;
-    
-    
-
 	
 	/**
 	 * a progess dialog to be used for long running tasks
@@ -197,7 +192,6 @@ public class MainActivity extends ListActivity
     {
     	super.onSaveInstanceState(savedInstanceState);
         
-//    	savedInstanceState.putSerializable("logged_on", m_bLoggedOn); 
     }
 
 	/* Request updates at startup */
@@ -223,7 +217,7 @@ public class MainActivity extends ListActivity
      */
     public boolean onCreateOptionsMenu(Menu menu)
     {  
-    	MenuInflater inflater = getMenuInflater();
+    	MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
