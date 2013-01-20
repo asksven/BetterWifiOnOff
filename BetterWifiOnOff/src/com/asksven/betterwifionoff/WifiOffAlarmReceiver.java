@@ -113,6 +113,7 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				{
 			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");
 			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl));
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
