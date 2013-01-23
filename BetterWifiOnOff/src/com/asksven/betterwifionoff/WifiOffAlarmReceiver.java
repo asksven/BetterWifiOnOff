@@ -55,6 +55,12 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			
 			SharedPreferences prefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
 			
+			// if diabled do nothing
+			if (prefs.getBoolean("disable_control", false))
+			{
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
+				return;
+			}
 
 			// if in call do nothing
 			Log.d(TAG, "Checking if in call");

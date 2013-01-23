@@ -43,10 +43,18 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		Log.d(TAG, "Alarm received: checking connection");
+		SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
 		
 
 		try
 		{
+			// if diabled do nothing
+			if (sharedPrefs.getBoolean("disable_control", false))
+			{
+				EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_disabled));
+				return;
+			}
+			
 			// start service to turn off wifi if connection was not established till now
 			if (!WifiControl.isWifiConnected(context))
 			{
@@ -62,7 +70,6 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 			else
 			{
 				// check if the SSID needs to be checked against whitelist
-				SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
 
 				boolean bCheckWhiteList 	= sharedPrefs.getBoolean("wifi_on_if_whitelisted", false);
 				

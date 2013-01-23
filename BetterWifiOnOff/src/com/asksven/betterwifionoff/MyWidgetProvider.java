@@ -99,18 +99,18 @@ public class MyWidgetProvider extends AppWidgetProvider
     			bDisabled = true;
     		}
 
-            if (bDisabled)
-            {
-				EventLogger.getInstance(context).addStatusChangedEvent(
-						context.getString(R.string.event_disable_due_to_user_interaction));
-
-            }
-            else
-            {
-				EventLogger.getInstance(context).addStatusChangedEvent(
-						context.getString(R.string.event_enable_due_to_user_interaction));
-
-            }
+//            if (bDisabled)
+//            {
+//				EventLogger.getInstance(context).addStatusChangedEvent(
+//						context.getString(R.string.event_disable_due_to_user_interaction));
+//
+//            }
+//            else
+//            {
+//				EventLogger.getInstance(context).addStatusChangedEvent(
+//						context.getString(R.string.event_enable_due_to_user_interaction));
+//
+//            }
 
             SharedPreferences.Editor editor = sharedPrefs.edit();
             editor.putBoolean("disable_control", bDisabled);
