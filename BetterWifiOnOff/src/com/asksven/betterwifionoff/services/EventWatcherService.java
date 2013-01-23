@@ -96,10 +96,10 @@ public class EventWatcherService extends Service implements OnSharedPreferenceCh
 		m_connectionEventReceiver = new ConnectionStatusHandler();
 
 		IntentFilter intentFilter = new IntentFilter();
-		intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
-		intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+//		intentFilter.addAction(WifiManager.NETWORK_STATE_CHANGED_ACTION);
+//		intentFilter.addAction(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
 		intentFilter.addAction(WifiManager.WIFI_STATE_CHANGED_ACTION);
-		intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
+//		intentFilter.addAction(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION);
 		registerReceiver(m_connectionEventReceiver, intentFilter);
 		
         // Set up a listener whenever a key changes

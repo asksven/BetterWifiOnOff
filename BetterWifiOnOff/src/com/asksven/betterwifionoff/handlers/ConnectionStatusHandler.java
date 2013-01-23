@@ -49,108 +49,72 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 	public void onReceive(Context context, Intent intent)
 	{
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-		if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION))
+		int state = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE,-1);
+		
+		// detect if Wifi is going off
+		if (state == WifiManager.WIFI_STATE_DISABLING) // (info.getState().equals(NetworkInfo.State.DISCONNECTED))
 		{
-			Log.d(TAG, "WifiManager.NETWORK_STATE_CHANGED_ACTION received");
-
-			// detect if connection was dropped
-//			NetworkInfo info = (NetworkInfo) intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-			if (!WifiControl.isWifiOn(context)) // (info.getState().equals(NetworkInfo.State.DISCONNECTED))
+			Log.d(TAG, "Wifi was turned off");
+			boolean disableWhenOff = sharedPrefs.getBoolean("disable_on_user_off", false);
+			String lastAction = sharedPrefs.getString("last_action", ""); 		
+			if (disableWhenOff && lastAction.equals("on"))
 			{
-				Log.d(TAG, "Wifi was turned off");
-				boolean disableWhenOff = sharedPrefs.getBoolean("disable_on_user_off", false);
-				String lastAction = sharedPrefs.getString("last_action", ""); 		
-				if (disableWhenOff && lastAction.equals("on"))
-				{
-					// User turned Wifi off. Respect that and disable processing
-					Log.d(TAG, "User turned Wifi off: disable processing");
-					EventLogger.getInstance(context).addStatusChangedEvent(
-							context.getString(R.string.event_disable_due_to_user_interaction));
-					Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
-					intent2.setAction(MyWidgetProvider.ACTION_DISABLE);
-					context.sendBroadcast(intent2);
-				}
-				else
-				{
-					Log.d(TAG, "User turned Wifi off but previous action was off as well: no nothing");
-				}
+				// User turned Wifi off. Respect that and disable processing
+				Log.d(TAG, "User turned Wifi off: disable processing");
+	            SharedPreferences.Editor editor = sharedPrefs.edit();
+	            editor.putString("last_action", "off");
+	            editor.commit();
+
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_disable_due_to_user_interaction));
+				Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
+				intent2.setAction(MyWidgetProvider.ACTION_DISABLE);
+				context.sendBroadcast(intent2);
 			}
 			else
 			{
-				Log.d(TAG, "Wifi was turned on");
-				boolean enableWhenOn = sharedPrefs.getBoolean("enable_on_user_on", false);
-				String lastAction = sharedPrefs.getString("last_action", ""); 		
-				if (enableWhenOn)
-				{
-					// User turned Wifi off. Respect that and disable processing
-					Log.d(TAG, "User turned Wifi on: enable processing");
-					EventLogger.getInstance(context).addStatusChangedEvent(
-							context.getString(R.string.event_enable_due_to_user_interaction));
-					Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
-					intent2.setAction(MyWidgetProvider.ACTION_ENABLE);
-					context.sendBroadcast(intent2);
-				}
-
-				// scan for strongest AP if prefs are set so 
-				if (sharedPrefs.getBoolean("connect_to_strongest_ap", false))
-				{
-					String whitelist = "";
-					if (sharedPrefs.getBoolean("wifi_on_if_whitelisted", false))
-					{
-						whitelist = sharedPrefs.getString("wifi_whitelist", "");
-						
-					}
-					String ssid = WifiControl.connectToBestNetwork(context, whitelist);
-					if ((ssid != null) && (!ssid.equals("")))
-					{
-						Log.i(TAG, "No ssid connected to");
-					}
-					else
-					{
-						Log.i(TAG, "Connected to " + ssid);
-					}
-				}
-
+				Log.d(TAG, "User turned Wifi off but previous action was off as well: no nothing");
 			}
-			//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
 		}
-		if (intent.getAction().equals(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION))
+		else if (state == WifiManager.WIFI_STATE_ENABLING)
 		{
-			Log.d(TAG, "WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION received");
-//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
-		}
-		if (intent.getAction().equals(WifiManager.WIFI_STATE_CHANGED_ACTION))
-		{
-			Log.d(TAG, "WifiManager.WIFI_STATE_CHANGED_ACTION received");
-//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
-		}
-		if (intent.getAction().equals(WifiManager.SUPPLICANT_STATE_CHANGED_ACTION))
-		{
-			Log.d(TAG, "WifiManager.SUPPLICANT_STATE_CHANGED_ACTION received");
-//			Log.d(TAG, "Wifi status: " + WifiControl.isWifiConnected(context));
-//			Log.d(TAG, "Own Wifilock status: " + PluggedWakelock.holdsWifiLock());
-//			Log.d(TAG, "Android Wifilock status: " + WifiManagerProxy.hasWifiLock(context));
-		}
-		
-		if (intent.getAction().equals(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION))
-		{
-			// An access point scan has completed, and results are available from the supplicant.
-			Log.d(TAG, "WifiManager.SCAN_RESULTS_AVAILABLE_ACTION received: scan result is available");
-			
-		}
-		
-		if (intent.getAction().equals(WifiManager.RSSI_CHANGED_ACTION))
-		{
-			// The RSSI (signal strength) has changed.
-			Log.d(TAG, "WifiManager.RSSI_CHANGED_ACTION received: signal strength has changed");
-			
-		}
+			Log.d(TAG, "Wifi was turned on");
+			boolean enableWhenOn = sharedPrefs.getBoolean("enable_on_user_on", false);
+			String lastAction = sharedPrefs.getString("last_action", ""); 		
+			if (enableWhenOn && lastAction.equals("off"))
+			{
+				// User turned Wifi off. Respect that and disable processing
+				Log.d(TAG, "User turned Wifi on: enable processing");
+	            SharedPreferences.Editor editor = sharedPrefs.edit();
+	            editor.putString("last_action", "on");
+	            editor.commit();
 
+				EventLogger.getInstance(context).addStatusChangedEvent(
+						context.getString(R.string.event_enable_due_to_user_interaction));
+				Intent intent2 = new Intent(context.getApplicationContext(), MyWidgetProvider.class);
+				intent2.setAction(MyWidgetProvider.ACTION_ENABLE);
+				context.sendBroadcast(intent2);
+			}
+
+			// scan for strongest AP if prefs are set so 
+			if (sharedPrefs.getBoolean("connect_to_strongest_ap", false))
+			{
+				String whitelist = "";
+				if (sharedPrefs.getBoolean("wifi_on_if_whitelisted", false))
+				{
+					whitelist = sharedPrefs.getString("wifi_whitelist", "");
+					
+				}
+				String ssid = WifiControl.connectToBestNetwork(context, whitelist);
+				if ((ssid != null) && (!ssid.equals("")))
+				{
+					Log.i(TAG, "No ssid connected to");
+				}
+				else
+				{
+					Log.i(TAG, "Connected to " + ssid);
+				}
+			}
+		}
 	}
 }
