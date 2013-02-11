@@ -81,19 +81,22 @@ public class ScreenEventHandler extends BroadcastReceiver
 
 				}
 				else
-				{
-			    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
-	    	    	
-					int delay = 30;
-					try
-			    	{
-						delay = Integer.valueOf(strInterval);
-			    	}
-			    	catch (Exception e)
-			    	{
-			    	}
-					
-					SetWifiStateService.scheduleWifiOffAlarm(context);
+				{					
+					if (WifiControl.isWifiOn(context))
+					{
+				    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+		    	    	
+						int delay = 30;
+						try
+				    	{
+							delay = Integer.valueOf(strInterval);
+				    	}
+				    	catch (Exception e)
+				    	{
+				    	}
+
+						SetWifiStateService.scheduleWifiOffAlarm(context);
+					}
 				}
 			}
 		}
