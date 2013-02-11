@@ -2,19 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_height="fill_parent" android:layout_width="match_parent" android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
+        android:baselineAligned="true"
+        android:orientation="vertical" >
     
-    <TextView 
-    	android:layout_width="wrap_content" 
-    	android:layout_height="wrap_content" 
-    	android:id="@+id/textViewName" 
-    	android:textAppearance="?android:attr/textAppearanceLarge" 
-    	android:text="@string/app_name"
-    	android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/single_padding"
+        android:layout_marginTop="@dimen/single_padding"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
     <TextView 
     	android:layout_width="wrap_content" 
     	android:layout_height="wrap_content" 
@@ -29,14 +33,16 @@
     	android:textAppearance="?android:attr/textAppearanceSmall" 
     	android:text="V0.1.0.0"
     	android:layout_gravity="center"/>
-    <TextView 
-    	android:layout_width="wrap_content" 
-    	android:layout_height="wrap_content" 
-    	android:id="@+id/textView1" 
-    	android:textAppearance="?android:attr/textAppearanceMedium" 
-    	android:text="@string/layout_main_author"
-    	android:layout_gravity="center"/>
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/single_padding"
+        android:layout_marginTop="@dimen/single_padding"
+        android:text="@string/layout_main_author"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView 
     	android:layout_width="wrap_content" 
@@ -45,37 +51,23 @@
     	android:textAppearance="?android:attr/textAppearanceLarge" 
     	android:text=""
     	android:layout_gravity="center"/>
-    <!-- 
-    <CheckBox
-        android:id="@+id/checkBoxDisable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/layout_main_disable" />
-    <CheckBox
-        android:id="@+id/checkBoxWifilock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/layout_main_wifilock" />
-    <CheckBox
-        android:id="@+id/checkBoxHighPerfWifilock"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/layout_main_high_perf_wifilock" />
-     -->
+
 </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="2">
     
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             xmlns:ptr="http://schemas.android.com/apk/res-auto"
             android:id="@+id/pull_to_refresh_listview"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
             ptr:ptrAnimationStyle="flip"
-        	ptr:ptrMode="pullFromStart"
-        	ptr:ptrShowIndicator="false" />
+            ptr:ptrMode="pullFromStart"
+            ptr:ptrShowIndicator="false" />
  
     </LinearLayout>
     

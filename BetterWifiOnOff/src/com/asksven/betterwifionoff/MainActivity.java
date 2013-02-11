@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -107,6 +108,7 @@ public class MainActivity extends SherlockListActivity
 
         		nameTextView.setText(getString(R.string.support_version));
         		hintTextView.setText("");
+        		hintTextView.setVisibility(View.GONE);
         		Log.i(TAG, "full version was detected");
     		}
         	else
