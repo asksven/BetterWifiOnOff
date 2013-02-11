@@ -205,7 +205,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 
     }
     
-    public void wifiOn(Context context)
+    public static void wifiOn(Context context)
     {
 		// start service to turn off wifi
     	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_on));
