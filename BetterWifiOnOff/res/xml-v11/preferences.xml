@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference 
+        android:key="theme"
+        android:title="@string/pref_theme_title"
+        android:summary="@string/pref_theme_summary"
+        android:defaultValue="1" 
+        android:entries="@array/themeLabels"
+        android:entryValues="@array/themeValues"/>
+    
 	<com.asksven.betterwifionoff.SsidWhitelistPreference
       android:dialogTitle="Whitelist"
       android:key="wifi_whitelist_v11"

@@ -125,4 +125,9 @@
     <string name="label_button_rate">Bewerten</string>
     <string name="label_button_no">Nein danke</string>
     <string name="text_dialog_rate">Wenn Sie %s mögen wäre es nett eine Bewertung abzugeben. Danke für die Unterstützung!</string>
+    <string name="label_theme_dark">Dunkel</string>
+    <string name="label_theme_light">Hell</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_summary">Theme wechseln</string>
+    
 </resources>

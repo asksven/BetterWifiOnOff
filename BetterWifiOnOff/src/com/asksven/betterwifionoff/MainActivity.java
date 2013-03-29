@@ -22,6 +22,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,7 +53,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class MainActivity extends SherlockListActivity 
+public class MainActivity extends SherlockListActivity implements OnSharedPreferenceChangeListener 
 
 {
 	/**
@@ -68,6 +69,8 @@ public class MainActivity extends SherlockListActivity
     
 	private EventAdapter m_listViewAdapter;
     OnClickListener m_checkBoxListener;
+    boolean m_restartActivity = false;
+    String m_theme = "0";
 	
 	/**
 	 * a progess dialog to be used for long running tasks
@@ -79,6 +82,10 @@ public class MainActivity extends SherlockListActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		// set the theme before calling super.onCreate
+		setTheme();
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
@@ -128,7 +135,6 @@ public class MainActivity extends SherlockListActivity
         	
 
         // Show release notes when first starting a new version
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String strLastRelease	= sharedPrefs.getString("last_release", "0");
 		String strCurrentRelease = "";
 
@@ -180,6 +186,11 @@ public class MainActivity extends SherlockListActivity
     	        new GetDataTask().execute();
     	    }
     	});
+    	
+        // Set up a listener whenever a key changes
+    	PreferenceManager.getDefaultSharedPreferences(this)
+                .registerOnSharedPreferenceChangeListener(this);
+
 
   	}
 
@@ -201,6 +212,15 @@ public class MainActivity extends SherlockListActivity
 	protected void onResume()
 	{
 		super.onResume();
+
+		// pref was changed: restart to reload theme
+		if(m_restartActivity)
+	    {
+	        m_restartActivity = false;
+	        Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
+	        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        startActivity(i);
+	    }
 
 		// add listview adapter
     	this.setListViewAdapter();
@@ -270,6 +290,17 @@ public class MainActivity extends SherlockListActivity
         return true;
     }
     
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences spref, String key)
+    {
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(key.equals("theme") && !sharedPrefs.getString(key, "1").equals(m_theme))
+        {
+            setTheme();
+            m_restartActivity = true;
+        }
+    }
 	private void setListViewAdapter()
 	{
 		// make sure we only instanciate when the reference does not exist
@@ -375,6 +406,20 @@ public class MainActivity extends SherlockListActivity
 	        m_pullToRefreshView.onRefreshComplete();
 	        super.onPostExecute(result);
 	    }
+	}
+	
+	private void setTheme()
+	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		m_theme = sharedPrefs.getString("theme", "1");
+		if (m_theme.equals("1"))
+		{
+			this.setTheme(R.style.Theme_Sherlock);
+		}
+		else
+		{
+			this.setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
 	}
 
 
