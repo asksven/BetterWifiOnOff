@@ -7,7 +7,6 @@
     <item
         android:id="@+id/logcat"
         android:title="@string/menu_logcat"/>
-    
     <item
         android:id="@+id/preferences"
         android:icon="@drawable/ic_menu_settings"
@@ -16,5 +15,8 @@
     <item
         android:id="@+id/release_notes"
         android:title="@string/menu_release_notes"/>
-
+    <item
+        android:id="@+id/credits"
+        android:title="@string/menu_credits"/>
+    
 </menu>

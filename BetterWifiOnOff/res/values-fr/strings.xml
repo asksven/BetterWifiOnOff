@@ -128,5 +128,7 @@
     <string name="label_theme_light">Clair</string>
     <string name="pref_theme_title">Thème</string>
     <string name="pref_theme_summary">Changer le thème</string>
+    <string name="menu_credits">Crédits</string>
+    
     
 </resources>

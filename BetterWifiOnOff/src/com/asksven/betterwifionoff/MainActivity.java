@@ -284,6 +284,10 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
             	// Dump to File
             	new WriteLogcatFile().execute("");
             	break;
+            case R.id.credits:
+	        	Intent intentCredits = new Intent(this, CreditsActivity.class);
+	            this.startActivity(intentCredits);
+	        	break;	            	
 
         }
         

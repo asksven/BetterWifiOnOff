@@ -44,6 +44,8 @@
             </intent-filter>
         </activity>
 		<activity android:name="com.asksven.android.common.ReadmeActivity"/>
+		<activity android:name="com.asksven.betterwifionoff.CreditsActivity"/>
+				
 		<activity android:name=".PreferencesActivity"/>
 		<activity android:name="com.google.ads.AdActivity"
               android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
