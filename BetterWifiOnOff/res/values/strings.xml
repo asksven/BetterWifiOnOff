@@ -72,6 +72,7 @@
     <string name="pref_wifilock_summary">Caution! Holds a wifilock, device will not sleep till Wifi is turned off</string>
     <string name="pref_wifi_whitelist_title">SSID Whitelist</string>
     <string name="pref_wifi_whitelist_summary">Comma separated list of whitelisted SSIDs</string>
+    <string name="pref_wifi_whitelist_summary_v11">List of whitelisted SSIDs</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Stay on if current SSID is in whitelist</string>
     <string name="pref_wifi_on_if_whitelisted_title">If connected to whitelisted SSID</string>
     <string name="pref_wifi_on_if_in_call_title">If in Call</string>
@@ -85,6 +86,8 @@
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
     <string name="event_access_point_not_wl">Access point is not whitelisted</string>
     <string name="event_access_point_wl">Access point is whitelisted: leaving Wifi on</string>
+    <string name="event_app_wl">Runnung app is whitelisted (%s): leaving Wifi on</string>
+    <string name="event_app_not_wl">No whitelisted app runnung app: turning Wifi off</string>
     <string name="event_connection_active">Connection active: leaving Wifi on</string>
     <string name="event_access_point_caged">Access point is caged: turning Wifi off</string>
     <string name="event_access_point_not_caged">Access point is not caged: leaving Wifi on</string>
@@ -136,5 +139,9 @@
     <string name="pref_theme_title">Theme</string>
     <string name="pref_theme_summary">Switch themes</string>
     <string name="menu_credits">Credits</string>
+    <string name="pref_app_whtelist_title">Application Whitelist</string>
+    <string name="pref_app_whtelist_summary">App that will cause Wifi to be left on if running</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_title">If whitelisted app running</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_summary">Leave Wifi on if one of the whitelisted apps are active</string>
     
 </resources>

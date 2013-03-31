@@ -56,6 +56,12 @@
         android:summary="@string/pref_wifi_whitelist_summary"
         android:title="@string/pref_wifi_whitelist_title" />
 
+	<PreferenceScreen
+	    android:summary="@string/pref_app_whtelist_summary"
+	    android:title="@string/pref_app_whtelist_title" >
+        <intent android:action="com.asksven.betterwifionoff.AppWhitelistActivity"/>
+	</PreferenceScreen>
+    
     <CheckBoxPreference
         android:defaultValue="false"
         android:enabled="true"
@@ -137,6 +143,12 @@
             android:key="wifi_on_when_screen_off_but_whitelisted"
             android:summary="@string/pref_wifi_on_if_whitelisted_summary"
             android:title="@string/pref_wifi_on_if_whitelisted_title" />    
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_whitelisted_app_running"
+            android:summary="@string/pref_wifi_on_if_whitelisted_app_running_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_app_running_title" />
         
     </PreferenceCategory>
     

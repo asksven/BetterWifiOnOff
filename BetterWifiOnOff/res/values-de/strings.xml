@@ -68,6 +68,7 @@
     <string name="pref_wifilock_title">Wifilock halten</string>
     <string name="pref_wifilock_summary">Achtung! hält ein Wifilock, das Radio bleibt aktiv</string>
     <string name="pref_wifi_whitelist_title">SSID Whitelist</string>
+    <string name="pref_wifi_whitelist_summary_v11">List3 von validen SSIDs</string>    
     <string name="pref_wifi_whitelist_summary">Komma getrennte Liste von validen SSIDs</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Wifi bleibt an falls der Access Point in der Whitelist ist</string>
     <string name="pref_wifi_on_if_whitelisted_title">Wenn verbunden mit einem Access Point aus der Whitelist</string>
@@ -78,8 +79,10 @@
     <string name="support_version">Unterstütze den dev Version</string>
     <string name="free_version">Freie Version</string>
     <string name="event_no_wifi_connection">Keine Verbindung. Wifi wird ausgeschaltet</string>
-    <string name="event_access_point_not_wl">Access Point ist nicht in der Whitelisted</string>
-    <string name="event_access_point_wl">Access Point ist in der Whitelisted: Wifi bleibt aktiv</string>
+    <string name="event_access_point_not_wl">Access Point %s ist nicht in der Whitelisted</string>
+    <string name="event_access_point_wl">Access Point %s ist in der Whitelist: Wifi bleibt aktiv</string>
+    <string name="event_app_wl">Laufende App ist in der Whitelist (%s): Wifi bleibt an</string>
+    <string name="event_app_not_wl">Keine App aus der Whitelist ist aktiv: Wifi wird ausgeschaltet</string>    
     <string name="event_connection_active">Aktive Verindung: Wifi bleibt aktiv</string>
     <string name="event_access_point_caged">Access Point ist ein Käfig: Wifi wird ausgeschaltet</string>
     <string name="event_access_point_not_caged">Access Point ist kein Käfig: Wifi bleibt aktiv</string>
@@ -129,5 +132,10 @@
     <string name="label_theme_light">Hell</string>
     <string name="pref_theme_title">Theme</string>
     <string name="pref_theme_summary">Theme wechseln</string>
+    <string name="pref_app_whtelist_title">App Whitelist</string>
+    <string name="pref_app_whtelist_summary">Liste aktiver apps die verhindern, dass Wifi ausgemacht wird</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_title">Falls whitelisted app activ</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi bleibt an falls eine whitelisted apps are activ ist</string>
+    
     
 </resources>

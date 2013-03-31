@@ -34,7 +34,7 @@ import android.util.Log;
 
 public class EventDBHelper
 {
-	private static final String DATABASE_NAME	= "betterwifionoff";
+	private static final String DATABASE_NAME	= "betterwifionoff_events";
     private static final String TABLE_DBVERSION = "dbversion";
     private static final String TABLE_NAME 		= "events";
     private static final int DATABASE_VERSION 	= 6;
