@@ -212,7 +212,7 @@ public class AppWhitelistDBHelper
 	{
 	    try
 	    {
-			m_db.delete(TABLE_NAME, "packagename=" + record.fullName(), null);
+			m_db.delete(TABLE_NAME, "packagename=\"" + record.package_name + "\"", null);
 		}
 	    catch (SQLException e)
 		{
@@ -226,25 +226,25 @@ public class AppWhitelistDBHelper
 	 */
 	public boolean exists(ApplicationInfo record)
 	{
-		return exists(record.fullName());
+		return exists(record.package_name);
 	}
 
 	/**
 	 * 
 	 * @return true if Application exists
 	 */
-	public boolean exists(String strFullName)
+	public boolean exists(String packageName)
 	{
 	    boolean ret = false;
 	    try
 	    {
 	        Cursor c;
-	        c = m_db.query(TABLE_NAME, COLS, "packagename=" + "\"" + strFullName + "\"", null, null, null, null);
+	        c = m_db.query(TABLE_NAME, COLS, "packagename=" + "\"" + packageName + "\"", null, null, null, null);
 	        int numRows = c.getCount();
 	        c.moveToFirst();
 	        if (numRows == 1)
 	        {
-
+	        	Log.i(TAG, "Package " + packageName + " was found in whitelist");
 	        	// cctor with id, name, command, command_status
 	            ret = true;	           
 	        }
