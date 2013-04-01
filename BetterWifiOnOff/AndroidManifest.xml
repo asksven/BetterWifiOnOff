@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asksven.betterwifionoff"
     android:versionCode="40"
-    android:versionName="2.0.0.0RC2" >
+    android:versionName="2.0.0.0RC3" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -42,6 +42,9 @@
 
     <!-- access own logcat -->
     <uses-permission android:name="android.permission.READ_LOGS" />
+    
+    <!-- access to cell location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:icon="@drawable/ic_launcher"
@@ -60,6 +63,18 @@
         <activity android:name="com.asksven.betterwifionoff.AppWhitelistActivity" >
             <intent-filter>
                 <action android:name="com.asksven.betterwifionoff.AppWhitelistActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asksven.betterwifionoff.CellLogActivity" >
+            <intent-filter>
+                <action android:name="com.asksven.betterwifionoff.CellLogActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asksven.betterwifionoff.TagsActivity" >
+            <intent-filter>
+                <action android:name="com.asksven.betterwifionoff.TagsActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
