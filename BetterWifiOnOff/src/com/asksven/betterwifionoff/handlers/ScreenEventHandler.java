@@ -16,9 +16,12 @@
 package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.data.CellDBHelper;
+import com.asksven.betterwifionoff.data.CellLogEntry;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.CellUtil;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -104,6 +107,18 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+
+			// check if we should log cell info
+			if (sharedPrefs.getBoolean("log_cells", false))
+			{
+				CellLogEntry cell = CellUtil.getCurrentCell(context);
+				if (cell != null)
+				{
+					CellDBHelper db = new CellDBHelper(context);
+					db.addCellLogEntry(cell);
+				}
+			}
+
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
@@ -113,6 +128,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			{
 				return;
 			}
+			
 			
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);

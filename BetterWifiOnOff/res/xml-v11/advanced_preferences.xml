@@ -49,7 +49,7 @@
     <PreferenceScreen
         android:summary="@string/pref_app_whtelist_summary"
         android:title="@string/pref_app_whtelist_title" >
-        <intent android:action="com.asksven.betterwifionoff.AppWhitelistActivity"/>
+        <intent android:action="com.asksven.betterwifionoff.AppWhitelistActivity" />
     </PreferenceScreen>
 
     <ListPreference
@@ -92,6 +92,13 @@
             android:key="wifi_on_when_power_plug"
             android:summary="@string/pref_wifi_on_when_power_plug_summary"
             android:title="@string/pref_wifi_on_when_power_plug_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_only_when_known_cid"
+            android:summary="@string/wifi_on_only_when_known_cid_summary"
+            android:title="@string/wifi_on_only_when_known_cid_title" />
+        
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
         <CheckBoxPreference
@@ -200,6 +207,29 @@
                     android:key="show_system"
                     android:summary="@string/pref_events_show_system_summary"
                     android:title="@string/pref_events_show_system_title" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_location" >
+        <PreferenceScreen android:title="@string/pref_screen_location" >
+            <PreferenceCategory android:title="@string/pref_category_location" >
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:enabled="true"
+                    android:key="log_cells"
+                    android:summary="@string/pref_log_cells_summary"
+                    android:title="@string/pref_log_cells_title" />
+
+                <PreferenceScreen
+                    android:summary="@string/pref_cell_log_summary"
+                    android:title="@string/pref_cell_log_title" >
+                    <intent android:action="com.asksven.betterwifionoff.CellLogActivity" />
+                </PreferenceScreen>
+                <PreferenceScreen
+                    android:summary="@string/pref_tags_summary"
+                    android:title="@string/pref_tags_title" >
+                    <intent android:action="com.asksven.betterwifionoff.TagsActivity" />
+                </PreferenceScreen>
             </PreferenceCategory>
         </PreferenceScreen>
     </PreferenceCategory>

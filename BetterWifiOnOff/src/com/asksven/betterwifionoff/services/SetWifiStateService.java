@@ -21,7 +21,9 @@ import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.R;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
 import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
+import com.asksven.betterwifionoff.data.CellDBHelper;
 import com.asksven.betterwifionoff.data.EventLogger;
+import com.asksven.betterwifionoff.utils.CellUtil;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
 import android.app.AlarmManager;
@@ -59,7 +61,30 @@ public class SetWifiStateService extends Service
 		Log.i(TAG, "Called with extra " + state + ", " + reasonOff);
 		
 		boolean bCheckWakelocks 	= sharedPrefs.getBoolean("wifi_on_if_wakelock", false);
+		boolean bCheckKnownCid	 	= sharedPrefs.getBoolean("wifi_on_only_when_known_cid", false);
 		
+		// if location awareness is on only turn on wifi when the cell id is known (tagged)
+		if (state && bCheckKnownCid)
+		{
+			int cid = CellUtil.getCurrentCell(this).getCid();
+			CellDBHelper db = new CellDBHelper(this);
+			String tags = db.getCellTagsAsString(cid);
+
+			if (tags.equals(""))
+			{
+				// unknown cell: do nothing
+				Log.d(TAG, "Cell " + cid + " has no tags: do not turn wifi on");
+				EventLogger.getInstance(this).addStatusChangedEvent(this.getString(R.string.event_unknown_cell)); 
+				stopSelf();
+				return START_NOT_STICKY;				
+			}
+			else
+			{
+				// known cell: go on
+				Log.d(TAG, "Cell " + cid + " has tags " + tags + ": turn wifi on");
+				EventLogger.getInstance(this).addStatusChangedEvent(this.getString(R.string.event_known_cell)); 
+			}
+		}
 		// if Wifi is going to be tured off (reasonOff distinguishes the case) we may want to respect Wakelocks
 		// This must be done here (instead of the Alarm receiver as there is a wakelock being held while alarms are processed
 		if (reasonOff && !state && (bCheckWakelocks))
