@@ -353,7 +353,7 @@ public class CellDBHelper
 	    try
 	    {
 	        Cursor c;
-	        c = m_db.query(TABLE_LOG_NAME, LOG_COLS, null, null, null, null, null);
+	        c = m_db.query(TABLE_LOG_NAME, LOG_COLS, null, null, null, null, "ID DESC");
 
 	        c.moveToFirst();
 	        while (c.isAfterLast() == false) 
