@@ -189,7 +189,7 @@ public class AppWhitelistDBHelper
 		ContentValues val = new ContentValues();
 		String name = record.package_name; //fullName();
 		val.put("packagename", name);
-
+		Log.d(TAG, "Added '" + name + "' to app whitelist");
 	    try
 	    {
 	        long lRes =m_db.insert(TABLE_NAME, null, val);

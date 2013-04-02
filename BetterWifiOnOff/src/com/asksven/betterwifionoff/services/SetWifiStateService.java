@@ -69,6 +69,7 @@ public class SetWifiStateService extends Service
 			int cid = CellUtil.getCurrentCell(this).getCid();
 			CellDBHelper db = new CellDBHelper(this);
 			String tags = db.getCellTagsAsString(cid);
+			db.close();
 
 			if (tags.equals(""))
 			{

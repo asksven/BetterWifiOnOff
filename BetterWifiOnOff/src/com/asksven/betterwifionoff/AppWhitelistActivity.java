@@ -30,6 +30,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -91,20 +92,30 @@ public class AppWhitelistActivity extends ListActivity
         CheckBox cb = (CheckBox) v.findViewById(R.id.CheckBoxAllowed);
         
         AppWhitelistDBHelper myDB = new AppWhitelistDBHelper(this);
-        if ( (myApp != null) &&(cb != null) )
+        try
         {
-        	if (cb.isChecked() )        	
-			{
-	        	cb.setChecked(false);
-	        	myDB.deleteApp(myApp);
-			}
-        	else
-        	{
-	        	cb.setChecked(true);
-	        	myDB.addApp(myApp);
-        	}
+	        if ( (myApp != null) &&(cb != null) )
+	        {
+	        	if (cb.isChecked() )        	
+				{
+		        	cb.setChecked(false);
+		        	myDB.deleteApp(myApp);
+				}
+	        	else
+	        	{
+		        	cb.setChecked(true);
+		        	myDB.addApp(myApp);
+	        	}
+	        }
         }
-        myDB.close();
+        catch (Exception e)
+        {
+        	Log.e(TAG, "An error occured:" + e.getMessage());
+        }
+        finally
+        {
+        	myDB.close();
+        }
     }
 
     ArrayList<ApplicationInfo> getAppList()

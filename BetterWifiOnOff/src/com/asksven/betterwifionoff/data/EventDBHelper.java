@@ -43,7 +43,6 @@ public class EventDBHelper
     		"id", "event_type", "time_st", "event"};
 
     Context m_context;
-    static EventDBHelper m_helper;
 
     private static final String DBVERSION_CREATE = 
     	"create table " + TABLE_DBVERSION + " ("
@@ -69,20 +68,11 @@ public class EventDBHelper
 
     private SQLiteDatabase db;
 
-    protected static EventDBHelper getInstance(Context context)
-    {
-    	if (m_helper == null)
-    	{
-    		m_helper = new EventDBHelper(context); 
-    	}
-    	return m_helper;
-    }
-    
     /**
      * Hidden constructor, use as singleton
      * @param ctx
      */
-    private EventDBHelper(Context ctx)
+    public EventDBHelper(Context ctx)
     {
     	m_context = ctx;
 		try
@@ -126,15 +116,13 @@ public class EventDBHelper
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
 		}
-		finally
-		{
-			if (db.isOpen())
-			{
-				db.close();
-			}
-		}
     }
 
+    public void close()
+    {
+    	db.close();
+    }
+    
     private void createDatabase(SQLiteDatabase db)
     {
 		try

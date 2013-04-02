@@ -116,6 +116,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 				{
 					CellDBHelper db = new CellDBHelper(context);
 					db.addCellLogEntry(cell);
+					db.close();
 				}
 			}
 

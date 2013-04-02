@@ -108,8 +108,11 @@ public class ApplicationInfo implements Comparable<ApplicationInfo>
 
 	public boolean isWhitelisted(Context ctx)
 	{
+		boolean ret = false;
 		AppWhitelistDBHelper myDB = new AppWhitelistDBHelper(ctx);
-		return myDB.exists(this);
+		ret = myDB.exists(this);
+		myDB.close();
+		return ret;
 	}
 
 	public int compareTo(ApplicationInfo o)
