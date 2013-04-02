@@ -145,7 +145,6 @@ public class EventDBHelper
     {
         try
         {
-			db = m_context.openOrCreateDatabase(DATABASE_NAME, 0,null);
 			db.execSQL(TABLE_DROP);
 			db.execSQL(DBVERSION_DROP);
         }
@@ -153,30 +152,18 @@ public class EventDBHelper
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
 		}
-        finally 
-		{
-			db.close();
-		}    	
     }
     
     protected void purgeEvents()
     {
         try
         {
-			db = m_context.openOrCreateDatabase(DATABASE_NAME, 0,null);
 			db.execSQL(PURGE_EVENTS);
         }
         catch (SQLException e)
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
 		}
-        finally 
-		{
-        	if (db.isOpen())
-        	{
-        		db.close();
-        	}
-		}    	
     }
 
 	/**
@@ -193,7 +180,6 @@ public class EventDBHelper
 
 	    try
 	    {
-			db = m_context.openOrCreateDatabase(DATABASE_NAME, 0,null);
 	        long lRes =db.insert(TABLE_NAME, null, val);
 	        if (lRes == -1)
 	        {
@@ -203,13 +189,6 @@ public class EventDBHelper
 	    catch (SQLException e)
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
-		}
-		finally 
-		{
-			if (db.isOpen())
-			{
-				db.close();
-			}
 		}
 	}
 	
@@ -223,7 +202,6 @@ public class EventDBHelper
 	    ArrayList<Event> ret = new ArrayList<Event>();
 	    try
 	    {
-			db = m_context.openOrCreateDatabase(DATABASE_NAME, 0,null);
 	        Cursor c;
 	        c = db.query(TABLE_NAME, COLS, null, null, null, null, "ID DESC");
 	        int numRows = c.getCount();
@@ -242,13 +220,6 @@ public class EventDBHelper
 	    catch (SQLException e)
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
-		}
-	    finally 
-		{
-	    	if (db.isOpen())
-	    	{
-	    		db.close();
-	    	}
 		}
 	    return ret;
 	}
