@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 asksven
+ * Copyright (C) 2012 asksven
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,27 +18,24 @@ package com.asksven.betterwifionoff;
 import java.io.File;
 import java.util.Map;
 
+import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View.OnClickListener;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockListActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.asksven.android.common.AppRater;
 import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
@@ -49,11 +46,8 @@ import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-public class MainActivity extends SherlockListActivity implements OnSharedPreferenceChangeListener 
+public class MainActivity extends ListActivity 
 
 {
 	/**
@@ -69,23 +63,20 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
     
 	private EventAdapter m_listViewAdapter;
     OnClickListener m_checkBoxListener;
-    boolean m_restartActivity = false;
-    String m_theme = "0";
+    private Intent broadcastIntent;
+    
+    
+
 	
 	/**
 	 * a progess dialog to be used for long running tasks
 	 */
 	ProgressDialog m_progressDialog;
 	
-	PullToRefreshListView m_pullToRefreshView = null;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
-		// set the theme before calling super.onCreate
-		setTheme();
-		
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
@@ -115,7 +106,6 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
 
         		nameTextView.setText(getString(R.string.support_version));
         		hintTextView.setText("");
-        		hintTextView.setVisibility(View.GONE);
         		Log.i(TAG, "full version was detected");
     		}
         	else
@@ -135,6 +125,7 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
         	
 
         // Show release notes when first starting a new version
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String strLastRelease	= sharedPrefs.getString("last_release", "0");
 		String strCurrentRelease = "";
 
@@ -174,24 +165,6 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
     	
     	// add listview adapter
     	this.setListViewAdapter();
-    	
-    	m_pullToRefreshView = (PullToRefreshListView) findViewById(R.id.pull_to_refresh_listview);
-    	m_pullToRefreshView.setScrollingWhileRefreshingEnabled(false);
-    	m_pullToRefreshView.setOnRefreshListener(new OnRefreshListener<ListView>()
-    	{
-    	    @Override
-    	    public void onRefresh(PullToRefreshBase<ListView> refreshView)
-    	    {
-    	        // Do work to refresh the list here.
-    	        new GetDataTask().execute();
-    	    }
-    	});
-    	
-        // Set up a listener whenever a key changes
-    	PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);
-
-
   	}
 
 
@@ -205,6 +178,7 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
     {
     	super.onSaveInstanceState(savedInstanceState);
         
+//    	savedInstanceState.putSerializable("logged_on", m_bLoggedOn); 
     }
 
 	/* Request updates at startup */
@@ -213,15 +187,6 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
 	{
 		super.onResume();
 
-		// pref was changed: restart to reload theme
-		if(m_restartActivity)
-	    {
-	        m_restartActivity = false;
-	        Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage( getBaseContext().getPackageName() );
-	        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        startActivity(i);
-	    }
-
 		// add listview adapter
     	this.setListViewAdapter();
     	
@@ -229,6 +194,8 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
     	{
     		m_listViewAdapter.notifyDataSetChanged();
     	}
+		// update the status
+		this.updateStatus();
 	}
 
 
@@ -239,7 +206,7 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
      */
     public boolean onCreateOptionsMenu(Menu menu)
     {  
-    	MenuInflater inflater = getSupportMenuInflater();
+    	MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
@@ -269,7 +236,14 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
 		    	}
 
 	        	break;
-
+	        case R.id.refresh_events:
+		    	if (m_listViewAdapter != null)
+		    	{
+		    		m_listViewAdapter.update();
+		    		m_listViewAdapter.notifyDataSetChanged();
+		    	}
+	        	break;	
+	
 	        case R.id.preferences:  
 	        	Intent intentPrefs = new Intent(this, PreferencesActivity.class);
 	            this.startActivity(intentPrefs);
@@ -284,27 +258,17 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
             	// Dump to File
             	new WriteLogcatFile().execute("");
             	break;
-            case R.id.credits:
-	        	Intent intentCredits = new Intent(this, CreditsActivity.class);
-	            this.startActivity(intentCredits);
-	        	break;	            	
 
         }
         
         return true;
     }
-    
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences spref, String key)
-    {
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if(key.equals("theme") && !sharedPrefs.getString(key, "1").equals(m_theme))
-        {
-            setTheme();
-            m_restartActivity = true;
-        }
+    private void updateStatus()
+    {
+	    // Set the wifi state
     }
+    
 	private void setListViewAdapter()
 	{
 		// make sure we only instanciate when the reference does not exist
@@ -388,41 +352,6 @@ public class MainActivity extends SherlockListActivity implements OnSharedPrefer
 		} catch (Exception e)
 		{
 			Log.e(TAG, "Exception: " + e.getMessage());
-		}
-	}
-	
-	private class GetDataTask extends AsyncTask<Void, Void, Void>
-	{
-		@Override
-	    protected Void doInBackground(Void... refresh)
-	    {
-			m_listViewAdapter.update();
-    		
-    		return null;
-	    }
-
-	    @Override
-	    protected void onPostExecute(Void result)
-	    {
-	    	m_listViewAdapter.notifyDataSetChanged();
-	        // Call onRefreshComplete when the list has been refreshed.
-	    	
-	        m_pullToRefreshView.onRefreshComplete();
-	        super.onPostExecute(result);
-	    }
-	}
-	
-	private void setTheme()
-	{
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		m_theme = sharedPrefs.getString("theme", "1");
-		if (m_theme.equals("1"))
-		{
-			this.setTheme(R.style.Theme_Sherlock);
-		}
-		else
-		{
-			this.setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
 		}
 	}
 

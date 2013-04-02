@@ -27,13 +27,13 @@ public class CreditsAdapter extends ArrayAdapter<String>
 {
 	private final Context m_context;
 	private final String[] m_libs = new String[]
-	{ "ActionBarSherlock", "PullToRefresh"};
+	{ "ActionBarSherlock"};
 	private final String[] m_authors = new String[]
-	{ "Jake Wharton", "Chris Banes" };
+	{ "Jake Wharton"};
 	private final String[] m_licenses = new String[]
-	{ "Apache 2.0", "Apache 2.0"};
+	{ "Apache 2.0"};
 	private final String[] m_urls = new String[]
-	{ "Apache 2.0", "Apache 2.0"};
+	{ "Apache 2.0"};
 
 	public CreditsAdapter(Context context)
 	{
