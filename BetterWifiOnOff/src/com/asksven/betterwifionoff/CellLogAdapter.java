@@ -60,13 +60,13 @@ public class CellLogAdapter extends BaseAdapter
 
         TextView tvTime = (TextView) convertView.findViewById(R.id.TextViewTimestamp);
         TextView tvCid = (TextView) convertView.findViewById(R.id.TextViewCid);
-        TextView tvLac = (TextView) convertView.findViewById(R.id.TextViewLac);
+//        TextView tvLac = (TextView) convertView.findViewById(R.id.TextViewLac);
         TextView tvTag = (TextView) convertView.findViewById(R.id.textViewTags);
 
 
         tvTime.setText(entry.getTime());
         tvCid.setText(String.valueOf(entry.getCid()));
-        tvLac.setText(String.valueOf(entry.getLac()));
+//        tvLac.setText(String.valueOf(entry.getLac()));
         
 		CellDBHelper db = new CellDBHelper(m_context);
 		String tags = db.getCellTagsAsString(entry.getCid());
