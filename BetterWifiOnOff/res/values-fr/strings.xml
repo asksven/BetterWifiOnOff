@@ -79,8 +79,8 @@
     <string name="support_version">Version de support du développeur</string>
     <string name="free_version">Version gratuite</string>
     <string name="event_no_wifi_connection">Une connexion n\'a pas pû être établie: éteins Wifi</string>
-    <string name="event_access_point_not_wl">Le point d\'accès n\'est pas dans la liste blanche</string>
-    <string name="event_access_point_wl">Le point d\'accès est la liste blache: Wifi reste allumé</string>
+    <string name="event_access_point_not_wl">Le point d\'accès %s n\'est pas dans la liste blanche</string>
+    <string name="event_access_point_wl">Le point d\'accès %s est la liste blache: Wifi reste allumé</string>
     <string name="event_app_wl">L\'application active %s est dans la liste blanche: Wifi reste allumé</string>
     <string name="event_app_not_wl">Aucune application de la liste blanche est active: éteins Wifi</string>        
     <string name="event_connection_active">Connexion active: Wifi reste allumé</string>

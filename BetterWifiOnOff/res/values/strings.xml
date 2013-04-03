@@ -84,8 +84,8 @@
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
-    <string name="event_access_point_not_wl">Access point is not whitelisted</string>
-    <string name="event_access_point_wl">Access point is whitelisted: leaving Wifi on</string>
+    <string name="event_access_point_not_wl">Access point %s is not whitelisted</string>
+    <string name="event_access_point_wl">Access point %s is whitelisted: leaving Wifi on</string>
     <string name="event_app_wl">Runnung app is whitelisted (%s): leaving Wifi on</string>
     <string name="event_app_not_wl">No whitelisted app runnung app: turning Wifi off</string>
     <string name="event_connection_active">Connection active: leaving Wifi on</string>

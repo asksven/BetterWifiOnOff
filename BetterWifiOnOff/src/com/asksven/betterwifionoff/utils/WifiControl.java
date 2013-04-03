@@ -198,7 +198,19 @@ public class WifiControl
 		return (whiteList.indexOf(ssid) != -1);
 	}
 	
-	
+
+	/**
+	 * Return the ssid currently connected to
+	 * @param ctx a Context
+	 * @return the ssid of the connected AP
+	 */
+	public static final String connectedSsid(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
+		return ssid;
+	}
+
 	/** 
 	 * Returns the list of access points that were added to the Wifi configuration
 	 * @param ctx a Context

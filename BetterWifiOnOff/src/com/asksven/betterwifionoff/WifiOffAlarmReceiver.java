@@ -119,14 +119,14 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 				if (WifiControl.isWhitelistedWifiConnected(context, whitelist))
 				{
 			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");
-			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl));
+			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl, WifiControl.connectedSsid(context)));
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
 				{
 					Log.d(TAG, "Access Point not whitelisted: turning  Wifi off");
-					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl)); 
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl, WifiControl.connectedSsid(context))); 
 				}
 			}
 			
