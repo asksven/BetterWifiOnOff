@@ -47,7 +47,8 @@ public class CellUtil
 	{
 		CellLogEntry cell = null;
 		final TelephonyManager telephony = (TelephonyManager) ctx.getSystemService(Context.TELEPHONY_SERVICE);
-		if (telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_GSM)
+		if ((telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_GSM)
+			|| (telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA))
 		{
 		    final GsmCellLocation location = (GsmCellLocation) telephony.getCellLocation();
 		    if (location != null)
