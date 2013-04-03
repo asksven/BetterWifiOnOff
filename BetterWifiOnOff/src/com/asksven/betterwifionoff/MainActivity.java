@@ -16,14 +16,19 @@
 package com.asksven.betterwifionoff;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -256,7 +261,7 @@ public class MainActivity extends ListActivity
             	break;
             case R.id.logcat:
             	// Dump to File
-            	new WriteLogcatFile().execute("");
+            	getShareDialog().show();
             	break;
 
         }
@@ -280,26 +285,10 @@ public class MainActivity extends ListActivity
 		m_listViewAdapter.update();
 	}
 	
-	
-	private class WriteLogcatFile extends AsyncTask
+		
+	public Uri writeLoggingInfoToFile(Context context)
 	{
-		@Override
-	    protected Object doInBackground(Object... params)
-	    {
-			MainActivity.this.writeLoggingInfoToFile(MainActivity.this);
-	    	return true;
-	    }
-
-		@Override
-		protected void onPostExecute(Object o)
-	    {
-			super.onPostExecute(o);
-	        // update hourglass
-	    }
-	 }
-	
-	public void writeLoggingInfoToFile(Context context)
-	{
+		String fileName = "";
 		if (!DataStorage.isExternalStorageWritable())
 		{
 			Log.e(TAG, "External storage can not be written");
@@ -314,7 +303,7 @@ public class MainActivity extends ListActivity
 			// check if file can be written
 			if (root.canWrite())
 			{
-				String fileName = "betterwifionoff-"
+				fileName = "betterwifionoff-"
 						+ DateUtils.now("yyyy-MM-dd_HHmmssSSS") + ".txt";
 
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -353,7 +342,61 @@ public class MainActivity extends ListActivity
 		{
 			Log.e(TAG, "Exception: " + e.getMessage());
 		}
+		File dumpFile = new File(Environment.getExternalStorageDirectory(), fileName);
+		return Uri.fromFile(dumpFile);
 	}
+	
+	public Dialog getShareDialog()
+	{
+	
+		final ArrayList<Integer> selectedSaveActions = new ArrayList<Integer>();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+    	final ArrayList<Uri> attachements = new ArrayList<Uri>();
+		
+		// Set the dialog title
+		builder.setTitle(R.string.title_share_dialog)
+				.setPositiveButton(R.string.label_button_share, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						attachements.add(MainActivity.this.writeLoggingInfoToFile(MainActivity.this));
+
+
+						if (!attachements.isEmpty())
+						{
+							Intent shareIntent = new Intent();
+							shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+							shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachements);
+							shareIntent.setType("text/text");
+							startActivity(Intent.createChooser(shareIntent, "Share info to.."));
+						}
+					}
+				})
+				.setNeutralButton(R.string.label_button_save, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+
+						attachements.add(MainActivity.this.writeLoggingInfoToFile(MainActivity.this));
+						
+					}
+				}).setNegativeButton(R.string.label_button_cancel, new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int id)
+						{
+							// do nothing
+						}
+					});
+	
+		return builder.create();
+	}
+
 
 
 }

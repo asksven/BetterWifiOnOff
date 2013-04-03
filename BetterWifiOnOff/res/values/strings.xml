@@ -158,6 +158,11 @@
     <string name="event_unknown_cell">Cell is unknown: do nothing</string>
     <string name="event_known_cell">Cell is tagged: turning Wifi on</string>
     <string name="menu_clear">Purge Log</string>
+    <string name="label_button_share">Share to...</string>
+    <string name="label_button_save">Save</string>
+    <string name="label_button_cancel">Cancel</string>
+    <string name="title_share_dialog">Share data as...</string>
+    
     
     
 </resources>
