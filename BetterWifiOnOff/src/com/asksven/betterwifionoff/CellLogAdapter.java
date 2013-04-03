@@ -103,6 +103,10 @@ public class CellLogAdapter extends BaseAdapter
       super.notifyDataSetChanged();
     }
     
+    public void clear()
+    {
+    	m_listData.clear();
+    }
     protected class OnItemClickListener implements OnClickListener
     {           
         private int m_iPosition;

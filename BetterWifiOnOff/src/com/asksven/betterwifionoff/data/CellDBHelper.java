@@ -455,6 +455,19 @@ public class CellDBHelper
 	    return ret;
 
 	}
+	
+    public void purgeLog()
+    {
+        try
+        {
+			m_db.execSQL("delete from " + TABLE_LOG_NAME + ";");
+        }
+        catch (SQLException e)
+		{
+			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
+		}
+    }
+
 
 }
 	

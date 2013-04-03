@@ -136,6 +136,7 @@
     <string name="pref_app_whtelist_summary">Liste aktiver apps die verhindern, dass Wifi ausgemacht wird</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_title">Falls whitelisted app activ</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi bleibt an falls eine whitelisted apps are activ ist</string>
+    <string name="menu_clear">Log löschen</string>
     
     
 </resources>

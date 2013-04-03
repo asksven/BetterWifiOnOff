@@ -136,6 +136,7 @@
     <string name="pref_app_whtelist_summary">Liste des applications dont l\'activité laisse Wifi allumé</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_title">Si application active</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi reste allumé si une application listée est active</string>
+    <string name="menu_clear">Purger le Log</string>
     
     
     

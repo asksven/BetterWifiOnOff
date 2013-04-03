@@ -157,6 +157,7 @@
     <string name="wifi_on_only_when_known_cid_summary">Turn Wifi on only when the cell is known (tagged)</string>
     <string name="event_unknown_cell">Cell is unknown: do nothing</string>
     <string name="event_known_cell">Cell is tagged: turning Wifi on</string>
+    <string name="menu_clear">Purge Log</string>
     
     
 </resources>

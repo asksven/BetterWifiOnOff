@@ -17,16 +17,23 @@ package com.asksven.betterwifionoff;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.asksven.android.common.ReadmeActivity;
 import com.asksven.betterwifionoff.data.CellDBHelper;
 import com.asksven.betterwifionoff.data.CellLogEntry;
+import com.asksven.betterwifionoff.data.EventLogger;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
@@ -76,6 +83,18 @@ public class CellLogActivity extends ListActivity
         setListAdapter(m_adapter);
     }
     
+	/** 
+     * Add menu items
+     * 
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    public boolean onCreateOptionsMenu(Menu menu)
+    {  
+    	MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.cellogmenu, menu);
+        return true;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
@@ -88,6 +107,30 @@ public class CellLogActivity extends ListActivity
     {
     	CellLogEntry myCell = m_data.get(position);
     	getTagsDialog(myCell.getCid()).show();
+    }
+
+    /** 
+     * Define menu action
+     * 
+     * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+     */
+    public boolean onOptionsItemSelected(MenuItem item)
+    {  
+        switch (item.getItemId())
+        {
+            case R.id.clear:
+            	// Dump to File
+            	CellDBHelper db = new CellDBHelper(this);
+            	db.purgeLog();
+            	db.close();
+	    		m_adapter.clear();
+	    		m_adapter.notifyDataSetChanged();
+
+            	break;
+
+        }
+        
+        return true;
     }
 
 	public Dialog getTagsDialog(final int cid)
