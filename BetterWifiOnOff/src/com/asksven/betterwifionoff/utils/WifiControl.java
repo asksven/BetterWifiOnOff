@@ -194,8 +194,8 @@ public class WifiControl
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
-		Log.i(TAG, "Whitelist check: ssid: " + ssid + ", whitelist: " + whiteList + ", result: " + (whiteList.indexOf(ssid) != -1));
-		return (whiteList.indexOf(ssid) != -1);
+		Log.i(TAG, "Whitelist check: ssid: '" + ssid + "', whitelist: '" + whiteList + "', result: " + (whiteList.indexOf(ssid) != -1));
+		return ((whiteList.indexOf(ssid) != -1) && (!ssid.equals("")));
 	}
 	
 
