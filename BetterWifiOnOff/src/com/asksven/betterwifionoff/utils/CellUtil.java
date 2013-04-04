@@ -28,7 +28,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.BatteryManager;
+import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
+import android.telephony.cdma.CdmaCellLocation;
 import android.telephony.gsm.GsmCellLocation;
 import android.util.Log;
 
@@ -50,13 +52,26 @@ public class CellUtil
 		if ((telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_GSM)
 			|| (telephony.getPhoneType() == TelephonyManager.PHONE_TYPE_CDMA))
 		{
-		    final GsmCellLocation location = (GsmCellLocation) telephony.getCellLocation();
+		    final CellLocation location = telephony.getCellLocation();
 		    if (location != null)
 		    {
-		        Log.i(TAG, "Detected cell LAC: " + location.getLac() + " CID: " + location.getCid());
-		        cell = new CellLogEntry(location.getCid(), location.getLac());
-		        
+		    	if (location instanceof GsmCellLocation)
+		    	{
+		    		GsmCellLocation gsmLoc = (GsmCellLocation) location;
+			        Log.i(TAG, "Detected cell LAC: " + gsmLoc.getLac() + " CID: " + gsmLoc.getCid());
+			        cell = new CellLogEntry(gsmLoc.getCid(), gsmLoc.getLac());
+		    	}
+		    	else if (location instanceof CdmaCellLocation)
+		    	{
+		    		CdmaCellLocation cdmaLoc = (CdmaCellLocation) location;
+			        Log.i(TAG, "Detected cell NID: " + cdmaLoc.getNetworkId() + " BID: " + cdmaLoc.getBaseStationId());
+			        cell = new CellLogEntry(cdmaLoc.getBaseStationId(), cdmaLoc.getNetworkId());
+		    	}
 		    }
+	    	else
+	    	{
+		        Log.i(TAG, "Unknown phone type " + telephony.getPhoneType());
+	    	}
 		}
 		
 		return cell;
