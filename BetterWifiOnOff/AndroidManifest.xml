@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asksven.betterwifionoff"
     android:versionCode="40"
-    android:versionName="2.0.0.0RC4" >
+    android:versionName="2.0.0.0RC5" >
 
     <uses-sdk
         android:minSdkVersion="7"
