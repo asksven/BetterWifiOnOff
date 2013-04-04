@@ -360,7 +360,7 @@ public class CellDBHelper
 	        {
 	        	CellLogEntry log = new CellLogEntry(c.getString(1), c.getInt(2), c.getInt(3));
 	            ret.add(log);
-	            Log.i(TAG, "Added " + log.toString() + " to cell log");
+	            Log.i(TAG, "Added cell to cell log");
 	            c.moveToNext();
 	        }
 	        c.close();
@@ -394,7 +394,7 @@ public class CellDBHelper
 		{
 			Log.d(TAG,"SQLite exception: " + e.getLocalizedMessage());
 		}
-	    Log.i(TAG, "Reading tags for cid " + cid + " :" + ret.toString());
+	    Log.i(TAG, "Reading tags for cid");
 	    return ret;
 
 	}
@@ -443,7 +443,7 @@ public class CellDBHelper
 	        while (c.isAfterLast() == false) 
 	        {
 	            ret.add(c.getString(1));
-	            Log.i(TAG, "Added " + c.getString(1) + " to tags list");
+	            Log.i(TAG, "Added entry to tags list");
 	            c.moveToNext();
 	        }
 	        c.close();
