@@ -82,6 +82,17 @@ public class MainActivity extends ListActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = sharedPrefs.getString("theme", "1");
+		if (theme.equals("1"))
+		{
+			this.setTheme(R.style.Theme_Sherlock);
+		}
+		else
+		{
+			this.setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
+	
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
@@ -130,7 +141,6 @@ public class MainActivity extends ListActivity
         	
 
         // Show release notes when first starting a new version
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String strLastRelease	= sharedPrefs.getString("last_release", "0");
 		String strCurrentRelease = "";
 

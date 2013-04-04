@@ -27,7 +27,7 @@
     <string name="wifi_off_when_screen_off_summary">Schaltet Wifi aus wenn der Bildschirm ausgeht</string>
     <string name="wifi_on_when_screen_on_summary">Wifi einschalten wenn Bildschirm angeht (nur empfolhen falls \"An wenn entsperrt\"" nicht funktionniert)</string>
     <string name="wifi_on_when_screen_on_title">An wenn Bildschirm an</string>
-    <string name="wifi_on_when_screen_unlock_summary">Wifi an wenn Bildschirm entsperrt wird (vermeidete, dass Wifi angeht wenn Bildschirm blinkt)</string>
+    <string name="wifi_on_when_screen_unlock_summary">Wifi an wenn Bildschirm entsperrt wird (vermeidet, dass Wifi angeht wenn Bildschirm aufblinkt)</string>
     <string name="wifi_on_when_screen_unlock_title">An wenn entsperrt</string>
     <string name="pref_wifi_off_delay_title">Verzögerung</string>
     <string name="pref_wifi_off_delay_summary">Wartezeit bis der Wifi Zustand überpüft wird</string>
@@ -68,7 +68,7 @@
     <string name="pref_wifilock_title">Wifilock halten</string>
     <string name="pref_wifilock_summary">Achtung! hält ein Wifilock, das Radio bleibt aktiv</string>
     <string name="pref_wifi_whitelist_title">SSID Whitelist</string>
-    <string name="pref_wifi_whitelist_summary_v11">List3 von validen SSIDs</string>    
+    <string name="pref_wifi_whitelist_summary_v11">Liste von validen SSIDs</string>    
     <string name="pref_wifi_whitelist_summary">Komma getrennte Liste von validen SSIDs</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Wifi bleibt an falls der Access Point in der Whitelist ist</string>
     <string name="pref_wifi_on_if_whitelisted_title">Wenn verbunden mit einem Access Point aus der Whitelist</string>
@@ -133,7 +133,7 @@
     <string name="pref_theme_title">Theme</string>
     <string name="pref_theme_summary">Theme wechseln</string>
     <string name="pref_app_whtelist_title">App Whitelist</string>
-    <string name="pref_app_whtelist_summary">Liste aktiver apps die verhindern, dass Wifi ausgemacht wird</string>
+    <string name="pref_app_whtelist_summary">Liste aktiver apps die verhindern, dass Wifi ausgechaltet wird</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_title">Falls whitelisted app activ</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi bleibt an falls eine whitelisted apps are activ ist</string>
     <string name="pref_category_location">Ortung</string>
