@@ -136,6 +136,23 @@
     <string name="pref_app_whtelist_summary">Liste aktiver apps die verhindern, dass Wifi ausgemacht wird</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_title">Falls whitelisted app activ</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi bleibt an falls eine whitelisted apps are activ ist</string>
+    <string name="pref_category_location">Ortung</string>
+    <string name="pref_screen_location">Ortungseinstellungen</string>
+    <string name="pref_log_cells_summary">Zelleninfo sammeln wenn Bildschirm an</string>
+    <string name="pref_log_cells_title">Zellen protokollieren</string>
+    <string name="pref_cell_log_summary">Zeige Protokoll</string>
+    <string name="pref_cell_log_title">Zellen protokollieren</string>
+    <string name="pref_tags_summary">Tags um Orte zu benennen</string>
+    <string name="pref_tags_title">Tags</string>
+    <string name="label_new_tag">Neu</string>
+    <string name="wifi_on_only_when_known_cid_title">Nur wenn bekante Zelle</string>
+    <string name="wifi_on_only_when_known_cid_summary">Wifi nur dann einschalten, wenn die Zelle bekannt ist (tag)</string>
+    <string name="event_unknown_cell">Unbekannte Zelle: keine änderung</string>
+    <string name="event_known_cell">Zelle hat einen Tag: Wifi wird eningeschaltet</string>
+    <string name="label_button_share">Teilen</string>
+    <string name="label_button_save">Speichern</string>
+    <string name="label_button_cancel">Abbruch</string>
+    <string name="title_share_dialog">Teilen / Speichern</string>
     <string name="menu_clear">Log löschen</string>
     
     

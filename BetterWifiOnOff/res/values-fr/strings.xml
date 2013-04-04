@@ -136,6 +136,25 @@
     <string name="pref_app_whtelist_summary">Liste des applications dont l\'activité laisse Wifi allumé</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_title">Si application active</string>
     <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi reste allumé si une application listée est active</string>
+    <string name="pref_category_location">Localisation</string>
+    <string name="pref_screen_location">Paramètres de Localisation</string>
+    <string name="pref_log_cells_summary">Protocoller les cellules quand l\'écran est allumé</string>
+    <string name="pref_log_cells_title">Protocoller les cellules</string>
+    <string name="pref_cell_log_summary">Afficher le ptotocole de cellules</string>
+    <string name="pref_cell_log_title">Protocolle de cellules</string>
+    <string name="pref_tags_summary">Noms de locations</string>
+    <string name="pref_tags_title">Noms</string>
+    <string name="label_new_tag">Ajouter</string>
+    <string name="wifi_on_only_when_known_cid_title">Seulement si cellule connue</string>
+    <string name="wifi_on_only_when_known_cid_summary">Allumer Wifi seulement si la cellule est connue (nommée)</string>
+    <string name="event_unknown_cell">Cellule inconnue: pas d\'activité</string>
+    <string name="event_known_cell">Cellule commue: allumer Wifi</string>
+    <string name="menu_clear">Effacer le journal</string>
+    <string name="label_button_share">Partager...</string>
+    <string name="label_button_save">Sauver</string>
+    <string name="label_button_cancel">Abandon</string>
+    <string name="title_share_dialog">Partager ou sauver</string>
+    
     <string name="menu_clear">Purger le Log</string>
     
     
