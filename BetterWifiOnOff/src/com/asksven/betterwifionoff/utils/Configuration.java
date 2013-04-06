@@ -32,7 +32,7 @@ public class Configuration
 	
 	public static boolean isFullVersion(Context ctx)
 	{
-		return (getVersion(ctx) > 0);
+		return (getVersion(ctx) >= 0);
 	}
 	
 	private static int getVersion(Context ctx)
