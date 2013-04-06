@@ -194,11 +194,23 @@ public class WifiControl
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
-		Log.i(TAG, "Whitelist check: ssid: " + ssid + ", whitelist: " + whiteList + ", result: " + (whiteList.indexOf(ssid) != -1));
-		return (whiteList.indexOf(ssid) != -1);
+		Log.i(TAG, "Whitelist check: ssid: '" + ssid + "', whitelist: '" + whiteList + "', result: " + (whiteList.indexOf(ssid) != -1));
+		return ((whiteList.indexOf(ssid) != -1) && (!ssid.equals("")));
 	}
 	
-	
+
+	/**
+	 * Return the ssid currently connected to
+	 * @param ctx a Context
+	 * @return the ssid of the connected AP
+	 */
+	public static final String connectedSsid(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
+		return ssid;
+	}
+
 	/** 
 	 * Returns the list of access points that were added to the Wifi configuration
 	 * @param ctx a Context

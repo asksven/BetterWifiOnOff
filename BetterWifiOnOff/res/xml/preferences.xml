@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <EditTextPreference
-        android:key="wifi_whitelist"
-        android:summary="@string/pref_wifi_whitelist_summary"
-        android:title="@string/pref_wifi_whitelist_title" />
-
     <PreferenceCategory android:title="@string/pref_category_rules_on" >
         <CheckBoxPreference
             android:defaultValue="true"

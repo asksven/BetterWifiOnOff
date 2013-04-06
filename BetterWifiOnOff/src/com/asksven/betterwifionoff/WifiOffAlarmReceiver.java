@@ -32,6 +32,7 @@ import android.util.Log;
 import com.asksven.betterwifionoff.data.Constants;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.AppUtil;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
 /**
@@ -114,21 +115,40 @@ public class WifiOffAlarmReceiver extends BroadcastReceiver
 			if (bProcess)
 			{
 				String whitelist = prefs.getString("wifi_whitelist", "");
-				Log.i(TAG, "Checking against whitelist: " + whitelist);
+				Log.i(TAG, "Checking against SSID whitelist: " + whitelist);
 				if (WifiControl.isWhitelistedWifiConnected(context, whitelist))
 				{
 			    	Log.i(TAG, "Access point is whitelisted,  leave wifi on");
-			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl));
+			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl, WifiControl.connectedSsid(context)));
 			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
 			    	return;
 				}
 				else
 				{
 					Log.d(TAG, "Access Point not whitelisted: turning  Wifi off");
-					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl)); 
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl, WifiControl.connectedSsid(context))); 
 				}
 			}
 			
+			bProcess = prefs.getBoolean("wifi_on_if_whitelisted_app_running", false);
+			
+			if (bProcess)
+			{
+				Log.i(TAG, "Checking if a whitelisted app is running");
+				String packageName = AppUtil.isWhitelistedAppRunning(context);
+				if (!packageName.equals(""))
+				{
+			    	Log.i(TAG, "Whitelisted app is running,  leave wifi on");
+			    	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_app_wl, packageName));
+			    	SetWifiStateService.scheduleRetryWifiOffAlarm(context);
+			    	return;
+				}
+				else
+				{
+					Log.d(TAG, "No whitelisted app running: turning  Wifi off");
+					EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_app_not_wl)); 
+				}
+			}
 
 			// start service to turn off wifi
 			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_off)); 

@@ -79,7 +79,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					if (!WifiControl.isWhitelistedWifiConnected(context, whitelist))
 					{
 						Log.d(TAG, "Access point is not whitelisted: turning Wifi off");
-						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl)); 
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_not_wl, WifiControl.connectedSsid(context))); 
 
 						Intent serviceIntent = new Intent(context, SetWifiStateService.class);
 						serviceIntent.putExtra(SetWifiStateService.EXTRA_STATE, false);
@@ -90,7 +90,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 					else
 					{
 						Log.d(TAG, "Access Point wihtelisted: leaving Wifi on");
-						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl)); 
+						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_wl, WifiControl.connectedSsid(context))); 
 					}
 				}
 				else

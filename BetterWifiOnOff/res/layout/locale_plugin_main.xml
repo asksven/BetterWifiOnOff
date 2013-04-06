@@ -18,11 +18,14 @@
     android:orientation="vertical" >
 
 	<CheckBox
-	    android:text="@string/message_hint_set_status"
 	    android:id="@+id/CheckBoxSetStatus"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-	    android:editable="true"/>
-
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginBottom="4dp"
+	    android:layout_marginLeft="16dp"
+	    android:layout_marginRight="16dp"
+	    android:layout_marginTop="4dp"
+	    android:editable="true"
+	    android:text="@string/message_hint_set_status" />
 
 </LinearLayout>

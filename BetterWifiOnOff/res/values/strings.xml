@@ -16,7 +16,7 @@
     <string name="status_connection_changed">Connection status changed</string>
     <string name="status_service_not_started">Service not started yet</string>
     <string name="status_notification_on">Notification activated</string>
-    <string name="full_version_available">Add-free donate version available soon</string>
+    <string name="full_version_available">Add-free donate version available</string>
     <string name="status_service_running">Service running</string>
     <string name="pref_category_logging">Logging</string>
     <string name="pref_screen_logging">Logging Preferences</string>
@@ -72,6 +72,7 @@
     <string name="pref_wifilock_summary">Caution! Holds a wifilock, device will not sleep till Wifi is turned off</string>
     <string name="pref_wifi_whitelist_title">SSID Whitelist</string>
     <string name="pref_wifi_whitelist_summary">Comma separated list of whitelisted SSIDs</string>
+    <string name="pref_wifi_whitelist_summary_v11">List of whitelisted SSIDs</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Stay on if current SSID is in whitelist</string>
     <string name="pref_wifi_on_if_whitelisted_title">If connected to whitelisted SSID</string>
     <string name="pref_wifi_on_if_in_call_title">If in Call</string>
@@ -83,8 +84,10 @@
     <string name="support_version">Support the dev Version</string>
     <string name="free_version">Free Version</string>
     <string name="event_no_wifi_connection">No Wifi connection could be established. Turning off Wifi</string>
-    <string name="event_access_point_not_wl">Access point is not whitelisted</string>
-    <string name="event_access_point_wl">Access point is whitelisted: leaving Wifi on</string>
+    <string name="event_access_point_not_wl">Access point %s is not whitelisted</string>
+    <string name="event_access_point_wl">Access point %s is whitelisted: leaving Wifi on</string>
+    <string name="event_app_wl">Runnung app is whitelisted (%s): leaving Wifi on</string>
+    <string name="event_app_not_wl">No whitelisted app runnung app: turning Wifi off</string>
     <string name="event_connection_active">Connection active: leaving Wifi on</string>
     <string name="event_access_point_caged">Access point is caged: turning Wifi off</string>
     <string name="event_access_point_not_caged">Access point is not caged: leaving Wifi on</string>
@@ -131,4 +134,35 @@
     <string name="label_button_rate">Rate</string>
     <string name="label_button_no">No, thanks</string>
     <string name="text_dialog_rate">If you enjoy using %s, please take a moment to rate it. Thanks for your support!</string>
+    <string name="label_theme_dark">Dark</string>
+    <string name="label_theme_light">Light</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_summary">Switch themes</string>
+    <string name="menu_credits">Credits</string>
+    <string name="pref_app_whtelist_title">Application Whitelist</string>
+    <string name="pref_app_whtelist_summary">App that will cause Wifi to be left on if running</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_title">If whitelisted app running</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_summary">Leave Wifi on if one of the whitelisted apps are active</string>
+
+    <string name="pref_category_location">Location</string>
+    <string name="pref_screen_location">Location Settings</string>
+    <string name="pref_log_cells_summary">Log cell data at screen on / unlock</string>
+    <string name="pref_log_cells_title">Log cells</string>
+    <string name="pref_cell_log_summary">Show logged cells</string>
+    <string name="pref_cell_log_title">Cell Log</string>
+    <string name="pref_tags_summary">Define tags for naming locations</string>
+    <string name="pref_tags_title">Tags</string>
+    <string name="label_new_tag">Add</string>
+    <string name="wifi_on_only_when_known_cid_title">On only when known CID</string>
+    <string name="wifi_on_only_when_known_cid_summary">Turn Wifi on only when the cell is known (tagged)</string>
+    <string name="event_unknown_cell">Cell is unknown: do nothing</string>
+    <string name="event_known_cell">Cell is tagged: turning Wifi on</string>
+    <string name="menu_clear">Purge Log</string>
+    <string name="label_button_share">Share to...</string>
+    <string name="label_button_save">Save</string>
+    <string name="label_button_cancel">Cancel</string>
+    <string name="title_share_dialog">Share or Save</string>
+    
+    
+    
 </resources>

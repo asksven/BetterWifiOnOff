@@ -69,6 +69,7 @@
     <string name="pref_wifilock_summary">Attention! maintient un wifilock. La radio reste active</string>
     <string name="pref_wifi_whitelist_title">Liste blanche SSID</string>
     <string name="pref_wifi_whitelist_summary">Liste séparée par des virgules des SSIDs de la liste blanche</string>
+    <string name="pref_wifi_whitelist_summary_v11">Liste des SSIDs de la liste blanche</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Reste allumé seulement si connecté à un point d\'accès de la liste blanche</string>
     <string name="pref_wifi_on_if_whitelisted_title">Si connecté à un SSID de la liste blanche</string>
     <string name="pref_wifi_on_if_activity_title">Si activité réseau</string>
@@ -78,8 +79,10 @@
     <string name="support_version">Version de support du développeur</string>
     <string name="free_version">Version gratuite</string>
     <string name="event_no_wifi_connection">Une connexion n\'a pas pû être établie: éteins Wifi</string>
-    <string name="event_access_point_not_wl">Point d\'accès n\'est pas dans la liste blanche</string>
-    <string name="event_access_point_wl">Le point d\'accès est la liste blache: Wifi reste allumé</string>
+    <string name="event_access_point_not_wl">Le point d\'accès %s n\'est pas dans la liste blanche</string>
+    <string name="event_access_point_wl">Le point d\'accès %s est la liste blache: Wifi reste allumé</string>
+    <string name="event_app_wl">L\'application active %s est dans la liste blanche: Wifi reste allumé</string>
+    <string name="event_app_not_wl">Aucune application de la liste blanche est active: éteins Wifi</string>        
     <string name="event_connection_active">Connexion active: Wifi reste allumé</string>
     <string name="event_access_point_caged">Point d\'accès est en cage: éteins Wifi</string>
     <string name="event_access_point_not_caged">Point d\'accès n\'est pas en cage: Wifi reste allumé</string>
@@ -124,4 +127,36 @@
     <string name="label_button_rate">Bewerten</string>
     <string name="label_button_no">Non merci</string>
     <string name="text_dialog_rate">Si vous aimez %s ce serait gentil de prendre une minute et de l\'évaluer. Merci de votre support!</string>
+    <string name="label_theme_dark">Foncé</string>
+    <string name="label_theme_light">Clair</string>
+    <string name="pref_theme_title">Thème</string>
+    <string name="pref_theme_summary">Changer le thème</string>
+    <string name="menu_credits">Crédits</string>
+    <string name="pref_app_whtelist_title">Liste blanche d\'applications</string>
+    <string name="pref_app_whtelist_summary">Liste des applications dont l\'activité laisse Wifi allumé</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_title">Si application active</string>
+    <string name="pref_wifi_on_if_whitelisted_app_running_summary">Wifi reste allumé si une application listée est active</string>
+    <string name="pref_category_location">Localisation</string>
+    <string name="pref_screen_location">Paramètres de Localisation</string>
+    <string name="pref_log_cells_summary">Protocoller les cellules quand l\'écran est allumé</string>
+    <string name="pref_log_cells_title">Protocoller les cellules</string>
+    <string name="pref_cell_log_summary">Afficher le ptotocole de cellules</string>
+    <string name="pref_cell_log_title">Protocolle de cellules</string>
+    <string name="pref_tags_summary">Noms de locations</string>
+    <string name="pref_tags_title">Noms</string>
+    <string name="label_new_tag">Ajouter</string>
+    <string name="wifi_on_only_when_known_cid_title">Seulement si cellule connue</string>
+    <string name="wifi_on_only_when_known_cid_summary">Allumer Wifi seulement si la cellule est connue (nommée)</string>
+    <string name="event_unknown_cell">Cellule inconnue: pas d\'activité</string>
+    <string name="event_known_cell">Cellule commue: allumer Wifi</string>
+    <string name="menu_clear">Effacer le journal</string>
+    <string name="label_button_share">Partager...</string>
+    <string name="label_button_save">Sauver</string>
+    <string name="label_button_cancel">Abandon</string>
+    <string name="title_share_dialog">Partager ou sauver</string>
+    
+    <string name="menu_clear">Purger le Log</string>
+    
+    
+    
 </resources>

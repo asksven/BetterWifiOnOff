@@ -47,12 +47,16 @@ public class EventLogger
 	public void addEvent(int type, String event)
 	{
 		Event entry = new Event(type, event);
-		EventDBHelper.getInstance(m_ctx).addEvent(entry);
+		EventDBHelper db = new EventDBHelper(m_ctx);
+		db.addEvent(entry);
+		db.close();
 	}
 	
 	public void clear()
 	{
-		EventDBHelper.getInstance(m_ctx).purgeEvents();
+		EventDBHelper db = new EventDBHelper(m_ctx);
+		db.purgeEvents();
+		db.close();
 	}
 
 	public void addUserEvent(String event)
@@ -88,6 +92,9 @@ public class EventLogger
 	
 	public List<Event> getEvents()
 	{
-		return EventDBHelper.getInstance(m_ctx).fetchAllRows();
+		EventDBHelper db = new EventDBHelper(m_ctx);
+		List<Event> list = db .fetchAllRows();
+		db.close();
+		return list;
 	}
 }
