@@ -18,6 +18,7 @@ package com.asksven.betterwifionoff.utils;
 import java.lang.reflect.Method;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 /**
@@ -45,12 +46,20 @@ public class Configuration
 	        		  "com.asksven.betterwifionoff_donate",
 	        		  Context.CONTEXT_INCLUDE_CODE |
 	        		  Context.CONTEXT_IGNORE_SECURITY);
-	          Class<?> c =
-	        		  foreignContext.getClassLoader().loadClass("com.asksven.betterwifionoff.License");
-	         
-	          Method methodGetVersion = c.getMethod("getVersion");
-	          	     
-	          iRet = (Integer) methodGetVersion.invoke(c); 
+				if (Build.VERSION.SDK_INT <= 15)
+				{
+
+					Class<?> c = foreignContext.getClassLoader().loadClass(
+							"com.asksven.betterlatitude.configuration.License");
+
+					Method methodGetVersion = c.getMethod("getVersion");
+
+					iRet = (Integer) methodGetVersion.invoke(c);
+				}
+				else
+				{
+					iRet = 0;
+				}
 
 	    }
 		catch( IllegalArgumentException e )
