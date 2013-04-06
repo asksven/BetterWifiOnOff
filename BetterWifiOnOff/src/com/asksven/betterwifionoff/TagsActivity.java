@@ -16,27 +16,21 @@
 package com.asksven.betterwifionoff;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.asksven.betterwifionoff.data.CellDBHelper;
-import com.asksven.betterwifionoff.data.CellLogEntry;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 // import com.android.phone.INetworkQueryService;
 
-public class TagsActivity extends ListActivity
+public class TagsActivity extends SherlockListActivity
 {
     private static final String TAG = "TagActivity";
 

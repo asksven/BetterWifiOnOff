@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asksven.betterwifionoff"
     android:versionCode="40"
-    android:versionName="2.0.0.0RC6" >
+    android:versionName="2.0.0.0RC7" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -58,7 +58,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.asksven.android.common.ReadmeActivity" />
+        <activity android:name="com.asksven.betterwifionoff.ReadmeActivity" />
         <activity android:name="com.asksven.betterwifionoff.CreditsActivity" />
         <activity android:name="com.asksven.betterwifionoff.AppWhitelistActivity" >
             <intent-filter>

@@ -19,10 +19,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.asksven.betterwifionoff.data.ApplicationInfo;
 import com.asksven.betterwifionoff.data.AppWhitelistDBHelper;
 
-import android.app.ListActivity;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,7 +37,7 @@ import android.widget.ListView;
 
 // import com.android.phone.INetworkQueryService;
 
-public class AppWhitelistActivity extends ListActivity
+public class AppWhitelistActivity extends SherlockListActivity
 {
     private static final String TAG = "AppWhitelistActivity";
 

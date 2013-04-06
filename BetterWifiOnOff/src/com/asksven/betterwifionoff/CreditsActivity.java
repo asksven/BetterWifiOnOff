@@ -15,13 +15,14 @@
  */
 package com.asksven.betterwifionoff;
 
-import android.app.ListActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
+
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 
-public class CreditsActivity extends ListActivity
+public class CreditsActivity extends SherlockListActivity
 {
 
     private static final String TAG = "CreditsActivity";
@@ -31,6 +32,17 @@ public class CreditsActivity extends ListActivity
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = sharedPrefs.getString("theme", "1");
+		if (theme.equals("1"))
+		{
+			this.setTheme(R.style.Theme_Sherlock);
+		}
+		else
+		{
+			this.setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.credits);
         CreditsAdapter adapter = new CreditsAdapter(this);

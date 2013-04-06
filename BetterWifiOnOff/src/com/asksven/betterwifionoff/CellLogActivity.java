@@ -18,6 +18,10 @@ package com.asksven.betterwifionoff;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.asksven.android.common.ReadmeActivity;
 import com.asksven.betterwifionoff.data.CellDBHelper;
 import com.asksven.betterwifionoff.data.CellLogEntry;
@@ -25,21 +29,17 @@ import com.asksven.betterwifionoff.data.EventLogger;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 
 // import com.android.phone.INetworkQueryService;
 
-public class CellLogActivity extends ListActivity
+public class CellLogActivity extends SherlockListActivity
 {
     private static final String TAG = "CellLogActivity";
 
@@ -88,9 +88,10 @@ public class CellLogActivity extends ListActivity
      * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
+    @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {  
-    	MenuInflater inflater = getMenuInflater();
+    	MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.cellogmenu, menu);
         return true;
     }

@@ -21,7 +21,6 @@ import java.util.Map;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,20 +28,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.asksven.android.common.AppRater;
-import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
 import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
@@ -52,7 +50,7 @@ import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
 
-public class MainActivity extends ListActivity 
+public class MainActivity extends SherlockListActivity 
 
 {
 	/**
@@ -219,9 +217,10 @@ public class MainActivity extends ListActivity
      * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
+	@Override
     public boolean onCreateOptionsMenu(Menu menu)
     {  
-    	MenuInflater inflater = getMenuInflater();
+    	MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
@@ -272,6 +271,11 @@ public class MainActivity extends ListActivity
             case R.id.logcat:
             	// Dump to File
             	getShareDialog().show();
+            	break;
+	        case R.id.credits:
+            	// Release notes
+            	Intent intentCredits = new Intent(this, CreditsActivity.class);
+                this.startActivity(intentCredits);
             	break;
 
         }
