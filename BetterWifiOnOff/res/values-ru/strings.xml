@@ -156,7 +156,8 @@
     <string name="pref_enable_on_user_on_summary">Активировать обработку Wifi, если пользователь включает Wifi вручную</string>
     <string name="event_enable_due_to_user_interaction">Обработка вкл: пользователь включил Wifi</string>
     <string name="pref_connect_to_strongest_ap_title">Подкл.к мощнейшей ТД</string>
-    <string name="pref_connect_to_strongest_ap_summary">Подключается к самой мощной настроенной точке доступа (в соответствии с белым списком)</string><string name="label_theme_dark">Dark</string>
+    <string name="pref_connect_to_strongest_ap_summary">Подключается к самой мощной настроенной точке доступа (в соответствии с белым списком)</string>
+    <string name="label_theme_dark">Темная</string>
     <string name="label_theme_light">Светлая</string>
     <string name="pref_theme_title">Тема</string>
     <string name="pref_theme_summary">Поменять тему</string>
