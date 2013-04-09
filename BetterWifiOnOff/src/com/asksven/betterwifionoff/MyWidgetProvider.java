@@ -56,13 +56,13 @@ public class MyWidgetProvider extends AppWidgetProvider
             if (bNewState)
             {
 				EventLogger.getInstance(context).addStatusChangedEvent(
-						context.getString(R.string.event_disable_due_to_user_interaction));
+						context.getString(R.string.event_disable_by_widget));
 
             }
             else
             {
 				EventLogger.getInstance(context).addStatusChangedEvent(
-						context.getString(R.string.event_enable_due_to_user_interaction));
+						context.getString(R.string.event_enable_by_widget));
     			// turn Wifi on
 				ScreenEventHandler.wifiOn(context);
 

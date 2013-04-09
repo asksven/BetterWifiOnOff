@@ -123,6 +123,8 @@
     <string name="message_hint_set_status">Enable / disable</string>
     <string name="pref_disable_on_user_off_title">Disable when user turns Wifi off</string>
     <string name="pref_disable_on_user_off_summary">Disable Wifi handling if user decides to turn Wifi off</string>
+    <string name="event_disable_by_widget">Processing disabled from widget</string>
+    <string name="event_enable_by_widget">Processing enabled from widget</string>
     <string name="event_disable_due_to_user_interaction">Processing disabled: user turned Wifi off</string>
     <string name="pref_enable_on_user_on_title">Enable when user turns Wifi on</string>
     <string name="pref_enable_on_user_on_summary">Enable Wifi handling if user decides to turn Wifi on</string>

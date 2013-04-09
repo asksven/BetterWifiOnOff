@@ -154,6 +154,8 @@
     <string name="label_button_cancel">Abbruch</string>
     <string name="title_share_dialog">Teilen / Speichern</string>
     <string name="menu_clear">Log löschen</string>
+    <string name="event_disable_by_widget">Deaktiviert vom Widget</string>
+    <string name="event_enable_by_widget">Aktiviert von Widget</string>
     
     
 </resources>
