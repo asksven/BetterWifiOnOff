@@ -46,29 +46,11 @@ public class Configuration
 	        		  "com.asksven.betterwifionoff_donate",
 	        		  Context.CONTEXT_INCLUDE_CODE |
 	        		  Context.CONTEXT_IGNORE_SECURITY);
-				if (Build.VERSION.SDK_INT <= 15)
-				{
-
-					Class<?> c = foreignContext.getClassLoader().loadClass(
-							"com.asksven.betterlatitude.configuration.License");
-
-					Method methodGetVersion = c.getMethod("getVersion");
-
-					iRet = (Integer) methodGetVersion.invoke(c);
-				}
-				else
-				{
-					iRet = 0;
-				}
-
+				iRet = 0;
 	    }
 		catch( IllegalArgumentException e )
 		{
 	        iRet = -1;
-	    }
-		catch (ClassNotFoundException e)
-		{
-	    	iRet = -2;
 	    }
 		catch( Exception e )
 		{
