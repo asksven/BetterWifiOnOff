@@ -158,6 +158,9 @@
     <string name="menu_clear">Purger le Log</string>
     <string name="event_disable_by_widget">Désactivé depuis le widget</string>
     <string name="event_enable_by_widget">Activé depuis le widget</string>
+    <string name="event_power_connected">Chargeur connecté</string>
+    <string name="event_power_disconnected">Chargeur déconnecté</string>
+    
     
     
     

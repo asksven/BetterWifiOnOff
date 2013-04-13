@@ -164,6 +164,8 @@
     <string name="label_button_save">Save</string>
     <string name="label_button_cancel">Cancel</string>
     <string name="title_share_dialog">Share or Save</string>
+    <string name="event_power_connected">Power was connected</string>
+    <string name="event_power_disconnected">Power was disconnected</string>
     
     
     

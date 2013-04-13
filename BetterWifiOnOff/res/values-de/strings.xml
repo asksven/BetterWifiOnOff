@@ -156,6 +156,9 @@
     <string name="menu_clear">Log löschen</string>
     <string name="event_disable_by_widget">Deaktiviert vom Widget</string>
     <string name="event_enable_by_widget">Aktiviert von Widget</string>
+    <string name="event_power_connected">Ladegerät angeschlossen</string>
+    <string name="event_power_disconnected">Ladegerät ausgestreckt</string>
+    
     
     
 </resources>
