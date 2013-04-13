@@ -102,7 +102,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 				boolean bCheckCage 	= sharedPrefs.getBoolean("check_for_cage", false);
 				if (bCheckCage)
 				{
-					if (WifiControl.isWifiCaged(context))
+					if (WifiControl.isWifiCagedAlt(context))
 					{
 						Log.d(TAG, "Access point is caged: turning Wifi off");
 						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_caged)); 
