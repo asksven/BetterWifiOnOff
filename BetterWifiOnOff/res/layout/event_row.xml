@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout android:id="@+id/LinearLayout01"
         android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingLeft="10sp" android:paddingRight="10sp"
+        android:paddingLeft="@dimen/margin" android:paddingRight="@dimen/margin"
         android:layout_height="wrap_content"
-        android:orientation="vertical" android:paddingTop="2sp" android:paddingBottom="2sp">
-        <TextView android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingTop="8dp" android:paddingBottom="8dp">
+        <TextView android:layout_height="match_parent"
                 android:layout_width="fill_parent"
                 android:id="@+id/TextViewEntry"
                 android:text="Entry"/>

@@ -16,9 +16,12 @@
 
 package com.asksven.betterwifionoff.utils;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -127,47 +130,81 @@ public class WifiControl
 		}
 	}
 
+//	/**
+//	 * Returns true if a Wifi connection is established but google DNS could not be reached 
+//	 * @param ctx a Context
+//	 * @return true if a Wifi connection is established but caged
+//	 */
+//	public static final boolean isWifiCaged(Context ctx)
+//	{
+//		try
+//		{
+//			if (!isWifiConnected(ctx))
+//			{
+//				Log.i(TAG, "isWifiCaged: no connection active, aborting");
+//	
+//				return false;
+//			}
+//			
+//			ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
+//	
+//			final String googleDns = "8.8.8.8";
+//			final String bingSearch = "131.253.13.32";
+//			int ip = ipToInt(googleDns);  
+//	
+//			boolean ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+//			Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + googleDns);
+//			
+//			if (!ret)
+//			{
+//				// retry with bing.com
+//				ip = ipToInt(bingSearch);  
+//				
+//				ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
+//				Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + bingSearch);
+//
+//			}
+//			return (!ret);
+//		}
+//		catch (Exception e)
+//		{
+//			Log.e(TAG, "isWifiCaged: An exception occured: " + e.fillInStackTrace());
+//		}
+//		return false;
+//	}
+
 	/**
 	 * Returns true if a Wifi connection is established but google DNS could not be reached 
 	 * @param ctx a Context
 	 * @return true if a Wifi connection is established but caged
 	 */
-	public static final boolean isWifiCaged(Context ctx)
+	public static final boolean isWifiCagedAlt(Context ctx)
 	{
-		try
-		{
-			if (!isWifiConnected(ctx))
-			{
-				Log.i(TAG, "isWifiCaged: no connection active, aborting");
-	
-				return false;
-			}
-			
-			ConnectivityManager connMgr = (ConnectivityManager) ctx.getSystemService(Context.CONNECTIVITY_SERVICE);
-	
-			final String googleDns = "8.8.8.8";
-			final String bingSearch = "131.253.13.32";
-			int ip = ipToInt(googleDns);  
-	
-			boolean ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
-			Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + googleDns);
-			
-			if (!ret)
-			{
-				// retry with bing.com
-				ip = ipToInt(bingSearch);  
-				
-				ret = (connMgr.requestRouteToHost(ConnectivityManager.TYPE_WIFI, ip));
-				Log.i(TAG, "isWifiCaged: requestRouteToHost returned " + ret + " for IP " + bingSearch);
+        HttpURLConnection urlConnection = null;
+        try
+        {
+            URL url = new URL("http://clients3.google.com/generate_204");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setInstanceFollowRedirects(false);
+            urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(10000);
+            urlConnection.setUseCaches(false);
+            urlConnection.getInputStream();
+			Log.i(TAG, "isWifiCagedAlt: Connection retuned: " + urlConnection.getResponseCode());
 
-			}
-			return (!ret);
-		}
-		catch (Exception e)
-		{
-			Log.e(TAG, "isWifiCaged: An exception occured: " + e.fillInStackTrace());
-		}
-		return false;
+            return urlConnection.getResponseCode() != 204;
+        } catch (IOException e)
+        {
+            Log.e(TAG, "Walled garden check - probably a cage: exception " + e);
+            return true;
+        }
+        finally
+        {
+            if (urlConnection != null)
+            {
+            	urlConnection.disconnect();
+            }
+        }
 	}
 	
 	public static int ipToInt(String addr)
@@ -194,11 +231,23 @@ public class WifiControl
 	{
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
-		Log.i(TAG, "Whitelist check: ssid: " + ssid + ", whitelist: " + whiteList + ", result: " + (whiteList.indexOf(ssid) != -1));
-		return (whiteList.indexOf(ssid) != -1);
+		Log.i(TAG, "Whitelist check: ssid: '" + ssid + "', whitelist: '" + whiteList + "', result: " + (whiteList.indexOf(ssid) != -1));
+		return ((whiteList.indexOf(ssid) != -1) && (!ssid.equals("")));
 	}
 	
-	
+
+	/**
+	 * Return the ssid currently connected to
+	 * @param ctx a Context
+	 * @return the ssid of the connected AP
+	 */
+	public static final String connectedSsid(Context ctx)
+	{
+		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
+		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
+		return ssid;
+	}
+
 	/** 
 	 * Returns the list of access points that were added to the Wifi configuration
 	 * @param ctx a Context

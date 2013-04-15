@@ -16,28 +16,31 @@
 package com.asksven.betterwifionoff;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 
-import android.app.ListActivity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.asksven.android.common.AppRater;
-import com.asksven.android.common.ReadmeActivity;
 import com.asksven.andoid.common.contrib.Util;
 import com.asksven.android.common.utils.DataStorage;
 import com.asksven.android.common.utils.DateUtils;
@@ -47,7 +50,7 @@ import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.utils.Configuration;
 import com.google.ads.*;
 
-public class MainActivity extends ListActivity 
+public class MainActivity extends SherlockListActivity 
 
 {
 	/**
@@ -77,6 +80,17 @@ public class MainActivity extends ListActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String theme = sharedPrefs.getString("theme", "1");
+		if (theme.equals("1"))
+		{
+			this.setTheme(R.style.Theme_Sherlock);
+		}
+		else
+		{
+			this.setTheme(R.style.Theme_Sherlock_Light_DarkActionBar);
+		}
+	
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.main);
@@ -125,7 +139,6 @@ public class MainActivity extends ListActivity
         	
 
         // Show release notes when first starting a new version
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String strLastRelease	= sharedPrefs.getString("last_release", "0");
 		String strCurrentRelease = "";
 
@@ -204,9 +217,10 @@ public class MainActivity extends ListActivity
      * 
      * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
      */
+	@Override
     public boolean onCreateOptionsMenu(Menu menu)
     {  
-    	MenuInflater inflater = getMenuInflater();
+    	MenuInflater inflater = getSupportMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
         return true;
     }
@@ -256,7 +270,12 @@ public class MainActivity extends ListActivity
             	break;
             case R.id.logcat:
             	// Dump to File
-            	new WriteLogcatFile().execute("");
+            	getShareDialog().show();
+            	break;
+	        case R.id.credits:
+            	// Release notes
+            	Intent intentCredits = new Intent(this, CreditsActivity.class);
+                this.startActivity(intentCredits);
             	break;
 
         }
@@ -280,26 +299,10 @@ public class MainActivity extends ListActivity
 		m_listViewAdapter.update();
 	}
 	
-	
-	private class WriteLogcatFile extends AsyncTask
+		
+	public Uri writeLoggingInfoToFile(Context context)
 	{
-		@Override
-	    protected Object doInBackground(Object... params)
-	    {
-			MainActivity.this.writeLoggingInfoToFile(MainActivity.this);
-	    	return true;
-	    }
-
-		@Override
-		protected void onPostExecute(Object o)
-	    {
-			super.onPostExecute(o);
-	        // update hourglass
-	    }
-	 }
-	
-	public void writeLoggingInfoToFile(Context context)
-	{
+		String fileName = "";
 		if (!DataStorage.isExternalStorageWritable())
 		{
 			Log.e(TAG, "External storage can not be written");
@@ -314,7 +317,7 @@ public class MainActivity extends ListActivity
 			// check if file can be written
 			if (root.canWrite())
 			{
-				String fileName = "betterwifionoff-"
+				fileName = "betterwifionoff-"
 						+ DateUtils.now("yyyy-MM-dd_HHmmssSSS") + ".txt";
 
 				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -353,7 +356,61 @@ public class MainActivity extends ListActivity
 		{
 			Log.e(TAG, "Exception: " + e.getMessage());
 		}
+		File dumpFile = new File(Environment.getExternalStorageDirectory(), fileName);
+		return Uri.fromFile(dumpFile);
 	}
+	
+	public Dialog getShareDialog()
+	{
+	
+		final ArrayList<Integer> selectedSaveActions = new ArrayList<Integer>();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+    	final ArrayList<Uri> attachements = new ArrayList<Uri>();
+		
+		// Set the dialog title
+		builder.setTitle(R.string.title_share_dialog)
+				.setPositiveButton(R.string.label_button_share, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+						attachements.add(MainActivity.this.writeLoggingInfoToFile(MainActivity.this));
+
+
+						if (!attachements.isEmpty())
+						{
+							Intent shareIntent = new Intent();
+							shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+							shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, attachements);
+							shareIntent.setType("text/text");
+							startActivity(Intent.createChooser(shareIntent, "Share info to.."));
+						}
+					}
+				})
+				.setNeutralButton(R.string.label_button_save, new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick(DialogInterface dialog, int id)
+					{
+
+						attachements.add(MainActivity.this.writeLoggingInfoToFile(MainActivity.this));
+						
+					}
+				}).setNegativeButton(R.string.label_button_cancel, new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick(DialogInterface dialog, int id)
+						{
+							// do nothing
+						}
+					});
+	
+		return builder.create();
+	}
+
 
 
 }

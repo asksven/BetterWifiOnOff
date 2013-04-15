@@ -86,7 +86,7 @@ public class BroadcastHandler extends BroadcastReceiver
     			return;
     		}
 
-			EventLogger.getInstance(context).addStatusChangedEvent("Power was disconnected");
+			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_power_disconnected));
 
 			
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_power_ununplug", false);
@@ -138,6 +138,7 @@ public class BroadcastHandler extends BroadcastReceiver
 				Log.i(TAG, "Wifi handling is disabled: do nothing");
 				return;
 			}
+			EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_power_connected));
 
 			boolean bWakelock = sharedPrefs.getBoolean("wakelock_while_power_plugged", false);
 			boolean bWifilock = sharedPrefs.getBoolean("wifiock_while_power_plugged", false);

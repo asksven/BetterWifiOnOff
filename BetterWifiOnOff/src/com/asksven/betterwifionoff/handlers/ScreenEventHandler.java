@@ -16,9 +16,12 @@
 package com.asksven.betterwifionoff.handlers;
 
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.data.CellDBHelper;
+import com.asksven.betterwifionoff.data.CellLogEntry;
 import com.asksven.betterwifionoff.data.EventLogger;
 import com.asksven.betterwifionoff.services.EventWatcherService;
 import com.asksven.betterwifionoff.services.SetWifiStateService;
+import com.asksven.betterwifionoff.utils.CellUtil;
 import com.asksven.betterwifionoff.utils.ChargerUtil;
 import com.asksven.betterwifionoff.utils.WifiControl;
 
@@ -81,19 +84,22 @@ public class ScreenEventHandler extends BroadcastReceiver
 
 				}
 				else
-				{
-			    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
-	    	    	
-					int delay = 30;
-					try
-			    	{
-						delay = Integer.valueOf(strInterval);
-			    	}
-			    	catch (Exception e)
-			    	{
-			    	}
-					
-					SetWifiStateService.scheduleWifiOffAlarm(context);
+				{					
+					if (WifiControl.isWifiOn(context))
+					{
+				    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+		    	    	
+						int delay = 30;
+						try
+				    	{
+							delay = Integer.valueOf(strInterval);
+				    	}
+				    	catch (Exception e)
+				    	{
+				    	}
+
+						SetWifiStateService.scheduleWifiOffAlarm(context);
+					}
 				}
 			}
 		}
@@ -101,6 +107,19 @@ public class ScreenEventHandler extends BroadcastReceiver
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON))
 		{
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_ON");
+
+			// check if we should log cell info
+			if (sharedPrefs.getBoolean("log_cells", false))
+			{
+				CellLogEntry cell = CellUtil.getCurrentCell(context);
+				if (cell != null)
+				{
+					CellDBHelper db = new CellDBHelper(context);
+					db.addCellLogEntry(cell);
+					db.close();
+				}
+			}
+
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
 
@@ -110,6 +129,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			{
 				return;
 			}
+			
 			
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
@@ -202,7 +222,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 
     }
     
-    public void wifiOn(Context context)
+    public static void wifiOn(Context context)
     {
 		// start service to turn off wifi
     	EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_wifi_on));
