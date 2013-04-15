@@ -124,7 +124,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 		}
 		catch (Exception e)
 		{
-			Log.e(TAG, "An error occured receiving the alarm" + e.getMessage());
+			Log.e(TAG, "An error occured receiving the alarm" + Log.getStackTraceString(e));
 		}
 	}
 }
