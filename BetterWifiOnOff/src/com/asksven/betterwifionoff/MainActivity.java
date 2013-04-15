@@ -344,7 +344,7 @@ public class MainActivity extends SherlockListActivity
 		        DataStorage.LogToFile(fileName, "BetterWifiOnOff logcat");
 		        DataStorage.LogToFile(fileName, "======================");
 
-				Util.run("logcat -d >> " + path + "/" + fileName);
+				Util.run("logcat -d -v time >> " + path + "/" + fileName);
 			} else
 			{
 				Log.i(TAG,
