@@ -45,6 +45,8 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 		Log.d(TAG, "Alarm received: checking connection");
 		SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
 		
+		// start thread for cage check
+		WifiControl.doCageCheck(context);
 
 		try
 		{
@@ -102,7 +104,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 				boolean bCheckCage 	= sharedPrefs.getBoolean("check_for_cage", false);
 				if (bCheckCage)
 				{
-					if (WifiControl.isWifiCagedAlt(context))
+					if (WifiControl.isWifiCaged( 	))
 					{
 						Log.d(TAG, "Access point is caged: turning Wifi off");
 						EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_access_point_caged)); 
@@ -124,7 +126,7 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 		}
 		catch (Exception e)
 		{
-			Log.e(TAG, "An error occured receiving the alarm" + e.getMessage());
+			Log.e(TAG, "An error occured receiving the alarm" + Log.getStackTraceString(e));
 		}
 	}
 }

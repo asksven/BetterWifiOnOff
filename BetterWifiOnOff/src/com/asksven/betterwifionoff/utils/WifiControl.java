@@ -52,6 +52,10 @@ import android.util.Log;
 public class WifiControl
 {
 	private static String TAG = "BetterWifiOnOff.WifiControl";
+	private static boolean m_WifiCaged = false;
+	private static boolean m_WifiCageTransactional = false;
+	
+	
 //	private static long m_snapshotTotalBytes 		= 0;
 //	private static long m_snapshotTotalTimestamp 	= 0;
 	
@@ -178,33 +182,56 @@ public class WifiControl
 	 * @param ctx a Context
 	 * @return true if a Wifi connection is established but caged
 	 */
-	public static final boolean isWifiCagedAlt(Context ctx)
+	public static boolean isWifiCaged()
 	{
-        HttpURLConnection urlConnection = null;
-        try
-        {
-            URL url = new URL("http://clients3.google.com/generate_204");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setInstanceFollowRedirects(false);
-            urlConnection.setConnectTimeout(10000);
-            urlConnection.setReadTimeout(10000);
-            urlConnection.setUseCaches(false);
-            urlConnection.getInputStream();
-			Log.i(TAG, "isWifiCagedAlt: Connection retuned: " + urlConnection.getResponseCode());
-
-            return urlConnection.getResponseCode() != 204;
-        } catch (IOException e)
-        {
-            Log.e(TAG, "Walled garden check - probably a cage: exception " + e);
-            return true;
-        }
-        finally
-        {
-            if (urlConnection != null)
-            {
-            	urlConnection.disconnect();
-            }
-        }
+		Log.i(TAG, "Check for cage returned " + m_WifiCaged + ". Thread status was " +m_WifiCageTransactional);
+		return m_WifiCaged;
+	}
+	/**
+	 * Start a thread to check for caged Wifi. Restult is retrieved by isWifiCaged
+	 * @param ctx
+	 */
+	public static final void doCageCheck(Context ctx)
+	{
+		//Body of your click handler
+		m_WifiCaged = false;
+		m_WifiCageTransactional = true;
+		Thread trd = new Thread(new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					HttpURLConnection urlConnection = null;
+					try
+					{
+					    URL url = new URL("http://clients3.google.com/generate_204");
+					    urlConnection = (HttpURLConnection) url.openConnection();
+					    urlConnection.setInstanceFollowRedirects(false);
+					    urlConnection.setConnectTimeout(5000);
+					    urlConnection.setReadTimeout(5000);
+					    urlConnection.setUseCaches(false);
+					    urlConnection.getInputStream();
+						Log.i(TAG, "Caged connection check retuned: " + urlConnection.getResponseCode());
+					
+					    m_WifiCaged = urlConnection.getResponseCode() != 204;
+					}
+					catch (IOException e)
+					{
+					    Log.e(TAG, "Walled garden check - probably a cage: exception " + e);
+					    m_WifiCaged = true;
+					}
+					finally
+					{
+					    if (urlConnection != null)
+					    {
+					    	urlConnection.disconnect();
+					    }
+					}
+					m_WifiCageTransactional = false;
+				}
+				
+			});
+		trd.start();
 	}
 	
 	public static int ipToInt(String addr)
