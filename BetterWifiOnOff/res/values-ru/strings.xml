@@ -151,6 +151,8 @@
     <string name="message_hint_set_status">Активировать / дезактивировать</string>
     <string name="pref_disable_on_user_off_title">Отключение пользователем</string>
     <string name="pref_disable_on_user_off_summary">Дезактивировать обработку Wifi, если пользователь выключает Wifi вручную</string>
+    <string name="event_disable_by_widget">Обработка остановлена через виджет</string>
+    <string name="event_enable_by_widget">Обработка запущена через виджет</string>
     <string name="event_disable_due_to_user_interaction">Обработка выкл: пользователь отключил Wifi</string>
     <string name="pref_enable_on_user_on_title">Включение пользователем</string>
     <string name="pref_enable_on_user_on_summary">Активировать обработку Wifi, если пользователь включает Wifi вручную</string>
@@ -184,4 +186,6 @@
     <string name="label_button_save">Сохранить</string>
     <string name="label_button_cancel">Отмена</string>
     <string name="title_share_dialog">Поделиться или сохранить</string>
+    <string name="event_power_connected">Питание было включено</string>
+    <string name="event_power_disconnected">Питание было отключено</string>
 </resources>
