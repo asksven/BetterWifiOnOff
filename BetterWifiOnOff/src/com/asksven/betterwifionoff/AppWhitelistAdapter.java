@@ -93,12 +93,13 @@ public class AppWhitelistAdapter extends BaseAdapter
     {
         return position;
     }
-
-    @Override
-    public void notifyDataSetChanged()
+    
+    public void add(ApplicationInfo item)
     {
-      super.notifyDataSetChanged();
+    	m_listData.add(item);
+    	notifyDataSetChanged();
     }
+
     
     protected class OnItemClickListener implements OnClickListener
     {           

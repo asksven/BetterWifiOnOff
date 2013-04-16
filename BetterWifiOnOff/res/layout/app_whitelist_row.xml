@@ -1,25 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/LinearLayout01"
-        android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
-        android:paddingLeft="10sp" android:paddingRight="10sp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" android:paddingTop="2sp" android:paddingBottom="2sp">
-	<CheckBox android:text=""
-	    android:id="@+id/CheckBoxAllowed"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:focusable="false"/>
-    
-	    <ImageView android:id="@+id/icon"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="2sp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="2sp" >
+
+    <ImageView
+        android:id="@+id/icon"
         android:layout_width="48dip"
         android:layout_height="48dip" />
-	
-    <TextView android:layout_height="wrap_content"
-                android:layout_width="fill_parent"
-                android:id="@+id/TextViewName"
-                android:text="Name"
-                android:typeface="sans"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:padding="8dp"
+        android:layout_weight="1" >
+
+        <TextView
+            android:id="@+id/TextViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="10"
+            android:text="Name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <CheckBox
+            android:id="@+id/CheckBoxAllowed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:focusable="false"
+            android:text="" />
+
+    </LinearLayout>
 
 </LinearLayout>

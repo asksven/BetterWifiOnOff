@@ -20,20 +20,27 @@ import java.util.Collections;
 import java.util.List;
 
 import com.actionbarsherlock.app.SherlockListActivity;
+import com.asksven.android.common.privateapiproxies.BatteryInfoUnavailableException;
+import com.asksven.android.common.utils.DateUtils;
 import com.asksven.betterwifionoff.data.ApplicationInfo;
 import com.asksven.betterwifionoff.data.AppWhitelistDBHelper;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 // import com.android.phone.INetworkQueryService;
 
@@ -45,7 +52,9 @@ public class AppWhitelistActivity extends SherlockListActivity
 	int m_cursorPosition = 0;
 	
 	ArrayList<ApplicationInfo> m_applications = null;
-
+	
+	AppWhitelistAdapter m_adapter;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -63,6 +72,9 @@ public class AppWhitelistActivity extends SherlockListActivity
 
 		super.onCreate(savedInstanceState);
 
+		// request for the progress feature to be able to show progres while loading the AppInfo
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		
         if (savedInstanceState != null)
         {
             // Restore last state for checked position.
@@ -71,11 +83,10 @@ public class AppWhitelistActivity extends SherlockListActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_whitelist);
 
-        m_applications = getAppList();
-        AppWhitelistAdapter adapter = new AppWhitelistAdapter(this, m_applications);
-        
-        
-        setListAdapter(adapter);
+        m_applications = new ArrayList<ApplicationInfo>();
+        m_adapter = new AppWhitelistAdapter(this, m_applications);
+        setListAdapter(m_adapter);
+        new LoadAppInfo().execute();
     }
     
     @Override
@@ -118,44 +129,66 @@ public class AppWhitelistActivity extends SherlockListActivity
         }
     }
 
-    ArrayList<ApplicationInfo> getAppList()
-    {
-    	ArrayList<ApplicationInfo> applications = new ArrayList<ApplicationInfo>();
+	// @see http://code.google.com/p/makemachine/source/browse/trunk/android/examples/async_task/src/makemachine/android/examples/async/AsyncTaskExample.java
+	// for more details
+	private class LoadAppInfo extends AsyncTask<Void, ApplicationInfo, Void>
+	{
+		@Override
+	    protected Void doInBackground(Void... args)
+	    {
+	        PackageManager manager = getPackageManager();
+
+	        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+	        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+
+	        final List<ResolveInfo> apps = manager.queryIntentActivities(mainIntent, 0);
+	        Collections.sort(apps, new ResolveInfo.DisplayNameComparator(manager));
+
+	        if (apps != null)
+	        {
+	            final int count = apps.size();
+
+
+	            for (int i = 0; i < count; i++)
+	            {
+	                ApplicationInfo application = new ApplicationInfo();
+	                ResolveInfo info = apps.get(i);
+
+	                application.title = info.loadLabel(manager);
+	                application.package_name = info.activityInfo.applicationInfo.packageName;
+	                application.setActivity(new ComponentName(
+	                        info.activityInfo.applicationInfo.packageName,
+	                        info.activityInfo.name),
+	                        Intent.FLAG_ACTIVITY_NEW_TASK
+	                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+	                application.icon = info.activityInfo.loadIcon(manager);
+
+	                publishProgress(application);
+	            }
+	        }
+	        return null;
+	    }		
 		
-        PackageManager manager = getPackageManager();
+		@Override
+		protected void onProgressUpdate(ApplicationInfo... items)
+		{
+			m_adapter.add(items[0]);
+		}
+		
+		@Override
+		protected void onPostExecute(Void arg)
+	    {
+			setSupportProgressBarIndeterminateVisibility(false);
+	    }
 
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		@Override
+	    protected void onPreExecute()
+	    {
+	    	setSupportProgressBarIndeterminateVisibility(true);
+	    }
 
-        final List<ResolveInfo> apps = manager.queryIntentActivities(mainIntent, 0);
-        Collections.sort(apps, new ResolveInfo.DisplayNameComparator(manager));
+	}
 
-        if (apps != null)
-        {
-            final int count = apps.size();
-
-
-            for (int i = 0; i < count; i++)
-            {
-                ApplicationInfo application = new ApplicationInfo();
-                ResolveInfo info = apps.get(i);
-
-                application.title = info.loadLabel(manager);
-                application.package_name = info.activityInfo.applicationInfo.packageName;
-                application.setActivity(new ComponentName(
-                        info.activityInfo.applicationInfo.packageName,
-                        info.activityInfo.name),
-                        Intent.FLAG_ACTIVITY_NEW_TASK
-                        | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-                application.icon = info.activityInfo.loadIcon(manager);
-
-                applications.add(application);
-            }
-        }
-
-    	return applications;
-    	
-    }    
 }
 
 

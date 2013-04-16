@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.asksven.betterwifionoff"
     android:versionCode="43"
-    android:versionName="2.1.0.0B2" >
+    android:versionName="2.1.0.0B3" >
 
     <uses-sdk
         android:minSdkVersion="7"
@@ -11,8 +11,8 @@
     <!-- Required to control wifi state -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
     </uses-permission>
-    <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" >
-    </uses-permission>
+<!--     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" > -->
+<!--     </uses-permission> -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
     </uses-permission>
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
@@ -37,8 +37,8 @@
 
     <!-- detect  when screen is turned on/off -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!-- detect unplug actions -->
-    <uses-permission android:name="android.permission.DEVICE_POWER" />
+<!--     detect unplug actions -->
+<!--     <uses-permission android:name="android.permission.DEVICE_POWER" /> -->
 
     <!-- access own logcat -->
     <uses-permission android:name="android.permission.READ_LOGS" />
