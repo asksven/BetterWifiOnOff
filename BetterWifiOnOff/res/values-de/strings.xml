@@ -158,6 +158,11 @@
     <string name="event_enable_by_widget">Aktiviert von Widget</string>
     <string name="event_power_connected">Ladegerät angeschlossen</string>
     <string name="event_power_disconnected">Ladegerät ausgestreckt</string>
+    <string name="pref_timed_check_delay_title">Check Intervall</string>
+    <string name="pref_timed_check_delay_title">Wie oft werden Checks durchgeführt</string>
+    <string name="pref_timed_check_title">Timer Checks</string>
+    <string name="pref_timed_check_title">Weckt das Gerät regelmässig auf und prüft nach einer Wifi Verbindung</string>
+    <string name="event_timed_check">Wifi wird durch Timer eingeschaltet</string>
     
     
     

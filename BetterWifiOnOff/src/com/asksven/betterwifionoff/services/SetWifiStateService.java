@@ -19,6 +19,7 @@ import java.util.Calendar;
 
 import com.asksven.android.common.kernelutils.Wakelocks;
 import com.asksven.betterwifionoff.R;
+import com.asksven.betterwifionoff.TimedCheckAlarmReceiver;
 import com.asksven.betterwifionoff.WifiConnectedAlarmReceiver;
 import com.asksven.betterwifionoff.WifiOffAlarmReceiver;
 import com.asksven.betterwifionoff.data.CellDBHelper;
@@ -50,6 +51,7 @@ public class SetWifiStateService extends Service
 	
 	private static final int ALARM_WIFI_OFF 		= 12;
 	private static final int ALARM_WIFI_CONNECTED 	= 13;
+	private static final int ALARM_TIMER		 	= 14;
 
 	@Override
     public int onStartCommand(Intent intent, int flags, int startId)
@@ -159,6 +161,7 @@ public class SetWifiStateService extends Service
 		    	}
 								
 				SetWifiStateService.scheduleWifiConnectedAlarm(this);
+				
 			}
 		}
 		catch (Exception e)
@@ -361,6 +364,67 @@ public class SetWifiStateService extends Service
 		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
 
 		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_WIFI_CONNECTED,
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+		if (sender != null)
+		{
+
+			// Get the AlarmManager service
+			AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+			am.cancel(sender);
+		}
+	}
+
+	/**
+	 * Adds an alarm to schedule a wakeup to retrieve the current location
+	 */
+	public static boolean scheduleTimerAlarm(Context ctx)
+	{
+		Log.i(TAG, "scheduleTimerAlarm called");
+		
+		// create a new one starting to count NOW
+		
+    	SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+    	
+    	if (prefs.getBoolean("timed_check", false))
+    	{
+	    	String strInterval = prefs.getString("timed_check_delay", "0");
+	    	    	
+			int iInterval = 0;
+			try
+	    	{
+				iInterval = Integer.valueOf(strInterval);
+	    	}
+	    	catch (Exception e)
+	    	{
+	    	}
+
+			if (iInterval != 0)
+			{
+				long fireAt = System.currentTimeMillis() + (iInterval * 1000);
+		
+				Intent intent = new Intent(ctx, TimedCheckAlarmReceiver.class);
+		
+				PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_TIMER,
+						intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+				// Get the AlarmManager service
+				AlarmManager am = (AlarmManager) ctx.getSystemService(ALARM_SERVICE);
+				am.set(AlarmManager.RTC_WAKEUP, fireAt, sender);
+			}
+    	}
+		return true;
+	}
+	
+	/**
+	 * Cancels the current alarm (if existing)
+	 */
+	public static void cancelTimerAlarm(Context ctx)
+	{
+		// check if there is an intent pending
+		Intent intent = new Intent(ctx, WifiConnectedAlarmReceiver.class);
+
+		PendingIntent sender = PendingIntent.getBroadcast(ctx, ALARM_TIMER,
 				intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
 		if (sender != null)

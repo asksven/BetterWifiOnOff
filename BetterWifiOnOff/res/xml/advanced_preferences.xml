@@ -97,6 +97,21 @@
             android:key="wifi_on_only_when_known_cid"
             android:summary="@string/wifi_on_only_when_known_cid_summary"
             android:title="@string/wifi_on_only_when_known_cid_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="timed_check"
+            android:summary="@string/pref_timed_check_summary"
+            android:title="@string/pref_timed_check_title" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dependency="timed_check"
+            android:entries="@array/wifiCheckDelayLabels"
+            android:entryValues="@array/wifiCheckDelayValues"
+            android:key="timed_check_delay"
+            android:summary="@string/pref_timed_check_delay_summary"
+            android:title="@string/pref_timed_check_delay_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
         <CheckBoxPreference

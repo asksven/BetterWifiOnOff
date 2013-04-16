@@ -274,6 +274,8 @@ public class PreferencesActivity extends SherlockPreferenceActivity implements O
     		intent.setAction(MyWidgetProvider.ACTION_REFRESH);
     		this.sendBroadcast(intent);
 
+ 
         }
+
     }
 }

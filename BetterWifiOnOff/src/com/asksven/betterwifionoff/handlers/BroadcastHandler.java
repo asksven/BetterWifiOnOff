@@ -56,6 +56,9 @@ public class BroadcastHandler extends BroadcastReceiver
         	// start the service
         	context.startService(new Intent(context, EventWatcherService.class));
         	
+        	// schedule timer alarms
+			SetWifiStateService.scheduleTimerAlarm(context);
+
        		Log.d(TAG, "Boot completed, starting service");
 		}
 

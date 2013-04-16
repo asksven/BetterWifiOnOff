@@ -160,6 +160,11 @@
     <string name="event_enable_by_widget">Activé depuis le widget</string>
     <string name="event_power_connected">Chargeur connecté</string>
     <string name="event_power_disconnected">Chargeur déconnecté</string>
+    <string name="pref_timed_check_delay_title">Intervalle</string>
+    <string name="pref_timed_check_delay_title">Intervalle pour vérifier si une connection peut être établie</string>
+    <string name="pref_timed_check_title">Timer</string>
+    <string name="pref_timed_check_title">Éveille l\'appareil régulièrement pour vérifier si une connection peut être établie</string>
+    <string name="event_timed_check">Wifi allumé par Timer</string>
     
     
     

@@ -50,6 +50,9 @@ public class ScreenEventHandler extends BroadcastReceiver
 		{
 			Log.i(TAG, "Received Broadcast ACTION_SCREEN_OFF");
         	
+			// schedule the timer alarms (will be if set so)
+			SetWifiStateService.scheduleTimerAlarm(context);
+			
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)
     		{
@@ -133,6 +136,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 			
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
+			SetWifiStateService.cancelTimerAlarm(context);
 
 			
         	boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
@@ -185,6 +189,7 @@ public class ScreenEventHandler extends BroadcastReceiver
 
 			// make sure to cancel pendng alarms that may still be running from a previous screen off event
 			SetWifiStateService.cancelWifiOffAlarm(context);
+			SetWifiStateService.cancelTimerAlarm(context);
 
     		boolean bDisabled = sharedPrefs.getBoolean("disable_control", false);
     		if (bDisabled)

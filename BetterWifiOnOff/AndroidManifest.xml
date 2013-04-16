@@ -127,6 +127,10 @@
         <receiver
             android:name=".WifiConnectedAlarmReceiver"
             android:process=":remote" />
+        <receiver
+            android:name=".TimedCheckAlarmReceiver"
+            android:process=":remote" />
+        
         <receiver android:name="MyWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
