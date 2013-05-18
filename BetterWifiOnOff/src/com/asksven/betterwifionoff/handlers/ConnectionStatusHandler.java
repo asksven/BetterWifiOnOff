@@ -79,6 +79,7 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 		else if (state == WifiManager.WIFI_STATE_ENABLING)
 		{
 			Log.d(TAG, "Wifi was turned on");
+			
 			boolean enableWhenOn = sharedPrefs.getBoolean("enable_on_user_on", false);
 			String lastAction = sharedPrefs.getString("last_action", ""); 		
 			if (enableWhenOn && lastAction.equals("off"))

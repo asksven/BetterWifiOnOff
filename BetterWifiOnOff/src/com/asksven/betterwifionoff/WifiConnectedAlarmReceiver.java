@@ -45,9 +45,6 @@ public class WifiConnectedAlarmReceiver extends BroadcastReceiver
 		Log.d(TAG, "Alarm received: checking connection");
 		SharedPreferences sharedPrefs = context.getSharedPreferences(Constants.Preferences.name, Context.MODE_MULTI_PROCESS);
 		
-		// start thread for cage check
-		WifiControl.doCageCheck(context);
-
 		try
 		{
 			// if diabled do nothing

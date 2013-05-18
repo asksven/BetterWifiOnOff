@@ -159,7 +159,10 @@ public class SetWifiStateService extends Service
 		    	catch (Exception e)
 		    	{
 		    	}
-								
+				
+				// start thread for cage check
+				WifiControl.doCageCheck(this);
+
 				SetWifiStateService.scheduleWifiConnectedAlarm(this);
 				
 			}
