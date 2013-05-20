@@ -171,6 +171,7 @@
     <string name="pref_timed_check_title">Timed checks</string>
     <string name="pref_timed_check_summary">Wake-up the phone at a given frequency to check if a Wifi connection could be established</string>
     <string name="event_timed_check">Timed Wifi on </string>
+    <string name="get_full">Google Play</string>
     
     
 </resources>

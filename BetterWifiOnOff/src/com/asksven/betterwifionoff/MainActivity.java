@@ -32,7 +32,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,20 +115,29 @@ public class MainActivity extends SherlockListActivity
         	PackageInfo pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
         	TextView versionTextView = (TextView) findViewById(R.id.textViewVersion);
         	TextView nameTextView = (TextView) findViewById(R.id.textViewName);
-        	TextView hintTextView = (TextView) findViewById(R.id.textViewHint);
-        	
+
+        	Button buttonFree = (Button) findViewById(R.id.buttonFullVersion);
+
         	if (Configuration.isFullVersion(this))
     		{
 
         		nameTextView.setText(getString(R.string.support_version));
-        		hintTextView.setText("");
+        		buttonFree.setVisibility(View.GONE);
         		Log.i(TAG, "full version was detected");
     		}
         	else
         	{
         		nameTextView.setText(R.string.free_version);
-        		hintTextView.setText(getString(R.string.full_version_available));
         		Log.i(TAG, "free version was detected");
+            	buttonFree.setOnClickListener(new View.OnClickListener()
+    	        {
+    	            public void onClick(View v)
+    	            {
+    	                Intent browse = new Intent( Intent.ACTION_VIEW , Uri.parse("https://play.google.com/store/apps/details?id=com.asksven.betterwifionoff_donate") );
+    	                startActivity( browse );
+    	            }
+    	        });
+
         	}
         	
         	versionTextView.setText(pinfo.versionName);
