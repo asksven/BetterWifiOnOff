@@ -188,4 +188,10 @@
     <string name="title_share_dialog">Поделиться или сохранить</string>
     <string name="event_power_connected">Питание было включено</string>
     <string name="event_power_disconnected">Питание было отключено</string>
+    <string name="pref_timed_check_delay_title">Интервал проверки</string>
+    <string name="pref_timed_check_delay_summary">Насколько часто будет осуществляться проверка</string>
+    <string name="pref_timed_check_title">Проверки по времени</string>
+    <string name="pref_timed_check_summary">Пробуждение телефона с заданной периодичностью для проверки возможности установки соединения Wifi</string>
+    <string name="event_timed_check">Wifi по времени вкл</string>
+    <string name="get_full">Google Play</string>
 </resources>
