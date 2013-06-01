@@ -116,6 +116,14 @@ public class ConnectionStatusHandler extends BroadcastReceiver
 					Log.i(TAG, "Connected to " + ssid);
 				}
 			}
+
+			// scan for strongest AP if prefs are set so 
+			if (sharedPrefs.getBoolean("check_for_cage", false))
+			{
+				// start thread for cage check
+				WifiControl.doCageCheck(context);
+			}
+
 		}
 	}
 }
