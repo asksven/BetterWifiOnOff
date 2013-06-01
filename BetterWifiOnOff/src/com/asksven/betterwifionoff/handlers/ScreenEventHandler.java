@@ -76,6 +76,7 @@ public class ScreenEventHandler extends BroadcastReceiver
     		
 			boolean bProcess = sharedPrefs.getBoolean("wifi_off_when_screen_off", false);
 			boolean bCheckIfPowered = sharedPrefs.getBoolean("wifi_on_when_screen_off_but_power_plugged", true);
+			boolean bLeaveOnIfConnected = sharedPrefs.getBoolean("wifi_on_if_connected_screen_off", false);
 			
 			
 			if (bProcess)
@@ -90,18 +91,27 @@ public class ScreenEventHandler extends BroadcastReceiver
 				{					
 					if (WifiControl.isWifiOn(context))
 					{
-				    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
-		    	    	
-						int delay = 30;
-						try
-				    	{
-							delay = Integer.valueOf(strInterval);
-				    	}
-				    	catch (Exception e)
-				    	{
-				    	}
-
-						SetWifiStateService.scheduleWifiOffAlarm(context);
+						if (!bLeaveOnIfConnected)
+						{
+					    	String strInterval = sharedPrefs.getString("wifi_off_delay", "30");
+			    	    	
+							int delay = 30;
+							try
+					    	{
+								delay = Integer.valueOf(strInterval);
+					    	}
+					    	catch (Exception e)
+					    	{
+					    	}
+	
+							SetWifiStateService.scheduleWifiOffAlarm(context);
+						}
+						else
+						{
+							EventLogger.getInstance(context).addStatusChangedEvent(context.getString(R.string.event_leave_on_connected));
+							Log.i(TAG, "Wifi was set to be left on when screen gos off but connected: leaving on");
+							
+						}
 					}
 				}
 			}
