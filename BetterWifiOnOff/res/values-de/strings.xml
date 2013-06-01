@@ -101,6 +101,7 @@
     <string name="event_screen_on">Bildschirm wurde angemacht</string>
     <string name="event_screen_unlocked">Bildschirm wurde entsperrt</string>
     <string name="event_leave_on_charing">Wifi bleibt aktiv da Handy am Strom</string>
+    <string name="event_leave_on_connected">Wifi bleibt aktiv da Verbindung vorhanden</string>    
     <string name="event_wakelock_detected">Wakelock erkannt: Wifi bleibt vorerst aktiv</string>
     <string name="event_no_wakelock_detected">Kein Wakelock erkannt</string>
     <string name="event_stop_retrying">%1$d Versuche. Keine Wiederholung</string>

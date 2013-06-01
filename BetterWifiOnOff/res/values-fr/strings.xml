@@ -100,6 +100,7 @@
     <string name="event_screen_on">L\'écran s\'est allumé</string>
     <string name="event_screen_unlocked">L\'écran à été déverouillé</string>
     <string name="event_leave_on_charing">Chargeur connecté: Wifi rest allumé</string>
+    <string name="event_leave_on_connected">Connection active: Wifi rest allumé</string>    
     <string name="event_wakelock_detected">Wakelock detecté: Wifi reste allumé</string>
     <string name="event_no_wakelock_detected">Pas de wakelock detecté</string>
     <string name="event_stop_retrying">%1$d essais. Abandon</string>

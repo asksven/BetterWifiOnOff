@@ -106,6 +106,7 @@
     <string name="event_screen_on">Screen was turned on</string>
     <string name="event_screen_unlocked">Screen was unlocked</string>
     <string name="event_leave_on_charing">Leaving Wifi on because charger is connected</string>
+    <string name="event_leave_on_connected">Leaving Wifi on because a connection is active</string>
     <string name="event_wakelock_detected">Wakelock detected: postponing Wifi off</string>
     <string name="event_no_wakelock_detected">No wakelock detected</string>
     <string name="event_stop_retrying">Retried %1$d times. Stop obsessing</string>

@@ -135,6 +135,12 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_off" >
         <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_if_connected_screen_off"
+            android:summary="@string/pref_wifi_on_if_connected_summary"
+            android:title="@string/pref_wifi_on_if_connected_title" />
+        <CheckBoxPreference
             android:defaultValue="false"
             android:enabled="true"
             android:key="wifi_on_if_wakelock"
