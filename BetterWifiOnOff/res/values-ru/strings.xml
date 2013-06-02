@@ -4,7 +4,7 @@
     <string name="abs__action_bar_up_description">Вверх</string>
     <string name="abs__action_menu_overflow_description">Еще</string>
     <string name="abs__action_mode_done">Сделано</string>
-    <string name="abs__activity_chooser_view_see_all">См.все...</string>
+    <string name="abs__activity_chooser_view_see_all">См. все...</string>
     <string name="abs__activity_chooser_view_dialog_title_default">Выбор активности</string>
     <string name="abs__share_action_provider_share_with">Поделиться...</string>
     <string name="abs__activitychooserview_choose_application">Выбор приложения</string>
@@ -48,8 +48,8 @@
     <string name="status_notification_on">Уведомление активировано</string>
     <string name="full_version_available">Версия без рекламы доступна</string>
     <string name="status_service_running">Служба работает</string>
-    <string name="pref_category_logging">Логгирование</string>
-    <string name="pref_screen_logging">Установки логггирования</string>
+    <string name="pref_category_logging">Логирование</string>
+    <string name="pref_screen_logging">Установки логирования</string>
     <string name="pref_start_on_boot_summary">Запускать службу при загрузке (если отключено, запускается при первом включении приложения)</string>
     <string name="pref_start_on_boot_title">Запуск при загрузке</string>
     <string name="pref_category_notification">Уведомления</string>
@@ -102,7 +102,7 @@
     <string name="pref_wifilock_summary">Осторожно! Поддержание вайфайлока, устройство не будет спать до отключения Wifi</string>
     <string name="pref_wifi_whitelist_title">Белый список SSID</string>
     <string name="pref_wifi_whitelist_summary">Список предпочтительных SSID</string>
-    <string name="pref_wifi_whitelist_summary_v11">Список предпочтительных SSIDs</string>
+    <string name="pref_wifi_whitelist_summary_v11">Список предпочтительных SSID</string>
     <string name="pref_wifi_on_if_whitelisted_summary">Оставаться включенным если SSID в белом списке</string>
     <string name="pref_wifi_on_if_whitelisted_title">Если из белого списка</string>
     <string name="pref_wifi_on_if_in_call_title">Во время звонка</string>
@@ -136,6 +136,7 @@
     <string name="event_screen_on">Экран включился</string>
     <string name="event_screen_unlocked">Экран был разблокирован</string>
     <string name="event_leave_on_charing">Wifi остается вкл, подключено ЗУ</string>
+    <string name="event_leave_on_connected">Wifi остается вкл, соединение активно</string>
     <string name="event_wakelock_detected">Обнаружен вэйклок: задержка отключения Wifi</string>
     <string name="event_no_wakelock_detected">Вэйклок не обнаружен</string>
     <string name="event_stop_retrying">Сделано %1$d попыток. Прекращение</string>
