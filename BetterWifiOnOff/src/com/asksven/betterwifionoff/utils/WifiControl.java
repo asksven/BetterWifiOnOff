@@ -118,12 +118,17 @@ public class WifiControl
 			{
 				Log.d(TAG, "No IP address assigned: " + ipAddress + ". Wifi is not connected");
 				Log.d(TAG, "Wifilock status: " + WifiManagerProxy.hasWifiLock(ctx));
+				Log.d(TAG, "SSID:" + wifiInfo.getSSID());
+				Log.d(TAG, "Supplicant state:" + wifiInfo.getSupplicantState());
+				
 				return false;
 			}
 			else
 			{
 				Log.d(TAG, "IP address assigned: " + ipAddress + ". Wifi is connected");
 				Log.d(TAG, "Wifilock status: " + WifiManagerProxy.hasWifiLock(ctx));
+				Log.d(TAG, "SSID:" + wifiInfo.getSSID());
+				Log.d(TAG, "Supplicant state:" + wifiInfo.getSupplicantState());
 				return true;
 			}
 		}
