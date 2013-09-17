@@ -24,6 +24,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.asksven.android.common.utils.DateUtils;
@@ -264,7 +265,9 @@ public class WifiControl
 		WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
 		String ssid = StringUtils.stripLeadingAndTrailingQuotes(wifiManager.getConnectionInfo().getSSID());
 		Log.i(TAG, "Whitelist check: ssid: '" + ssid + "', whitelist: '" + whiteList + "', result: " + (whiteList.indexOf(ssid) != -1));
-		return ((whiteList.indexOf(ssid) != -1) && (!ssid.equals("")));
+		List<String> whitelistedList = Arrays.asList(whiteList.split(","));
+		return ( (whitelistedList.contains(ssid)) && (!ssid.equals("")) );
+//		return ((whiteList.indexOf(ssid) != -1) && (!ssid.equals("")));
 	}
 	
 
