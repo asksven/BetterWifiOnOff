@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="7"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="21" />
 
     <!-- Required to control wifi state -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
