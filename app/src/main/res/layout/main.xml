@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
+    android:layout_height="fill_parent" android:layout_width="match_parent" android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="true"
+        android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/textViewName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/single_padding"
+        android:layout_marginTop="@dimen/single_padding"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/buttonFullVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/full_version_available"/>
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewVersion" 
+    	android:textAppearance="?android:attr/textAppearanceSmall" 
+    	android:text="V0.1.0.0"
+    	android:layout_gravity="center"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/single_padding"
+        android:layout_marginTop="@dimen/single_padding"
+        android:text="@string/layout_main_author"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView 
+    	android:layout_width="wrap_content" 
+    	android:layout_height="wrap_content" 
+    	android:id="@+id/textViewStatus" 
+    	android:textAppearance="?android:attr/textAppearanceLarge" 
+    	android:text=""
+    	android:layout_gravity="center"/>
+
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2">
+    
+<ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+ 
+    </LinearLayout>
+    
+    <LinearLayout android:layout_height="wrap_content" android:layout_width="match_parent">		
+
+		<com.google.ads.AdView
+		    android:id="@+id/adView"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_gravity="bottom|center_horizontal"
+		    ads:adSize="BANNER"
+		    ads:adUnitId="a150016524b7ddf"
+		    ads:loadAdOnCreate="false"
+		    android:gravity="bottom" />
+		
+    </LinearLayout>			
+</LinearLayout>

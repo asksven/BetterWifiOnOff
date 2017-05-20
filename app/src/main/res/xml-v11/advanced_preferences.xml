@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:defaultValue="1"
+        android:entries="@array/themeLabels"
+        android:entryValues="@array/themeValues"
+        android:key="theme"
+        android:summary="@string/pref_theme_summary"
+        android:title="@string/pref_theme_title" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="disable_control"
+        android:summary="@string/pref_disable_control_summary"
+        android:title="@string/pref_disable_control_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="disable_on_user_off"
+        android:summary="@string/pref_disable_on_user_off_summary"
+        android:title="@string/pref_disable_on_user_off_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="enable_on_user_on"
+        android:summary="@string/pref_enable_on_user_on_summary"
+        android:title="@string/pref_enable_on_user_on_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="start_on_boot"
+        android:summary="@string/pref_start_on_boot_summary"
+        android:title="@string/pref_start_on_boot_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="foreground_service"
+        android:summary="@string/pref_foreground_service_summary"
+        android:title="@string/pref_foreground_service_title" />
+
+    <com.asksven.betterwifionoff.SsidWhitelistPreference
+        android:dialogTitle="Whitelist"
+        android:key="wifi_whitelist_v11"
+        android:summary="@string/pref_wifi_whitelist_summary_v11"
+        android:title="@string/pref_wifi_whitelist_title" />
+
+    <PreferenceScreen
+        android:summary="@string/pref_app_whtelist_summary"
+        android:title="@string/pref_app_whtelist_title" >
+        <intent android:action="com.asksven.betterwifionoff.AppWhitelistActivity" />
+    </PreferenceScreen>
+
+    <ListPreference
+        android:defaultValue="30"
+        android:entries="@array/wifiOffDelayLabels"
+        android:entryValues="@array/wifiOffDelayValues"
+        android:key="wifi_off_delay"
+        android:summary="@string/pref_wifi_off_delay_summary"
+        android:title="@string/pref_wifi_off_delay_title" />
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="disregard_airplane_mode"
+        android:summary="@string/pref_disregard_airplane_mode_summary"
+        android:title="@string/pref_disregard_airplane_mode_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="connect_to_strongest_ap"
+        android:summary="@string/pref_connect_to_strongest_ap_summary"
+        android:title="@string/pref_connect_to_strongest_ap_title" />
+
+    <PreferenceCategory android:title="@string/pref_category_rules_on" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_unlock"
+            android:summary="@string/wifi_on_when_screen_unlock_summary"
+            android:title="@string/wifi_on_when_screen_unlock_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_on"
+            android:summary="@string/wifi_on_when_screen_on_summary"
+            android:title="@string/wifi_on_when_screen_on_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_power_plug"
+            android:summary="@string/pref_wifi_on_when_power_plug_summary"
+            android:title="@string/pref_wifi_on_when_power_plug_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_only_when_known_cid"
+            android:summary="@string/wifi_on_only_when_known_cid_summary"
+            android:title="@string/wifi_on_only_when_known_cid_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="timed_check"
+            android:summary="@string/pref_timed_check_summary"
+            android:title="@string/pref_timed_check_title" />
+
+        <ListPreference
+            android:defaultValue="0"
+            android:dependency="timed_check"
+            android:entries="@array/wifiCheckDelayLabels"
+            android:entryValues="@array/wifiCheckDelayValues"
+            android:key="timed_check_delay"
+            android:summary="@string/pref_timed_check_delay_summary"
+            android:title="@string/pref_timed_check_delay_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_if_connected"
+            android:summary="@string/pref_wifi_on_if_connected_summary"
+            android:title="@string/pref_wifi_on_if_connected_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="check_for_cage"
+            android:summary="@string/pref_check_for_cage_summary"
+            android:title="@string/pref_check_for_cage_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_whitelisted"
+            android:summary="@string/pref_wifi_on_if_whitelisted_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_off" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_connected_screen_off"
+            android:summary="@string/pref_wifi_on_if_connected_summary"
+            android:title="@string/pref_wifi_on_if_connected_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_wakelock"
+            android:summary="@string/pref_wifi_on_if_wakelock_summary"
+            android:title="@string/pref_wifi_on_if_wakelock_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_activity"
+            android:summary="@string/pref_wifi_on_if_activity_summary"
+            android:title="@string/pref_wifi_on_if_activity_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_off_but_power_plugged"
+            android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
+            android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_off_but_whitelisted"
+            android:summary="@string/pref_wifi_on_if_whitelisted_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_whitelisted_app_running"
+            android:summary="@string/pref_wifi_on_if_whitelisted_app_running_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_app_running_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_plugged" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wakelock_while_power_plugged"
+            android:summary="@string/pref_wakelock_while_power_plugged_summary"
+            android:title="@string/pref_wakelock_while_power_plugged_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifilock_while_power_plugged"
+            android:summary="@string/pref_wifilock_while_power_plugged_summary"
+            android:title="@string/pref_wifilock_while_power_plugged_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifilock_high_perf_while_power_plugged"
+            android:summary="@string/pref_wifilock_high_perf_while_power_plugged_summary"
+            android:title="@string/pref_wifilock_high_perf_while_power_plugged_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_off" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_off_when_power_ununplug"
+            android:summary="@string/wifi_off_when_power_ununplug_summary"
+            android:title="@string/wifi_off_when_power_ununplug_title" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_off_when_screen_off"
+            android:summary="@string/wifi_off_when_screen_off_summary"
+            android:title="@string/wifi_off_when_screen_off_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_logging" >
+        <PreferenceScreen android:title="@string/pref_screen_logging" >
+            <PreferenceCategory android:title="@string/pref_category_events" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_user"
+                    android:summary="@string/pref_events_show_user_summary"
+                    android:title="@string/pref_events_show_user_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_status"
+                    android:summary="@string/pref_events_show_status_summary"
+                    android:title="@string/pref_events_show_status_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_system"
+                    android:summary="@string/pref_events_show_system_summary"
+                    android:title="@string/pref_events_show_system_title" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_location" >
+        <PreferenceScreen android:title="@string/pref_screen_location" >
+            <PreferenceCategory android:title="@string/pref_category_location" >
+                <CheckBoxPreference
+                    android:defaultValue="false"
+                    android:enabled="true"
+                    android:key="log_cells"
+                    android:summary="@string/pref_log_cells_summary"
+                    android:title="@string/pref_log_cells_title" />
+
+                <PreferenceScreen
+                    android:summary="@string/pref_cell_log_summary"
+                    android:title="@string/pref_cell_log_title" >
+                    <intent android:action="com.asksven.betterwifionoff.CellLogActivity" />
+                </PreferenceScreen>
+                <PreferenceScreen
+                    android:summary="@string/pref_tags_summary"
+                    android:title="@string/pref_tags_title" >
+                    <intent android:action="com.asksven.betterwifionoff.TagsActivity" />
+                </PreferenceScreen>
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="expert_mode"
+        android:summary="@string/pref_expert_mode_summary"
+        android:title="@string/pref_expert_mode_title" />
+
+</PreferenceScreen>

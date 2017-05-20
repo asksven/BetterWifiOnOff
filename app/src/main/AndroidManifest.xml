@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.asksven.betterwifionoff"
+    android:versionCode="44"
+    android:versionName="2.2.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="21" />
+
+    <!-- Required to control wifi state -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+<!--     <uses-permission android:name="android.permission.UPDATE_DEVICE_STATS" > -->
+<!--     </uses-permission> -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
+    </uses-permission>
+
+    <!-- Required to be able to hold wakelocks -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+
+    <!-- admob and ConnectivityManager -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- required for writing own logs files -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- start service on boot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- detect when battery is charged -->
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+
+    <!-- detect  when screen is turned on/off -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<!--     detect unplug actions -->
+<!--     <uses-permission android:name="android.permission.DEVICE_POWER" /> -->
+
+    <!-- access own logcat -->
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    
+    <!-- access to cell location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asksven.betterwifionoff.ReadmeActivity" />
+        <activity android:name="com.asksven.betterwifionoff.CreditsActivity" />
+        <activity android:name="com.asksven.betterwifionoff.AppWhitelistActivity" >
+            <intent-filter>
+                <action android:name="com.asksven.betterwifionoff.AppWhitelistActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asksven.betterwifionoff.CellLogActivity" >
+            <intent-filter>
+                <action android:name="com.asksven.betterwifionoff.CellLogActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.asksven.betterwifionoff.TagsActivity" >
+            <intent-filter>
+                <action android:name="com.asksven.betterwifionoff.TagsActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".PreferencesActivity" />
+        <activity
+            android:name="com.google.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity
+            android:name="com.asksven.betterwifionoff.localeplugin.ui.EditActivity"
+            android:exported="true"
+            android:icon="@drawable/icon"
+            android:label="@string/plugin_name"
+            android:theme="@style/Theme.Locale.Dark"
+            android:uiOptions="splitActionBarWhenNarrow" >
+
+            <!-- this Intent filter allows the plug-in to be discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
+
+        <!--
+             This is the "fire" BroadcastReceiver. Note that Locale will reject plug-in BroadcastReceivers for the following reasons:
+                - The BroadcastReceiver isn't exported (e.g. android:exported="false")
+                - The BroadcastReceiver isn't enabled (e.g. android:enabled="false")
+                - The BroadcastReceiver requires permissions not available to Locale
+                - There are multiple BroadcastReceivers for com.twofortyfouram.locale.intent.action.FIRE_SETTING
+        -->
+        <receiver
+            android:name="com.asksven.betterwifionoff.localeplugin.receiver.FireReceiver"
+            android:exported="true"
+            android:process=":background" >
+
+            <!-- this Intent filter allows the plug-in to discovered by Locale -->
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".handlers.BroadcastHandler" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".WifiOffAlarmReceiver"
+            android:process=":remote" />
+        <receiver
+            android:name=".WifiConnectedAlarmReceiver"
+            android:process=":remote" />
+        <receiver
+            android:name=".TimedCheckAlarmReceiver"
+            android:process=":remote" />
+        
+        <receiver android:name="MyWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+
+        <service android:name=".services.EventWatcherService" />
+        <service android:name=".services.SetWifiStateService" />
+        <service android:name=".services.UpdateWidgetService" />
+
+
+    </application>
+
+</manifest>

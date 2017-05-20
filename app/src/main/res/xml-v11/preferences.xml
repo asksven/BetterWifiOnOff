@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/pref_category_rules_on" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_unlock"
+            android:summary="@string/wifi_on_when_screen_unlock_summary"
+            android:title="@string/wifi_on_when_screen_unlock_title" />
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_on"
+            android:summary="@string/wifi_on_when_screen_on_summary"
+            android:title="@string/wifi_on_when_screen_on_title" />        
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_power_plug"
+            android:summary="@string/pref_wifi_on_when_power_plug_summary"
+            android:title="@string/pref_wifi_on_when_power_plug_title" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_on" >
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:enabled="true"
+            android:key="wifi_on_if_whitelisted"
+            android:summary="@string/pref_wifi_on_if_whitelisted_summary"
+            android:title="@string/pref_wifi_on_if_whitelisted_title" />
+        
+        
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_category_rules_leave_on_when_screen_off" >
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:enabled="true"
+            android:key="wifi_on_when_screen_off_but_power_plugged"
+            android:summary="@string/pref_wifi_on_when_screen_off_but_power_plugged_summary"
+            android:title="@string/pref_wifi_on_when_screen_off_but_power_plugged_title" />
+        
+	</PreferenceCategory>    
+    <PreferenceCategory android:title="@string/pref_category_logging" >
+        <PreferenceScreen android:title="@string/pref_screen_logging" >
+            <PreferenceCategory android:title="@string/pref_category_events" >
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_user"
+                    android:summary="@string/pref_events_show_user_summary"
+                    android:title="@string/pref_events_show_user_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_status"
+                    android:summary="@string/pref_events_show_status_summary"
+                    android:title="@string/pref_events_show_status_title" />
+                <CheckBoxPreference
+                    android:defaultValue="true"
+                    android:enabled="true"
+                    android:key="show_system"
+                    android:summary="@string/pref_events_show_system_summary"
+                    android:title="@string/pref_events_show_system_title" />
+            </PreferenceCategory>
+        </PreferenceScreen>
+    </PreferenceCategory>
+    
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:enabled="true"
+        android:key="expert_mode"
+        android:summary="@string/pref_expert_mode_summary"
+        android:title="@string/pref_expert_mode_title" />
+
+
+</PreferenceScreen>
